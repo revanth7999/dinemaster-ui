@@ -3,9 +3,8 @@ import { useHistory } from 'react-router-dom';
 import './Landing.css'; // Import the external CSS file
 
 const Landing = () => {
-
   // const navigate = useHistory(); // Moved inside the component
-  
+
   const handleApiCall = () => {
     useHistory.push('/Initial');
   };
@@ -15,17 +14,15 @@ const Landing = () => {
       <div className="hero-section">
         <h1 className="hero-title">Welcome to FoodHub</h1>
         <p className="hero-subtitle">
-          Explore delicious cuisines and manage your food preferences seamlessly!
+          Explore delicious cuisines and manage your food preferences
+          seamlessly!
         </p>
-        <img 
-          src="https://source.unsplash.com/600x400/?food" 
-          alt="Delicious Food" 
+        <img
+          src="https://source.unsplash.com/600x400/?food"
+          alt="Delicious Food"
           className="hero-image"
         />
-        <button 
-          onClick={handleApiCall} 
-          className="btn-primary"
-        >
+        <button onClick={handleApiCall} className="btn-primary">
           Explore Menu
         </button>
       </div>
