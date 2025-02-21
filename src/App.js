@@ -3,13 +3,12 @@ import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import Navigation from './components/Navigation';
 
-function App() {    
-
+function App() {
   return (
     <div>
-      <Header/>
-        <Navigation/>
-      <Footer/>
+      <Header />
+      <Navigation />
+      <Footer />
     </div>
   );
 }
