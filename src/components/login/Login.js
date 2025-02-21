@@ -40,31 +40,34 @@ const NewUser = () => {
   };
 
   return (
-    <div>
-      <h2>Create New User</h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="email">Enter your Email: </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className='main'>
+      <h2 style={{fontFamily:'monospace'}}>Log In</h2>
+      <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>          
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Please enter you email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <div className="mb-3">
+          <label htmlFor="password" className="col-form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Please enter you password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
         </div>
-        <button type="button" onClick={handleLogin}>Log In</button> 
-      </form>
+        <p>if you wan to create account <a href='/create-user' style={{fontFamily:'monospace'}} >Create User</a></p>
+        <button type="button" onClick={handleLogin} className="btn btn-primary">Log In</button> 
     </div>
   );
 };
