@@ -6,7 +6,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer">
-        <p>
+        <p style={{ fontFamily: 'monospace' }}>
           <FaRegCopyright /> All Rights Reserved || {new Date().getFullYear()}
         </p>
       </div>

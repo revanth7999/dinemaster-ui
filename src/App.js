@@ -5,7 +5,7 @@ import Navigation from './components/Navigation';
 
 function App() {
   return (
-    <div>
+    <div className='mainDiv'>
       <Header />
       <Navigation />
       <Footer />
