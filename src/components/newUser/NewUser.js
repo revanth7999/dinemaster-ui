@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_REGISTER_URL } from '../Constants';
+import '../newUser/newUser.css'
 
 const NewUser = () => {
   const [email, setEmail] = useState('');
@@ -29,29 +30,35 @@ const NewUser = () => {
   };
 
   return (
-    <div>
-      <h2>Create New User</h2>
-        <div className="form-group">
-          <label htmlFor="email">Enter your Email: </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className='main'>
+      <h2 style={{fontFamily:'monospace'}}>Create New User</h2>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>          
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Please enter you email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+
+        <div className="mb-3">
+          <label htmlFor="password" className="col-form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Please enter you password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
         </div>
-      <button type="button" onClick={createUser}>Create User</button> 
+      <p>if you already have an account <a href='/login' style={{fontFamily:'monospace'}} >Login here</a></p>
+      <button type="button" onClick={createUser} className="btn btn-success">Create User</button> 
     </div>
   );
 };
