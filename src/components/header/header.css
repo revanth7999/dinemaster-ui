@@ -1,0 +1,7 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 10vh;
+    text-align: left;
+    padding: 1rem;
+  }
