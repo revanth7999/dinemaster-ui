@@ -26,3 +26,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Once you pulled this repo, make sure you are on node 16.
 Run `npm install` to install node_modules.
 Then run `npm start` to start local deployment
+
+
+----------------------------------------------------------------------------------------------------
+
+Migrated create-react-app to vite
+Run `npm run dev` to start appliaction
