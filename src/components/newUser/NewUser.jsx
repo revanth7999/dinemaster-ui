@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { AUTH_REGISTER_URL } from '../Constants';
 import '../newUser/newUser.css';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const NewUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigatee = useNavigate();
+  const navigate = useNavigate();
 
   const validation = () =>{
     if(isEmpty(email) && isEmpty(password)) {
@@ -16,6 +16,7 @@ const NewUser = () => {
     } else if (isEmpty(email) || isEmpty(password)){
       alert("Please enter details");
     }
+    return true;
   }
   const createUser = (e) => {
     if (validation()) {
@@ -29,7 +30,7 @@ const NewUser = () => {
         })
         .then((response) => {
           if (response.status === 200) {
-            navigatee.push('/landing');
+            navigate('/landing');
           } else {
             console.log(response);
           }

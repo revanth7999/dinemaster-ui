@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_LOGIN_URL, ROLES } from '../Constants';
@@ -6,7 +6,7 @@ import { AUTH_LOGIN_URL, ROLES } from '../Constants';
 const NewUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevents form submission default behavior
@@ -20,9 +20,9 @@ const NewUser = () => {
         switch (response.status) {
           case 200:
             if (response.data.data.role === ROLES.CUSTOMER) {
-              history.push('/landing');
+              navigate('/landing');
             } else if (response.data.data.role === ROLES.ADMIN) {
-              history.push('/adminlanding');
+              navigate('/adminlanding');
             }
             break;
           case 400:

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import '../footer/footer.css';
 import { FaRegCopyright } from 'react-icons/fa';
 

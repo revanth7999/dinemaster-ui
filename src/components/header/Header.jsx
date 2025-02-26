@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import '../header/header.css';
 import im from '../utils/food-logo.png';
 

@@ -1,5 +1,5 @@
 // API URLs
-export const API_BASE_URL = 'http://localhost:8081';
+export const API_BASE_URL = 'https://l31nxgup2m.execute-api.ap-south-1.amazonaws.com/dev';
 export const AUTH_REGISTER_URL = `${API_BASE_URL}/auth/register`;
 export const AUTH_LOGIN_URL = `${API_BASE_URL}/auth/login`;
 
