@@ -6,11 +6,11 @@ import Navigation from './components/Navigation';
 function App() {
   return (
     <div className='mainDiv'>
-      <Header />
-      <Navigation />
-      <Footer />
-    </div>
-  );
+      <Header className='header'/>
+      <Navigation/>
+      <Footer className='footer'/>
+    </div> 
+  )
 }
 
 export default App;
