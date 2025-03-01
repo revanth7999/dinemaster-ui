@@ -13,8 +13,10 @@ const NewUser = () => {
   const validation = () =>{
     if(isEmpty(email) && isEmpty(password)) {
       alert("Please enter Email and Password");
+      return false;
     } else if (isEmpty(email) || isEmpty(password)){
       alert("Please enter details");
+      return false;
     }
     return true;
   }

@@ -1,17 +1,4 @@
-.header {
-  /* background-color: rgb(196, 189, 179); */
-  position: relative;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  padding: 1rem;
-  width: fit-content; /* Ensures the header only takes up the necessary space */
-  border-radius: 80%;
-}
-
 .header-image {
-  width: 200px; /* Adjust size */
-  height: auto;
-  display: inline-block;
+  width: 200px;
+  height: 200px;
 }
