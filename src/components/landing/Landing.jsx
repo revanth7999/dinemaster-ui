@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Landing.css'; // Import the external CSS file
 import restaurantData from '../restaurantData';
 import './Res.css';
@@ -82,12 +82,12 @@ const Landing = () => {
               <li key={index}>
                 <strong>{dish.name}</strong>: {dish.description} - ₹{dish.price}
                 <button 
-                style={{ marginLeft: '10px' }} 
-                onClick={() => handleAddToCart(dish)}
-                className="btn btn-primary"
-              >
+                  style={{ marginLeft: '10px' }} 
+                  onClick={() => handleAddToCart(dish)}
+                  className="btn btn-primary"
+                >
                 Add to Cart
-              </button>
+                </button>
               </li>
             ))}
           </ul>

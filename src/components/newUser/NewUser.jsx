@@ -2,26 +2,19 @@ import { useState } from 'react';
 import axios from 'axios';
 import { AUTH_REGISTER_URL } from '../Constants';
 import '../newUser/newUser.css';
-import { isEmpty } from '../utils/basicFunctions';
 import { useNavigate } from 'react-router-dom';
+import { formValidation } from '../utils/basicFunctions';
 
 const NewUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const validation = () =>{
-    if(isEmpty(email) && isEmpty(password)) {
-      alert("Please enter Email and Password");
-      return false;
-    } else if (isEmpty(email) || isEmpty(password)){
-      alert("Please enter details");
-      return false;
-    }
-    return true;
-  }
   const createUser = (e) => {
-    if (validation()) {
+    var validate = formValidation(email, password);
+    if (validate) {
+      setIsLoading(true);
       e.preventDefault(); // Prevents form submission default behavior
       axios
         .post(AUTH_REGISTER_URL, {
@@ -32,6 +25,7 @@ const NewUser = () => {
         })
         .then((response) => {
           if (response.status === 200) {
+            setIsLoading(false);
             navigate('/landing');
           } else {
             console.log(response);
@@ -83,7 +77,14 @@ const NewUser = () => {
         </a>
       </p>
       <button type="button" onClick={createUser} className="btn btn-success">
-        Create User
+        {isLoading ? (
+          <>
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            {' Loading...'}
+          </>
+        ) : (
+          'Create User'
+        )}
       </button>
     </div>
   );

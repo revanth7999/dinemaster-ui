@@ -2,26 +2,33 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_LOGIN_URL, ROLES } from '../Constants';
+import { formValidation } from '../utils/basicFunctions';
 
 const NewUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevents form submission default behavior
-    console.log('Logging in with:', { email, password });
-    axios
-      .post(AUTH_LOGIN_URL, {
-        username: email,
-        password: password,
-      })
-      .then((response) => {
-        switch (response.status) {
+    var validate = formValidation(email, password);
+    if (validate) {
+      setIsLoading(true);
+      e.preventDefault(); // Prevents form submission default behavior
+      console.log('Logging in with:', { email, password });
+      axios
+        .post(AUTH_LOGIN_URL, {
+          username: email,
+          password: password,
+        })
+        .then((response) => {
+          switch (response.status) {
           case 200:
             if (response.data.data.role === ROLES.CUSTOMER) {
+              setIsLoading(false);
               navigate('/landing');
             } else if (response.data.data.role === ROLES.ADMIN) {
+              setIsLoading(false);
               navigate('/adminlanding');
             }
             break;
@@ -33,11 +40,12 @@ const NewUser = () => {
             break;
           default:
             console.log('Unexpected response');
-        }
-      })
-      .catch((error) => {
-        console.error('There was an error logging the user!', error);
-      });
+          }
+        })
+        .catch((error) => {
+          console.error('There was an error logging the user!', error);
+        });
+    }
   };
 
   return (
@@ -77,8 +85,15 @@ const NewUser = () => {
           Create User
         </a>
       </p>
-      <button type="button" onClick={handleLogin} className="btn btn-primary">
-        Log In
+      <button type="button" onClick={handleLogin} className="btn btn-success">
+        {isLoading ? (
+          <>
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            {' Loading...'}
+          </>
+        ) : (
+          'Log In'
+        )}
       </button>
     </div>
   );

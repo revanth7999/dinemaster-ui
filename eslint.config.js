@@ -33,6 +33,7 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'indent': ['error', 2],  // Enforce 2 spaces for indentation
     },
   },
 ]
