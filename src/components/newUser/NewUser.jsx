@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { AUTH_REGISTER_URL } from '../Constants';
+import { AUTH_REGISTER_URL, CREATE_USER, MB_AUTH_REGISTER_URL } from '../Constants';
 import '../newUser/newUser.css';
 import { useNavigate } from 'react-router-dom';
 import { formValidation } from '../utils/basicFunctions';
 
-const NewUser = () => {
+const NewUser = ({prop}) => {
+  // console.log(prop)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [fromAdmin, setFromAdmin] = useState(false);
 
   const createUser = (e) => {
     var validate = formValidation(email, password);
@@ -37,6 +39,13 @@ const NewUser = () => {
     }
    
   };
+
+  useEffect(() => {
+    document.title = CREATE_USER;
+    if(prop && prop.msg){
+      setFromAdmin(true);
+    }
+  },[prop])
 
   return (
     <div className="main">
@@ -70,6 +79,18 @@ const NewUser = () => {
           required
         />
       </div>
+      {
+        fromAdmin && (
+          <div>
+            <select className="form-select">
+              <option> </option>
+              <option>Restaurant</option>
+              <option>Delivery Partner</option>
+            </select> 
+          </div> 
+        )
+        
+      }
       <p>
         if you already have an account{' '}
         <a href="/login" style={{ fontFamily: 'monospace' }}>

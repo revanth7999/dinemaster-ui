@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { AUTH_LOGIN_URL, ROLES } from '../Constants';
+import { AUTH_LOGIN_URL, LOGIN, ROLES } from '../Constants';
 import { formValidation } from '../utils/basicFunctions';
 
 const NewUser = () => {
@@ -9,6 +9,10 @@ const NewUser = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = LOGIN;
+  })
 
   const handleLogin = (e) => {
     var validate = formValidation(email, password);

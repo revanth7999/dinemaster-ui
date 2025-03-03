@@ -3,10 +3,15 @@ import './Landing.css'; // Import the external CSS file
 import restaurantData from '../restaurantData';
 import './Res.css';
 import im from '../utils/food-logo.png';
+import { LANDING } from '../Constants';
 
 const Landing = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    document.title = LANDING;
+  })
 
   // Function to open the modal and set the selected restaurant
   const handleCardClick = (restaurant) => {
