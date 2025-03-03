@@ -10,7 +10,7 @@ class Navigation extends Component {
     return (
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/dinemaster-ui" element={<Navigate to="/login" />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/create-user" element={<NewUser />} />
           <Route path="/landing" element={<Landing />} />
