@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "/dinemaster-ui",
   server: {
     hmr: {
       host: 'localhost', // Or use '127.0.0.1'
