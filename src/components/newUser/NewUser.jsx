@@ -28,7 +28,7 @@ const NewUser = ({prop}) => {
         .then((response) => {
           if (response.status === 200) {
             setIsLoading(false);
-            navigate('/landing');
+            navigate('dinemaster-ui/landing');
           } else {
             console.log(response);
           }
@@ -93,7 +93,7 @@ const NewUser = ({prop}) => {
       }
       <p>
         if you already have an account{' '}
-        <a href="/login" style={{ fontFamily: 'monospace' }}>
+        <a href="/dinemaster-ui/login" style={{ fontFamily: 'monospace' }}>
           Login here
         </a>
       </p>

@@ -30,10 +30,10 @@ const NewUser = () => {
           case 200:
             if (response.data.data.role === ROLES.CUSTOMER) {
               setIsLoading(false);
-              navigate('/landing');
+              navigate('/dinemaster-ui/landing');
             } else if (response.data.data.role === ROLES.ADMIN) {
               setIsLoading(false);
-              navigate('/adminlanding');
+              navigate('/dinemaster-ui/adminlanding');
             }
             break;
           case 400:
@@ -85,7 +85,7 @@ const NewUser = () => {
       </div>
       <p>
         if you wan to create account{' '}
-        <a href="/create-user" style={{ fontFamily: 'monospace' }}>
+        <a href="/dinemaster-ui/create-user" style={{ fontFamily: 'monospace' }}>
           Create User
         </a>
       </p>
