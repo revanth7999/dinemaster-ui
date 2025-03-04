@@ -57,7 +57,7 @@ const NewUser = () => {
       <h2 style={{ fontFamily: 'monospace' }}>Log In</h2>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">
-          Email
+          TEST
         </label>
         <input
           type="email"
