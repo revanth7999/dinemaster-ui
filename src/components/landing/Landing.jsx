@@ -10,6 +10,7 @@ const Landing = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [restaurantData, setRestaurantData] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     document.title = LANDING;
@@ -19,7 +20,9 @@ const Landing = () => {
     axios
         .get(ALL_REST)
         .then((response) => {
+          setLoader(true);
           setRestaurantData(response.data.data);
+          setLoader(false);
         })
         .catch((error) => {
           console.error('There was an error logging the user!', error);
@@ -36,6 +39,10 @@ const Landing = () => {
   const RestaurantCards = () => {
     return (
       <div className='scrollable'>
+        {
+          loader == true ? <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div> : <div> 
         {restaurantData.map((restaurant) => (
           <div 
             className="card mb-3" 
@@ -67,6 +74,9 @@ const Landing = () => {
             </div>
           </div>
         ))}
+        </div>
+        }
+        
       </div>
     );
   };
