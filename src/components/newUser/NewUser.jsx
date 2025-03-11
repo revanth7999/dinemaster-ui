@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AUTH_REGISTER_URL, CREATE_USER, MB_AUTH_REGISTER_URL } from '../Constants';
 import '../newUser/newUser.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formValidation } from '../utils/basicFunctions';
 
 const NewUser = ({prop}) => {
@@ -93,9 +93,7 @@ const NewUser = ({prop}) => {
       }
       <p>
         if you already have an account{' '}
-        <a href="/dinemaster-ui/login" style={{ fontFamily: 'monospace' }}>
-          Login here
-        </a>
+        <Link to="/dinemaster-ui/login">LogIn</Link>
       </p>
       <button type="button" onClick={createUser} className="btn btn-success">
         {isLoading ? (

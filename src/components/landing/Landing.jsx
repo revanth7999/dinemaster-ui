@@ -1,17 +1,30 @@
 import { useState, useEffect } from 'react';
 import './Landing.css'; // Import the external CSS file
-import restaurantData from '../restaurantData';
+// import restaurantData from '../restaurantData';
 import './Res.css';
 import im from '../utils/food-logo.png';
-import { LANDING } from '../Constants';
+import { ALL_REST, LANDING } from '../Constants';
+import axios from 'axios';
 
 const Landing = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [restaurantData, setRestaurantData] = useState([]);
 
   useEffect(() => {
     document.title = LANDING;
   })
+
+  useEffect(()=>{
+    axios
+        .get(ALL_REST)
+        .then((response) => {
+          setRestaurantData(response.data.data);
+        })
+        .catch((error) => {
+          console.error('There was an error logging the user!', error);
+        });
+  },[])
 
   // Function to open the modal and set the selected restaurant
   const handleCardClick = (restaurant) => {
@@ -23,7 +36,7 @@ const Landing = () => {
   const RestaurantCards = () => {
     return (
       <div className='scrollable'>
-        {restaurantData.restaurants.map((restaurant) => (
+        {restaurantData.map((restaurant) => (
           <div 
             className="card mb-3" 
             style={{ maxWidth: '540px', cursor: 'pointer', alignItems:'center', left: '50px' }} 

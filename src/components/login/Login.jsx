@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_LOGIN_URL, LOGIN, ROLES } from '../Constants';
 import { formValidation } from '../utils/basicFunctions';
@@ -57,7 +57,7 @@ const NewUser = () => {
       <h2 style={{ fontFamily: 'monospace' }}>Log In</h2>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">
-          TEST
+          Email
         </label>
         <input
           type="email"
@@ -85,9 +85,7 @@ const NewUser = () => {
       </div>
       <p>
         if you wan to create account{' '}
-        <a href="/dinemaster-ui/create-user" style={{ fontFamily: 'monospace' }}>
-          Create User
-        </a>
+        <Link to="/dinemaster-ui/create-user">Create User</Link>
       </p>
       <button type="button" onClick={handleLogin} className="btn btn-success">
         {isLoading ? (
