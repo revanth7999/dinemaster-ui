@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import '../header/header.css';
-import im from '../utils/food-logo.png';
+import { Component } from "react";
+import "../header/header.css";
+import im from "../utils/food-logo.png";
 
 export default class Header extends Component {
   render() {

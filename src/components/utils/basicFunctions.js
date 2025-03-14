@@ -5,7 +5,7 @@ export function isEmpty(a) {
   }
 
   // Check if a b is an empty string
-  if (a === '') {
+  if (a === "") {
     return true;
   }
 
@@ -15,18 +15,22 @@ export function isEmpty(a) {
   }
 
   // Check if a or b is an empty object
-  if (typeof a === 'object' && Object.keys(a).length === 0 && a.constructor === Object) {
+  if (
+    typeof a === "object" &&
+    Object.keys(a).length === 0 &&
+    a.constructor === Object
+  ) {
     return true;
   }
 
   return false;
 }
 
-export function formValidation (email, password) {
-  if(isEmpty(email) && isEmpty(password)) {
+export function formValidation(email, password) {
+  if (isEmpty(email) && isEmpty(password)) {
     alert("Please enter Email and Password");
     return false;
-  } else if (isEmpty(email) || isEmpty(password)){
+  } else if (isEmpty(email) || isEmpty(password)) {
     alert("Please enter details");
     return false;
   }

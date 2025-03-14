@@ -1,60 +1,64 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { AUTH_LOGIN_URL, LOGIN, ROLES } from '../Constants';
-import { formValidation } from '../utils/basicFunctions';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AUTH_LOGIN_URL, LOGIN, ROLES } from "../Constants";
+import { formValidation } from "../utils/basicFunctions";
 
 const NewUser = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = LOGIN;
-  })
+  });
 
   const handleLogin = (e) => {
     var validate = formValidation(email, password);
     if (validate) {
       setIsLoading(true);
       e.preventDefault(); // Prevents form submission default behavior
-      console.log('Logging in with:', { email, password });
+      console.log("Logging in with:", { email, password });
       axios
         .post(AUTH_LOGIN_URL, {
           username: email,
           password: password,
         })
         .then((response) => {
+          console.log(response);
+          const token = response.data.data.token;
+          localStorage.setItem("authToken", token);
+          localStorage.setItem("userName", email);
           switch (response.status) {
-          case 200:
-            if (response.data.data.role === ROLES.CUSTOMER) {
-              setIsLoading(false);
-              navigate('/dinemaster-ui/landing');
-            } else if (response.data.data.role === ROLES.ADMIN) {
-              setIsLoading(false);
-              navigate('/dinemaster-ui/adminlanding');
-            }
-            break;
-          case 400:
-            console.log('Bad request');
-            break;
-          case 500:
-            console.log('Server error');
-            break;
-          default:
-            console.log('Unexpected response');
+            case 200:
+              if (response.data.data.role === ROLES.CUSTOMER) {
+                setIsLoading(false);
+                navigate("/dinemaster-ui/landing");
+              } else if (response.data.data.role === ROLES.ADMIN) {
+                setIsLoading(false);
+                navigate("/dinemaster-ui/adminlanding");
+              }
+              break;
+            case 400:
+              console.log("Bad request");
+              break;
+            case 500:
+              console.log("Server error");
+              break;
+            default:
+              console.log("Unexpected response");
           }
         })
         .catch((error) => {
-          console.error('There was an error logging the user!', error);
+          console.error("There was an error logging the user!", error);
         });
     }
   };
 
   return (
     <div className="main">
-      <h2 style={{ fontFamily: 'monospace' }}>Log In</h2>
+      <h2 style={{ fontFamily: "monospace" }}>Log In</h2>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">
           Email
@@ -84,17 +88,21 @@ const NewUser = () => {
         />
       </div>
       <p>
-        if you wan to create account{' '}
+        if you wan to create account{" "}
         <Link to="/dinemaster-ui/create-user">Create User</Link>
       </p>
       <button type="button" onClick={handleLogin} className="btn btn-success">
         {isLoading ? (
           <>
-            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            {' Loading...'}
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            {" Loading..."}
           </>
         ) : (
-          'Log In'
+          "Log In"
         )}
       </button>
     </div>
