@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ADMIN_LANDING } from "../Constants";
 import NewUser from "../newUser/NewUser";
+import AllUsers from "./AllUsers";
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("create-user"); // Track active tab
@@ -42,7 +43,7 @@ export default function Admin() {
         {activeTab === "create-user" && (
           <NewUser prop={{ msg: "from Admin" }} />
         )}
-        {activeTab === "link1" && <div>Content for Link 1</div>}
+        {activeTab === "link1" && <AllUsers/>}
       </div>
     </div>
   );

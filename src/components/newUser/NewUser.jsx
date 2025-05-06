@@ -23,7 +23,7 @@ const NewUser = ({ prop }) => {
       setIsLoading(true);
       e.preventDefault(); // Prevents form submission default behavior
       axios
-        .post(AUTH_REGISTER_URL, {
+        .post(MB_AUTH_REGISTER_URL, {
           username: email,
           password: password,
           role: "CUSTOMER",
@@ -32,7 +32,7 @@ const NewUser = ({ prop }) => {
         .then((response) => {
           if (response.status === 200) {
             setIsLoading(false);
-            navigate("dinemaster-ui/landing");
+            navigate("/dinemaster-ui/landing");
           } else {
             console.log(response);
           }

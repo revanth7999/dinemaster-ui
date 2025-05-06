@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AUTH_LOGIN_URL, LOGIN, ROLES } from "../Constants";
+import { LOGIN, MB_AUTH_LOGIN_URL, ROLES } from "../Constants";
 import { formValidation } from "../utils/basicFunctions";
 
 const NewUser = () => {
@@ -21,7 +21,7 @@ const NewUser = () => {
       e.preventDefault(); // Prevents form submission default behavior
       console.log("Logging in with:", { email, password });
       axios
-        .post(AUTH_LOGIN_URL, {
+        .post(MB_AUTH_LOGIN_URL, {
           username: email,
           password: password,
         })
@@ -31,26 +31,31 @@ const NewUser = () => {
           localStorage.setItem("authToken", token);
           localStorage.setItem("userName", email);
           switch (response.status) {
-            case 200:
-              if (response.data.data.role === ROLES.CUSTOMER) {
-                setIsLoading(false);
-                navigate("/dinemaster-ui/landing");
-              } else if (response.data.data.role === ROLES.ADMIN) {
-                setIsLoading(false);
-                navigate("/dinemaster-ui/adminlanding");
-              }
-              break;
-            case 400:
-              console.log("Bad request");
-              break;
-            case 500:
-              console.log("Server error");
-              break;
-            default:
-              console.log("Unexpected response");
+          case 200:
+            if (response.data.data.role === ROLES.CUSTOMER) {
+              setIsLoading(false);
+              navigate("/dinemaster-ui/landing");
+            } else if (response.data.data.role === ROLES.ADMIN) {
+              setIsLoading(false);
+              navigate("/dinemaster-ui/adminlanding");
+            }
+            break;
+          case 400:
+            alert("Bad request");
+            setIsLoading(false);
+            break;
+          case 500:
+            alert("Server error");
+            setIsLoading(false);
+            break;
+          default:
+            alert("Unexpected response");
+            setIsLoading(false);
           }
         })
         .catch((error) => {
+          setIsLoading(false);
+          alert("Invalid credentials");
           console.error("There was an error logging the user!", error);
         });
     }
