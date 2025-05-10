@@ -1,0 +1,20 @@
+.mainDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  margin-top: 10vh;
+}
+
+.formDiv {
+  background-color: #d1d1ae;
+  border: 1px solid rgb(234, 221, 221);
+  border-radius: 10%;
+  padding: 5vh;
+}
+
+.loginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

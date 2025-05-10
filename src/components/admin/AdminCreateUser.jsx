@@ -1,81 +1,64 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  ADMIN_LANDING_PAGE,
-  AUTH_LOGIN_URL,
-  BAD_REQUEST,
-  CREATE_USER_PAGE,
-  INTERNAL_SERVER_ERROR,
-  LANDING_PAGE,
-  LOGIN,
-  ROLES,
-  TOKEN,
-  UNKNOWN_ERROR,
-  USER_NAME,
-} from "../Constants";
+import { AUTH_REGISTER_URL, AUTH_GET_ROLES } from "../Constants";
+import "../globalStyles/form.css";
+import { useNavigate } from "react-router-dom";
 import { formValidation } from "../utils/basicFunctions";
 import apiClient from "../utils/axiosUtil";
-import "../globalStyles/form.css";
 
-const NewUser = () => {
+const AdminCreateUser = ({ prop }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [roles, setRoles] = useState([]);
+  const [selectedRole, setSelectedRole] = useState("");
 
   useEffect(() => {
-    document.title = LOGIN;
-  });
+    apiClient
+      .get(AUTH_GET_ROLES)
+      .then((response) => {
+        setRoles(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
+  }, []);
 
-  const handleLogin = (e) => {
+  const createUser = (e) => {
     var validate = formValidation(email, password);
     if (validate) {
       setIsLoading(true);
       e.preventDefault(); // Prevents form submission default behavior
       apiClient
-        .post(AUTH_LOGIN_URL, {
+        .post(AUTH_REGISTER_URL, {
           username: email,
           password: password,
+          role: selectedRole,
+          is_active: true,
         })
         .then((response) => {
-          const token = response.data.data.token;
-          localStorage.setItem(TOKEN, token);
-          localStorage.setItem(USER_NAME, email);
-          switch (response.status) {
-            case 200:
-              if (response.data.data.role === ROLES.CUSTOMER) {
-                setIsLoading(false);
-                navigate(LANDING_PAGE);
-              } else if (response.data.data.role === ROLES.ADMIN) {
-                setIsLoading(false);
-                navigate(ADMIN_LANDING_PAGE);
-              }
-              break;
-            case 400:
-              alert(BAD_REQUEST);
-              setIsLoading(false);
-              break;
-            case 500:
-              alert(INTERNAL_SERVER_ERROR);
-              setIsLoading(false);
-              break;
-            default:
-              alert(UNKNOWN_ERROR);
-              setIsLoading(false);
+          if (response.status === 200) {
+            setIsLoading(false);
+            alert("User Created Succesfully!!");
+          } else {
+            console.log(response);
           }
         })
         .catch((error) => {
-          setIsLoading(false);
-          alert(VALIDATION_ERROR);
-          console.error("There was an error logging the user!", error);
+          console.error("There was an error creating the user!", error);
         });
     }
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSelectedRole(value);
   };
 
   return (
     <div className="mainDiv">
       <div className="formDiv">
-        <h2 style={{ fontFamily: "monospace" }}>Log In</h2>
+        <h2 style={{ fontFamily: "monospace" }}>Create New User</h2>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email
@@ -90,6 +73,7 @@ const NewUser = () => {
             required
           />
         </div>
+
         <div className="mb-3">
           <label htmlFor="password" className="col-form-label">
             Password
@@ -104,14 +88,25 @@ const NewUser = () => {
             required
           />
         </div>
-        <p>
-          if you wan to create account{" "}
-          <Link to={CREATE_USER_PAGE}>Create User</Link>
-        </p>
+        <div>
+          <select
+            className="form-select"
+            value={selectedRole}
+            onChange={handleChange}
+          >
+            <option value="" disabled>
+              Select a role
+            </option>
+            {roles.map((role, index) => (
+              <option key={index}>{role.roles}</option>
+            ))}
+          </select>
+        </div>
         <div className="loginButton">
           <button
             type="button"
-            onClick={handleLogin}
+            style={{ margin: "10px" }}
+            onClick={createUser}
             className="btn btn-success"
           >
             {isLoading ? (
@@ -124,7 +119,7 @@ const NewUser = () => {
                 {" Loading..."}
               </>
             ) : (
-              "Log In"
+              "Create User"
             )}
           </button>
         </div>
@@ -133,4 +128,4 @@ const NewUser = () => {
   );
 };
 
-export default NewUser;
+export default AdminCreateUser;

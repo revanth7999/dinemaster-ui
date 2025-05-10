@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { AUTH_SHOW_USERS } from "../Constants";
+import apiClient from "../utils/axiosUtil";
+import "../admin/AllUsers.css";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken"); // Get JWT token
-    axios
-      .get("http://localhost:8080/dev/allUsers", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    apiClient
+      .get(AUTH_SHOW_USERS)
       .then((response) => {
         setUsers(response.data.data);
-        console.log(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
@@ -22,9 +18,11 @@ const AllUsers = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>All Users</h2>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div className="mainDivs">
+      <table
+        className="table table-striped"
+        style={{ borderCollapse: "separate" }}
+      >
         <thead style={{ backgroundColor: "#f0f0f0" }}>
           <tr>
             <th style={thStyle}>S.No</th>
@@ -35,7 +33,10 @@ const AllUsers = () => {
         </thead>
         <tbody>
           {users.map((user, index) => (
-            <tr key={user.id || index} style={{ borderBottom: "1px solid #ddd" }}>
+            <tr
+              key={user.id || index}
+              style={{ borderBottom: "1px solid #ddd" }}
+            >
               <td style={tdStyle}>{index + 1}</td>
               <td style={tdStyle}>{user.username}</td>
               <td style={tdStyle}>{user.role}</td>

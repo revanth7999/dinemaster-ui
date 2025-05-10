@@ -9,20 +9,24 @@ import Landing from "./landing/Landing";
 import LoginForm from "./login/Login";
 import NewUser from "./newUser/NewUser";
 import Admin from "./admin/Admin";
+import {
+  ADMIN_LANDING_PAGE,
+  BASE_PAGE_PATH,
+  CREATE_USER_PAGE,
+  LANDING_PAGE,
+  LOGIN_PAGE,
+} from "./Constants";
 
 class Navigation extends Component {
   render() {
     return (
       <Router>
         <Routes>
-          <Route
-            path="/dinemaster-ui"
-            element={<Navigate to="/dinemaster-ui/login" />}
-          />
-          <Route path="/dinemaster-ui/login" element={<LoginForm />} />
-          <Route path="/dinemaster-ui/create-user" element={<NewUser />} />
-          <Route path="/dinemaster-ui/landing" element={<Landing />} />
-          <Route path="/dinemaster-ui/adminlanding" element={<Admin />} />
+          <Route path={BASE_PAGE_PATH} element={<Navigate to={LOGIN_PAGE} />} />
+          <Route path={LOGIN_PAGE} element={<LoginForm />} />
+          <Route path={CREATE_USER_PAGE} element={<NewUser />} />
+          <Route path={LANDING_PAGE} element={<Landing />} />
+          <Route path={ADMIN_LANDING_PAGE} element={<Admin />} />
         </Routes>
       </Router>
     );

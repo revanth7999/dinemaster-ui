@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ADMIN_LANDING } from "../Constants";
-import NewUser from "../newUser/NewUser";
 import AllUsers from "./AllUsers";
+import AdminCreateUser from "./AdminCreateUser";
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("create-user"); // Track active tab
@@ -11,18 +11,21 @@ export default function Admin() {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex" }}>
       {/* Navigation menu on the left */}
       <ul
         className="nav nav-pills"
-        style={{ width: "20%", paddingRight: "20px", justifyItems: "center" }}
+        style={{ display: "flex", flexDirection: "column" }}
       >
         <li className="nav-item">
           <a
             className={`nav-link ${activeTab === "create-user" ? "active" : ""}`}
             aria-current="page"
             href="#"
-            onClick={() => setActiveTab("create-user")}
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab("create-user");
+            }}
           >
             Create User
           </a>
@@ -39,11 +42,18 @@ export default function Admin() {
       </ul>
 
       {/* Content area on the right */}
-      <div style={{ flex: 1 }}>
+      <div
+        style={{
+          display: "flex",
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {activeTab === "create-user" && (
-          <NewUser prop={{ msg: "from Admin" }} />
+          <AdminCreateUser prop={{ msg: "from Admin" }} />
         )}
-        {activeTab === "link1" && <AllUsers/>}
+        {activeTab === "link1" && <AllUsers />}
       </div>
     </div>
   );

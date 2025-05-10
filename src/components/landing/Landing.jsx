@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import "./Landing.css";
-// import restaurantData from '../restaurantData';
 import "./Res.css";
 import { ALL_REST, LANDING } from "../Constants";
-import axios from "axios";
 import { RestaurantCards } from "../restaurantviews/RestaurantCards";
 import { RestaurantModal } from "../restaurantviews/RestaurantModal";
+import apiClient from "../utils/axiosUtil";
 
 const Landing = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -15,10 +14,7 @@ const Landing = () => {
 
   useEffect(() => {
     document.title = LANDING;
-  });
-
-  useEffect(() => {
-    axios
+    apiClient
       .get(ALL_REST)
       .then((response) => {
         setLoader(true);
@@ -26,7 +22,8 @@ const Landing = () => {
         setLoader(false);
       })
       .catch((error) => {
-        console.error("There was an error logging the user!", error);
+        alert("Error while loading Restaurants!!");
+        console.error("Error while loading Restaurants!!", error);
       });
   }, []);
 

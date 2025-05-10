@@ -1,17 +1,37 @@
-.mainDiv {
+/* Set full height for page */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Layout container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background: linear-gradient(to right, #e0f7fa, #fff9c4);
-  height: 100vh;
 }
 
+/* Header: Sticky at top */
 .header {
-  display: flex;
-  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: linear-gradient(to right, #e0f7fa, #fff9c4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Main content: fills remaining space */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Footer: stick to bottom */
 .footer {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+  background-color: linear-gradient(to right, #e0f7fa, #fff9c4);
+  text-align: center;
+  padding: 15px;
 }

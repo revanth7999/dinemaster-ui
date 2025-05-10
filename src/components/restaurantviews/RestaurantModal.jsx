@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { SAVE_CART } from "../Constants";
 import { CartModal } from "../cartview/CartModal";
 
 export const RestaurantModal = ({
@@ -10,6 +9,7 @@ export const RestaurantModal = ({
 }) => {
   const [cart, setCart] = useState([]);
   const [openCartModal, setIsOpenCartModal] = useState(false);
+  console.log(selectedRestaurant);
 
   // Function to format cart for API payload
   const formatCart = () => {
@@ -36,35 +36,35 @@ export const RestaurantModal = ({
   };
 
   // Function to close the modal and make the REST call
-  const closeModalWithRestCall = () => {
-    const payload = preparePayload();
+  // const closeModalWithRestCall = () => {
+  //   const payload = preparePayload();
 
-    axios
-      .post(SAVE_CART, payload)
-      .then((response) => {
-        console.log("Order placed successfully:", response.data);
-        setModalOpen(false);
-        setSelectedRestaurant(null);
-      })
-      .catch((error) => {
-        console.error("There was an error placing the order:", error);
-      });
-  };
+  //   axios
+  //     .post(SAVE_CART, payload)
+  //     .then((response) => {
+  //       console.log("Order placed successfully:", response.data);
+  //       setModalOpen(false);
+  //       setSelectedRestaurant(null);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error placing the order:", error);
+  //     });
+  // };
 
   // Function to handle viewing the cart and making the REST call
-  const openCart = () => {
-    const payload = preparePayload();
+  // const openCart = () => {
+  //   const payload = preparePayload();
 
-    axios
-      .post(SAVE_CART, payload)
-      .then((response) => {
-        console.log("Cart saved successfully:", response.data);
-        setIsOpenCartModal(true);
-      })
-      .catch((error) => {
-        console.error("There was an error saving the cart:", error);
-      });
-  };
+  //   axios
+  //     .post(SAVE_CART, payload)
+  //     .then((response) => {
+  //       console.log("Cart saved successfully:", response.data);
+  //       setIsOpenCartModal(true);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error saving the cart:", error);
+  //     });
+  // };
 
   // Log cart state changes for debugging
   useEffect(() => {
@@ -86,7 +86,8 @@ export const RestaurantModal = ({
           <ul>
             {selectedRestaurant.dishes.map((dish, index) => (
               <li key={index}>
-                <strong>{dish.name}</strong>: {dish.description} - ₹{dish.price}
+                <strong>{dish.dishName}</strong>: {dish.description} - ₹
+                {dish.price}
                 <button
                   style={{ marginLeft: "10px" }}
                   onClick={() => setCart((prevCart) => [...prevCart, dish])}

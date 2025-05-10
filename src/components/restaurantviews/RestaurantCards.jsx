@@ -6,10 +6,8 @@ export const RestaurantCards = ({
   setSelectedRestaurant,
   setModalOpen,
 }) => {
-  // console.log(restaurantData)
   // Function to open the modal and set the selected restaurant
   const handleCardClick = (restaurant) => {
-    console.log(restaurant);
     setSelectedRestaurant(restaurant);
     setModalOpen(true);
   };

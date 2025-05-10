@@ -5,9 +5,11 @@ import Navigation from "./components/Navigation";
 
 function App() {
   return (
-    <div className="mainDiv">
+    <div className="app-container">
       <Header className="header" />
-      <Navigation />
+      <div className="content">
+        <Navigation />
+      </div>
       <Footer className="footer" />
     </div>
   );
