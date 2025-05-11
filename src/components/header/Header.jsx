@@ -1,48 +1,41 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import "../header/header.css";
 import im from "../utils/food-logo.png";
-import { LOGIN } from "../Constants";
+import { LOGIN, TOKEN } from "../Constants";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoginPage: false,
-    };
-  }
+const Header = () => {
+  const [isLoginPage, setIsLoginPage] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     // Set state based on the document title after the component is mounted
-    if (document.title === LOGIN) {
-      this.setState({ isLoginPage: true });
+    if (window.location.pathname.includes("Login")) {
+      setIsLoginPage(true);
     } else {
-      this.setState({ isLoginPage: false });
+      setIsLoginPage(false);
     }
-  }
+  }, []);
 
-  handleLogout = () => {
-    localStorage.removeItem("authToken");
+  const handleLogout = () => {
+    localStorage.removeItem(TOKEN);
     window.location.replace("/dinemaster-ui/");
   };
 
-  render() {
-    return (
-      <div className="header-container">
-        <div className="header">
-          <img src={im} alt="Header Image" className="header-image" />
-          {!this.state.isLoginPage && (
-            <button
-              onClick={this.handleLogout}
-              type="button"
-              className="btn btn-success logout-button"
-            >
-              Log Out
-            </button>
-          )}
-        </div>
+  return (
+    <div className="header-container">
+      <div className="header">
+        <img src={im} alt="Header Image" className="header-image" />
+        {!isLoginPage ? (
+          <button
+            onClick={handleLogout}
+            type="button"
+            className="btn btn-success logout-button"
+          >
+            Log Out
+          </button>
+        ) : null}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Header;

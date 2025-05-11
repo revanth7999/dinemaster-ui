@@ -25,7 +25,7 @@ const NewUser = () => {
 
   useEffect(() => {
     document.title = LOGIN;
-  });
+  }, []);
 
   const handleLogin = (e) => {
     var validate = formValidation(email, password);

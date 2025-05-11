@@ -24,16 +24,21 @@ export const RestaurantCards = ({
             <div
               className="card mb-3"
               style={{
-                maxWidth: "540px",
+                maxWidth: "80vh",
                 cursor: "pointer",
                 alignItems: "center",
                 left: "50px",
+                background:
+                  "linear-gradient(to left, rgb(228, 252, 255), rgb(255, 250, 206))",
               }}
               key={restaurant.id}
               onClick={() => handleCardClick(restaurant)} // Set the restaurant and open modal on click
             >
-              <div className="row g-0">
-                <div className="col-md-4">
+              <div
+                className="row g-0"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <div className="col-md-3">
                   <img
                     src={im}
                     className="img-fluid rounded-start"
@@ -62,6 +67,14 @@ export const RestaurantCards = ({
                         Rating: {restaurant.rating} / 5
                       </small>
                     </p>
+                  </div>
+                  <div className="text-end" style={{ padding: "3px" }}>
+                    <button
+                      className="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+                      onClick={() => handleBookTable(restaurant.id)}
+                    >
+                      🍽️ Book Table
+                    </button>
                   </div>
                 </div>
               </div>

@@ -28,21 +28,26 @@ const Landing = () => {
   }, []);
 
   return (
-    <>
-      <RestaurantCards
-        loader={loader}
-        restaurantData={restaurantData}
-        setSelectedRestaurant={setSelectedRestaurant}
-        setModalOpen={setModalOpen}
-      />
-      {isModalOpen ? (
-        <RestaurantModal
-          setModalOpen={setModalOpen}
-          selectedRestaurant={selectedRestaurant}
+    <div className="container-flex">
+      <div className={`restaurant-list ${isModalOpen ? "slide-left" : ""}`}>
+        <RestaurantCards
+          loader={loader}
+          restaurantData={restaurantData}
           setSelectedRestaurant={setSelectedRestaurant}
+          setModalOpen={setModalOpen}
         />
-      ) : null}
-    </>
+      </div>
+
+      {isModalOpen && (
+        <div className="restaurant-modal">
+          <RestaurantModal
+            setModalOpen={setModalOpen}
+            selectedRestaurant={selectedRestaurant}
+            setSelectedRestaurant={setSelectedRestaurant}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

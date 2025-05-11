@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ADMIN_LANDING } from "../Constants";
 import AllUsers from "./AllUsers";
 import AdminCreateUser from "./AdminCreateUser";
+import AllRestaurants from "./AllRestaurants";
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("create-user"); // Track active tab
@@ -32,11 +33,20 @@ export default function Admin() {
         </li>
         <li className="nav-item">
           <a
-            className={`nav-link ${activeTab === "link1" ? "active" : ""}`}
+            className={`nav-link ${activeTab === "view-users" ? "active" : ""}`}
             href="#"
-            onClick={() => setActiveTab("link1")}
+            onClick={() => setActiveTab("view-users")}
           >
             Show all Users
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className={`nav-link ${activeTab === "view-restaurants" ? "active" : ""}`}
+            href="#"
+            onClick={() => setActiveTab("view-restaurants")}
+          >
+            Show all Restaurants
           </a>
         </li>
       </ul>
@@ -53,7 +63,8 @@ export default function Admin() {
         {activeTab === "create-user" && (
           <AdminCreateUser prop={{ msg: "from Admin" }} />
         )}
-        {activeTab === "link1" && <AllUsers />}
+        {activeTab === "view-users" && <AllUsers />}
+        {activeTab === "view-restaurants" && <AllRestaurants />}
       </div>
     </div>
   );

@@ -84,24 +84,16 @@ body {
 /* Modal Background */
 .modal {
   display: flex;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+  position: relative;
+  height: 100vh;
 }
 
 /* Modal Content */
 .modal-content {
   background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
+  margin: 10px;
+  padding: 10px;
   border: 1px solid #888;
-  width: 80%;
-  max-width: 600px;
   border-radius: 8px;
 }
 
@@ -119,4 +111,33 @@ body {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.container-flex {
+  display: flex;
+  transition: all 0.5s ease;
+  width: 100%;
+}
+
+.restaurant-list {
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.restaurant-list.slide-left {
+  transform: translateX(-20%);
+}
+
+.restaurant-modal {
+  width: 100vh;
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

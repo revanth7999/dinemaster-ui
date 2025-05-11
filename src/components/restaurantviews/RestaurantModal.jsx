@@ -36,20 +36,21 @@ export const RestaurantModal = ({
   };
 
   // Function to close the modal and make the REST call
-  // const closeModalWithRestCall = () => {
-  //   const payload = preparePayload();
+  const closeModalWithRestCall = () => {
+    setModalOpen(false);
+    // const payload = preparePayload();
 
-  //   axios
-  //     .post(SAVE_CART, payload)
-  //     .then((response) => {
-  //       console.log("Order placed successfully:", response.data);
-  //       setModalOpen(false);
-  //       setSelectedRestaurant(null);
-  //     })
-  //     .catch((error) => {
-  //       console.error("There was an error placing the order:", error);
-  //     });
-  // };
+    // axios
+    //   .post(SAVE_CART, payload)
+    //   .then((response) => {
+    //     console.log("Order placed successfully:", response.data);
+    //     setModalOpen(false);
+    //     setSelectedRestaurant(null);
+    //   })
+    //   .catch((error) => {
+    //     console.error("There was an error placing the order:", error);
+    //   });
+  };
 
   // Function to handle viewing the cart and making the REST call
   // const openCart = () => {
@@ -100,7 +101,7 @@ export const RestaurantModal = ({
           </ul>
           <button
             style={{ marginLeft: "10px" }}
-            onClick={openCart}
+            // onClick={openCart}
             className="btn btn-primary"
           >
             View Cart ({cart.length})
