@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: "/dinemaster-ui",
   server: {
+    host: "0.0.0.0",
+    port: 5173,
     hmr: {
       host: "localhost", // Or use '127.0.0.1'
       port: 5173, // The port where HMR will listen

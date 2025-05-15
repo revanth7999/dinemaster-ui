@@ -12,10 +12,13 @@ import {
   TOKEN,
   UNKNOWN_ERROR,
   USER_NAME,
+  VALIDATION_ERROR,
 } from "../Constants";
 import { formValidation } from "../utils/basicFunctions";
 import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
+import { parseJwt } from "../utils/parseJwt";
+import { handleLogout } from "../utils/logout";
 
 const NewUser = () => {
   const [email, setEmail] = useState("");
@@ -41,6 +44,7 @@ const NewUser = () => {
           const token = response.data.data.token;
           localStorage.setItem(TOKEN, token);
           localStorage.setItem(USER_NAME, email);
+          window.dispatchEvent(new Event("token-set"));
           switch (response.status) {
             case 200:
               if (response.data.data.role === ROLES.CUSTOMER) {
