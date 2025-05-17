@@ -19,6 +19,8 @@ import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
 import { parseJwt } from "../utils/parseJwt";
 import { handleLogout } from "../utils/logout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const NewUser = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +31,10 @@ const NewUser = () => {
   useEffect(() => {
     document.title = LOGIN;
   }, []);
+
+  const handleOAuthLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/github"; // adjust port if needed
+  };
 
   const handleLogin = (e) => {
     var validate = formValidation(email, password);
@@ -131,6 +137,21 @@ const NewUser = () => {
               "Log In"
             )}
           </button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            textAlign: "center",
+            margin: "5px",
+          }}
+        >
+          <span>or you can sign in with</span>
+          <FontAwesomeIcon
+            icon={faGithub}
+            onClick={handleOAuthLogin}
+            style={{ cursor: "pointer", fontSize: "20px" }}
+          />
         </div>
       </div>
     </div>

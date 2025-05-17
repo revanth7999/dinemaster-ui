@@ -15,7 +15,9 @@ import {
   CREATE_USER_PAGE,
   LANDING_PAGE,
   LOGIN_PAGE,
+  OAUTH_PAGE,
 } from "./Constants";
+import OAuthSuccess from "./oauth-success";
 
 class Navigation extends Component {
   render() {
@@ -27,6 +29,7 @@ class Navigation extends Component {
           <Route path={CREATE_USER_PAGE} element={<NewUser />} />
           <Route path={LANDING_PAGE} element={<Landing />} />
           <Route path={ADMIN_LANDING_PAGE} element={<Admin />} />
+          <Route path={OAUTH_PAGE} element={<OAuthSuccess />} />
         </Routes>
       </Router>
     );

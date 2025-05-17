@@ -31,6 +31,7 @@ export const LOGIN_PAGE = "/dinemaster-ui/login";
 export const LANDING_PAGE = "/dinemaster-ui/landing";
 export const ADMIN_LANDING_PAGE = "/dinemaster-ui/adminlanding";
 export const CREATE_USER_PAGE = "/dinemaster-ui/create-user";
+export const OAUTH_PAGE = "/dinemaster-ui/oauth-success";
 
 // Success Messages
 export const SUCCESS = "Success";
