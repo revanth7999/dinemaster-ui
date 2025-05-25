@@ -5,13 +5,26 @@ import Header from "./components/header/Header";
 import Navigation from "./components/Navigation";
 import { handleLogout } from "./components/utils/logout";
 import { parseJwt } from "./components/utils/parseJwt";
+import { refreshAccessToken } from "./components/utils/auth";
 import { TOKEN } from "./components/Constants";
 
 function App() {
   useEffect(() => {
-    const scheduleLogout = () => {
-      const token = localStorage.getItem(TOKEN);
-      if (!token) return;
+    const isLoginPage = window.location.pathname.includes("login");
+    if (isLoginPage) return;
+
+    const scheduleLogout = async () => {
+      let token = localStorage.getItem(TOKEN);
+
+      // Try to refresh if token is missing or expired
+      if (!token || isTokenExpired(token)) {
+        const refreshedToken = await refreshAccessToken();
+        if (!refreshedToken) {
+          handleLogout();
+          return;
+        }
+        token = refreshedToken;
+      }
 
       const decoded = parseJwt(token);
       if (decoded && decoded.exp) {
@@ -30,10 +43,13 @@ function App() {
       }
     };
 
-    // call it on load
-    scheduleLogout();
+    const isTokenExpired = (token) => {
+      const decoded = parseJwt(token);
+      if (!decoded || !decoded.exp) return true;
+      return decoded.exp * 1000 < Date.now();
+    };
 
-    // call it when token is set
+    scheduleLogout();
     window.addEventListener("token-set", scheduleLogout);
 
     return () => {

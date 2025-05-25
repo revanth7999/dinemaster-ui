@@ -17,10 +17,9 @@ import {
 import { formValidation } from "../utils/basicFunctions";
 import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
-import { parseJwt } from "../utils/parseJwt";
-import { handleLogout } from "../utils/logout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { useIdleLogout } from "../useIdleLogout";
 
 const NewUser = () => {
   const [email, setEmail] = useState("");
@@ -53,6 +52,7 @@ const NewUser = () => {
           window.dispatchEvent(new Event("token-set"));
           switch (response.status) {
             case 200:
+              useIdleLogout();
               if (response.data.data.role === ROLES.CUSTOMER) {
                 setIsLoading(false);
                 navigate(LANDING_PAGE);
