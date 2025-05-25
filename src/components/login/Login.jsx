@@ -22,6 +22,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useIdleLogout } from "../useIdleLogout";
 
 const NewUser = () => {
+  useIdleLogout();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +53,6 @@ const NewUser = () => {
           window.dispatchEvent(new Event("token-set"));
           switch (response.status) {
             case 200:
-              useIdleLogout();
               if (response.data.data.role === ROLES.CUSTOMER) {
                 setIsLoading(false);
                 navigate(LANDING_PAGE);
