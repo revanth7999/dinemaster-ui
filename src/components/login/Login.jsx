@@ -19,10 +19,8 @@ import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { useIdleLogout } from "../useIdleLogout";
 
 const NewUser = () => {
-  useIdleLogout();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);

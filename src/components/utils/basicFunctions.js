@@ -36,3 +36,6 @@ export function formValidation(email, password) {
   }
   return true;
 }
+
+export const isPublicRoute = (pathname) =>
+  ["/login", "/oauth-success"].some((path) => pathname.includes(path));
