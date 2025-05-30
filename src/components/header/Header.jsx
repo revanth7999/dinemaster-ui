@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../header/header.css";
 import im from "../utils/food-logo.png";
-import { LOGIN, TOKEN } from "../Constants";
+import { handleLogout } from "../utils/logout";
 
 const Header = () => {
   const [isLoginPage, setIsLoginPage] = useState(false);
@@ -15,9 +15,8 @@ const Header = () => {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem(TOKEN);
-    window.location.replace("/dinemaster-ui/");
+  const log = () => {
+    handleLogout()
   };
 
   return (
@@ -26,7 +25,7 @@ const Header = () => {
         <img src={im} alt="Header Image" className="header-image" />
         {!isLoginPage ? (
           <button
-            onClick={handleLogout}
+            onClick={log}
             type="button"
             className="btn btn-success logout-button"
           >
