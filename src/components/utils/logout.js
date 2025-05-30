@@ -1,10 +1,10 @@
-import { LOGIN_PAGE, TOKEN, USER_NAME } from "../Constants";
+import { AUTH_LOGOUT_URL, LOGIN_PAGE, TOKEN, USER_NAME } from "../Constants";
 import apiClient from "./axiosUtil";
 
 export async function handleLogout() {
   try {
     // Call logout endpoint via your Axios instance
-    await apiClient.post("/logout");
+    await apiClient.post(AUTH_LOGOUT_URL);
 
     // Clear storage
     localStorage.removeItem(TOKEN);
