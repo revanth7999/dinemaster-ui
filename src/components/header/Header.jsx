@@ -16,7 +16,7 @@ const Header = () => {
   }, []);
 
   const log = () => {
-    handleLogout()
+    handleLogout();
   };
 
   return (
