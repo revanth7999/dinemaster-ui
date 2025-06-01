@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL, TOKEN } from "../Constants";
+import { handleLogout } from "./logout";
 
 // Create an axios instance
 const apiClient = axios.create({
@@ -79,6 +80,7 @@ apiClient.interceptors.response.use(
         return apiClient(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
+        handleLogout();
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
