@@ -1,0 +1,16 @@
+/* admin.css */
+ul.nav.nav-pills .nav-link {
+  color: #333 !important;              /* default grey text */
+  background-color: #f8f9fa !important; /* light grey background */
+  border-radius: 5 !important;          /* make it flat (optional) */
+}
+
+ul.nav.nav-pills .nav-link:hover {
+  background-color: #e0e0e0 !important; /* darker grey on hover */
+  color: black !important;
+}
+
+ul.nav.nav-pills .nav-link.active {
+  background-color: black !important;   /* active tab black */
+  color: white !important;              /* text white */
+}

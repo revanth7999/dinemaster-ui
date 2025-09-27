@@ -4,7 +4,6 @@ import Header from "./components/header/Header";
 import Navigation from "./components/Navigation";
 
 function App() {
-  // useIdleLogout();
 
   return (
     <div className="app-container">

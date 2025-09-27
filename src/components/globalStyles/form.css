@@ -2,14 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
-  margin-top: 10vh;
+  /* height: 50vh;
+  margin-top: 10vh; */
 }
 
 .formDiv {
-  background-color: #d1d1ae;
-  border: 1px solid rgb(234, 221, 221);
-  border-radius: 10%;
+  /* background-color: #bd9393; */
+  /* border: 1px solid rgb(234, 221, 221); */
+  border-radius: 5%;
   padding: 5vh;
 }
 

@@ -3,6 +3,7 @@ import { ADMIN_LANDING } from "../Constants";
 import AllUsers from "./AllUsers";
 import AdminCreateUser from "./AdminCreateUser";
 import AllRestaurants from "./AllRestaurants";
+import "../admin/Admin.css";
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("create-user"); // Track active tab
@@ -12,8 +13,10 @@ export default function Admin() {
   }, []);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div>
+      <div style={{ display: "flex" }}>
       {/* Navigation menu on the left */}
+      <div style={{backgroundColor:'#ffff', padding:'2vh', height:'90vh'}}>
       <ul
         className="nav nav-pills"
         style={{ display: "flex", flexDirection: "column" }}
@@ -50,7 +53,7 @@ export default function Admin() {
           </a>
         </li>
       </ul>
-
+</div>
       {/* Content area on the right */}
       <div
         style={{
@@ -66,6 +69,7 @@ export default function Admin() {
         {activeTab === "view-users" && <AllUsers />}
         {activeTab === "view-restaurants" && <AllRestaurants />}
       </div>
+    </div>
     </div>
   );
 }

@@ -14,15 +14,33 @@ import {
   USER_NAME,
   VALIDATION_ERROR,
 } from "../Constants";
-import { formValidation } from "../utils/basicFunctions";
 import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import LoginFormHook from "../../hooks/LoginFormHook";
 
-const NewUser = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+// ✅ Validation function for login form
+const validateLogin = (values) => {
+  let errors = {};
+  if (!values.username) {
+    errors.username = "Username is required.";
+  }
+  if (!values.password) {
+    errors.password = "Password is required.";
+  }
+  return errors;
+};
+
+const initialValues = {
+  username: "",
+  password: "",
+};
+
+const LoginUser = () => {
+  const { values, handleChange, runValidation, errors } = LoginFormHook(
+    initialValues,
+    true, // validate onChange
+    validateLogin,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -30,32 +48,28 @@ const NewUser = () => {
     document.title = LOGIN;
   }, []);
 
-  const handleOAuthLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/github"; // adjust port if needed
-  };
-
   const handleLogin = (e) => {
-    var validate = formValidation(email, password);
-    if (validate) {
+    e.preventDefault();
+
+    if (runValidation()) {
       setIsLoading(true);
-      e.preventDefault(); // Prevents form submission default behavior
       apiClient
         .post(AUTH_LOGIN_URL, {
-          username: email,
-          password: password,
+          username: values.username,
+          password: values.password,
         })
         .then((response) => {
           const token = response.data.data.token;
           localStorage.setItem(TOKEN, token);
-          localStorage.setItem(USER_NAME, email);
+          localStorage.setItem(USER_NAME, values.username);
           window.dispatchEvent(new Event("token-set"));
+
           switch (response.status) {
             case 200:
+              setIsLoading(false);
               if (response.data.data.role === ROLES.CUSTOMER) {
-                setIsLoading(false);
                 navigate(LANDING_PAGE);
               } else if (response.data.data.role === ROLES.ADMIN) {
-                setIsLoading(false);
                 navigate(ADMIN_LANDING_PAGE);
               }
               break;
@@ -81,79 +95,83 @@ const NewUser = () => {
   };
 
   return (
-    <div className="mainDiv">
-      <div className="formDiv">
-        <h2 style={{ fontFamily: "monospace" }}>Log In</h2>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Please enter you email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="col-form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="form-control"
-            placeholder="Please enter you password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <p>
-          if you wan to create account{" "}
-          <Link to={CREATE_USER_PAGE}>Create User</Link>
-        </p>
-        <div className="loginButton">
-          <button
-            type="button"
-            onClick={handleLogin}
-            className="btn btn-success"
-          >
-            {isLoading ? (
-              <>
-                <span
-                  className="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-                {" Loading..."}
-              </>
-            ) : (
-              "Log In"
-            )}
-          </button>
-        </div>
+    <div
+      className="container d-flex align-items-center justify-content-center"
+      style={{ marginTop: "10vh" }}
+    >
+      <div
+        className="row w-100 shadow"
+        style={{ maxWidth: "900px", height: "50vh" }}
+      >
+        {/* Left side (image / design) */}
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            textAlign: "center",
-            margin: "5px",
-          }}
+          className="col-md-6 d-none d-md-block"
+          style={{ background: "#0d1117" }}
+        ></div>
+
+        {/* Right side (form) */}
+        <div
+          className="col-md-6 p-4 d-flex align-items-center"
+          style={{ background: "#C1BBBB" }}
         >
-          <span>or you can sign in with</span>
-          <FontAwesomeIcon
-            icon={faGithub}
-            onClick={handleOAuthLogin}
-            style={{ cursor: "pointer", fontSize: "20px" }}
-          />
+          <form onSubmit={handleLogin} className="w-100" style={{marginLeft:"5vh"}}>
+            <h2 className="mb-4">Log In</h2>
+            <div className="form-floating mb-3" style={{width:"75%"}}>
+              <input
+                type="text"
+                className="form-control"
+                id="floatingInput"
+                name="username"
+                placeholder="Username"
+                value={values.username}
+                onChange={handleChange}
+              />
+              <label htmlFor="floatingInput">Username</label>
+              {errors.username && (
+                <small className="text-danger">{errors.username}</small>
+              )}
+            </div>
+
+            <div className="form-floating mb-3" style={{width:"75%"}}>
+              <input
+                type="password"
+                className="form-control"
+                id="floatingPassword"
+                name="password"
+                placeholder="Password"
+                value={values.password}
+                onChange={handleChange}
+              />
+              <label htmlFor="floatingPassword">Password</label>
+              {errors.password && (
+                <small className="text-danger">{errors.password}</small>
+              )}
+            </div>
+
+            <p>
+              Don’t have an account?{" "}
+              <Link to={CREATE_USER_PAGE}>Create one</Link>
+            </p>
+
+            <button type="submit" className="btn btn-dark w-75" >
+              {isLoading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  {" Loading..."}
+                </>
+              ) : (
+                "Log In"
+              )}
+            </button>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-export default NewUser;
+export default LoginUser;

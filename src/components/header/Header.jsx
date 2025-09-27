@@ -8,7 +8,7 @@ const Header = () => {
 
   useEffect(() => {
     // Set state based on the document title after the component is mounted
-    if (window.location.pathname.includes("Login")) {
+    if (window.location.pathname.includes("login")) {
       setIsLoginPage(true);
     } else {
       setIsLoginPage(false);
@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <div className="header-container">
+ <div className="header-container">
       <div className="header">
         <img src={im} alt="Header Image" className="header-image" />
         {!isLoginPage ? (

@@ -10,7 +10,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to right, #e0f7fa, #fff9c4);
+  background: #B9B5B5
+;
 }
 
 /* Header: Sticky at top */
@@ -18,8 +19,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: linear-gradient(to right, #e0f7fa, #fff9c4);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Main content: fills remaining space */
@@ -31,7 +30,6 @@ body {
 
 /* Footer: stick to bottom */
 .footer {
-  background-color: linear-gradient(to right, #e0f7fa, #fff9c4);
   text-align: center;
   padding: 15px;
 }
