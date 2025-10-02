@@ -2,8 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 50vh;
-  margin-top: 10vh; */
 }
 
 .formDiv {
@@ -17,4 +15,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* For Chrome, Edge, Safari */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset; /* match your background */
+  -webkit-text-fill-color: #000000; /* text color */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* For Firefox */
+input:-moz-autofill {
+  box-shadow: 0 0 0px 1000px #bd3c3c inset;
+  -moz-text-fill-color: #000000;
 }

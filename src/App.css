@@ -10,8 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #B9B5B5
-;
+  background: #b9b5b5;
 }
 
 /* Header: Sticky at top */
@@ -24,7 +23,6 @@ body {
 /* Main content: fills remaining space */
 .content {
   flex: 1;
-  padding: 20px;
   overflow-y: auto;
 }
 

@@ -1,18 +1,18 @@
 import "./App.css";
 import Footer from "./components/footer/Footer";
-import Header from "./components/header/Header";
 import Navigation from "./components/Navigation";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
-
   return (
-    <div className="app-container">
-      <Header className="header" />
-      <div className="content">
-        <Navigation />
+    <BrowserRouter>
+      <div className="app-container">
+        <div className="content">
+          <Navigation />
+        </div>
+        <Footer className="footer" />
       </div>
-      <Footer className="footer" />
-    </div>
+    </BrowserRouter>
   );
 }
 

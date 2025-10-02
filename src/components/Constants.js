@@ -30,6 +30,7 @@ export const ADMIN_LANDING = "Admin Dashboard";
 export const BASE_PAGE_PATH = "/dinemaster-ui";
 export const LOGIN_PAGE = "/dinemaster-ui/login";
 export const LANDING_PAGE = "/dinemaster-ui/landing";
+export const RES_PAGE = "/dinemaster-ui/restaurants";
 export const ADMIN_LANDING_PAGE = "/dinemaster-ui/adminlanding";
 export const CREATE_USER_PAGE = "/dinemaster-ui/create-user";
 export const OAUTH_PAGE = "/dinemaster-ui/oauth-success";

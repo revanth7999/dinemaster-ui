@@ -114,9 +114,13 @@ const LoginUser = () => {
           className="col-md-6 p-4 d-flex align-items-center"
           style={{ background: "#C1BBBB" }}
         >
-          <form onSubmit={handleLogin} className="w-100" style={{marginLeft:"5vh"}}>
+          <form
+            onSubmit={handleLogin}
+            className="w-100"
+            style={{ marginLeft: "5vh" }}
+          >
             <h2 className="mb-4">Log In</h2>
-            <div className="form-floating mb-3" style={{width:"75%"}}>
+            <div className="form-floating mb-3" style={{ width: "75%" }}>
               <input
                 type="text"
                 className="form-control"
@@ -132,7 +136,7 @@ const LoginUser = () => {
               )}
             </div>
 
-            <div className="form-floating mb-3" style={{width:"75%"}}>
+            <div className="form-floating mb-3" style={{ width: "75%" }}>
               <input
                 type="password"
                 className="form-control"
@@ -153,7 +157,7 @@ const LoginUser = () => {
               <Link to={CREATE_USER_PAGE}>Create one</Link>
             </p>
 
-            <button type="submit" className="btn btn-dark w-75" >
+            <button type="submit" className="btn btn-dark w-75">
               {isLoading ? (
                 <>
                   <span

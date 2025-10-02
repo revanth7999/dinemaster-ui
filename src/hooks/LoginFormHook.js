@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-const LoginFormHook = (initialValues, validateOnChange = false, validate = () => ({})) => {
+const LoginFormHook = (
+  initialValues,
+  validateOnChange = false,
+  validate = () => ({}),
+) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
 
