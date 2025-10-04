@@ -62,11 +62,12 @@
   cursor: pointer;
 }
 
-.dropdown-item:hover {
-  background-color: #eee;
-}
 
 /* Logout on right */
 .logout-button {
   /* stays on right due to justify-content: space-between */
+}
+
+.dropdown-item:hover {
+  background: #fff; /* highlight color */
 }

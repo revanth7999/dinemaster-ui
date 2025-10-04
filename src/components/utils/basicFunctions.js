@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {*} a 
+ * @returns 
+ * Checks if the input a is empty (null, undefined, empty string, empty array, or empty object).
+ */
 export function isEmpty(a) {
   // Check if a is null, undefined, or empty
   if (a == null) {

@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  ADMIN_LANDING_PAGE,
   AUTH_LOGIN_URL,
   BAD_REQUEST,
   CREATE_USER_PAGE,
   INTERNAL_SERVER_ERROR,
   LANDING_PAGE,
   LOGIN,
-  ROLES,
   TOKEN,
   UNKNOWN_ERROR,
   USER_NAME,
@@ -18,7 +16,10 @@ import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
 import LoginFormHook from "../../hooks/LoginFormHook";
 
-// ✅ Validation function for login form
+/**
+ * @param {*} values
+ * Validates the login form fields.
+ */
 const validateLogin = (values) => {
   let errors = {};
   if (!values.username) {
@@ -48,6 +49,24 @@ const LoginUser = () => {
     document.title = LOGIN;
   }, []);
 
+  /**
+   * Sets the authentication token and username in local storage.
+   * Dispatches a custom event to notify other components of the token change.
+   * @param {*} response - The response object from the login API call.
+   */
+  const setLocalStorage = (response) => {
+    const token = response.data.data.token;
+    localStorage.setItem(TOKEN, token);
+    localStorage.setItem(USER_NAME, values.username);
+    window.dispatchEvent(new Event("token-set"));
+  };
+
+  /**
+   * @param {*} e
+   * Handles the login form submission, performs validation, and manages API interaction.
+   * On successful login, stores the token and navigates to the landing page.
+   * Displays appropriate alerts for different error scenarios.
+   */
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -59,19 +78,11 @@ const LoginUser = () => {
           password: values.password,
         })
         .then((response) => {
-          const token = response.data.data.token;
-          localStorage.setItem(TOKEN, token);
-          localStorage.setItem(USER_NAME, values.username);
-          window.dispatchEvent(new Event("token-set"));
-
+          setLocalStorage(response);
           switch (response.status) {
             case 200:
               setIsLoading(false);
-              if (response.data.data.role === ROLES.CUSTOMER) {
-                navigate(LANDING_PAGE);
-              } else if (response.data.data.role === ROLES.ADMIN) {
-                navigate(ADMIN_LANDING_PAGE);
-              }
+              navigate(LANDING_PAGE);
               break;
             case 400:
               alert(BAD_REQUEST);
