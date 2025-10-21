@@ -45,13 +45,13 @@ const AllUsers = () => {
                   style={{
                     padding: "4px 10px",
                     borderRadius: "6px",
-                    backgroundColor: user.is_active ? "#4CAF50" : "#F44336", // Green or Red
+                    backgroundColor: user.isActive ? "#4CAF50" : "#F44336", // Green or Red
                     color: "#fff",
                     fontWeight: "bold",
                     fontSize: "0.9rem",
                   }}
                 >
-                  {user.is_active ? "Active" : "Inactive"}
+                  {user.isActive == true ? "Active" : "Inactive"}
                 </span>
               </td>
             </tr>
