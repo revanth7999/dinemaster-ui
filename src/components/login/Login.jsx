@@ -47,6 +47,9 @@ const LoginUser = () => {
 
   useEffect(() => {
     document.title = LOGIN;
+    if (localStorage.getItem(TOKEN)) {
+      navigate(LANDING_PAGE);
+    }
   }, []);
 
   /**
@@ -59,6 +62,23 @@ const LoginUser = () => {
     localStorage.setItem(TOKEN, token);
     localStorage.setItem(USER_NAME, values.username);
     window.dispatchEvent(new Event("token-set"));
+  };
+  /**
+   * Detects the browser name from the user agent string.
+   * @returns {string|null} - The name of the browser or null if detection fails.
+   */
+  const getBrowserName = () => {
+    try {
+      const ua = navigator.userAgent || '';
+      if (/Edg\//.test(ua)) return 'Edge';
+      if (/OPR\//.test(ua)) return 'Opera';
+      if (/Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua)) return 'Chrome';
+      if (/Firefox\//.test(ua)) return 'Firefox';
+      if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return 'Safari';
+      return ua || 'Unknown';
+    } catch (e) {
+      return null;
+    }
   };
 
   /**
@@ -76,6 +96,7 @@ const LoginUser = () => {
         .post(AUTH_LOGIN_URL, {
           username: values.username,
           password: values.password,
+          deviceInfo: getBrowserName(),
         })
         .then((response) => {
           setLocalStorage(response);
@@ -99,7 +120,7 @@ const LoginUser = () => {
         })
         .catch((error) => {
           setIsLoading(false);
-          alert(VALIDATION_ERROR);
+          alert(error);
           console.error("There was an error logging the user!", error);
         });
     }
