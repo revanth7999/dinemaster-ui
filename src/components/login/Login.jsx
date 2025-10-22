@@ -69,13 +69,14 @@ const LoginUser = () => {
    */
   const getBrowserName = () => {
     try {
-      const ua = navigator.userAgent || '';
-      if (/Edg\//.test(ua)) return 'Edge';
-      if (/OPR\//.test(ua)) return 'Opera';
-      if (/Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua)) return 'Chrome';
-      if (/Firefox\//.test(ua)) return 'Firefox';
-      if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return 'Safari';
-      return ua || 'Unknown';
+      const ua = navigator.userAgent || "";
+      if (/Edg\//.test(ua)) return "Edge";
+      if (/OPR\//.test(ua)) return "Opera";
+      if (/Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua))
+        return "Chrome";
+      if (/Firefox\//.test(ua)) return "Firefox";
+      if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return "Safari";
+      return ua || "Unknown";
     } catch (e) {
       return null;
     }
@@ -99,29 +100,36 @@ const LoginUser = () => {
           deviceInfo: getBrowserName(),
         })
         .then((response) => {
-          setLocalStorage(response);
-          switch (response.status) {
-            case 200:
-              setIsLoading(false);
-              navigate(LANDING_PAGE);
-              break;
-            case 400:
-              alert(BAD_REQUEST);
-              setIsLoading(false);
-              break;
-            case 500:
-              alert(INTERNAL_SERVER_ERROR);
-              setIsLoading(false);
-              break;
-            default:
-              alert(UNKNOWN_ERROR);
-              setIsLoading(false);
+          setIsLoading(false);
+          if (response.status === 200) {
+            setLocalStorage(response);
+            navigate(LANDING_PAGE);
+          } else {
+            alert(UNKNOWN_ERROR);
           }
         })
         .catch((error) => {
           setIsLoading(false);
-          alert(error);
-          console.error("There was an error logging the user!", error);
+          if (error.response) {
+            // The request was made, and the server responded with a status code out of 2xx
+            switch (error.response.status) {
+              case 403:
+                alert(error.response.data.message);
+                break;
+              case 400:
+                alert(BAD_REQUEST);
+                break;
+              case 500:
+                alert(INTERNAL_SERVER_ERROR);
+                break;
+              default:
+                alert(UNKNOWN_ERROR);
+            }
+          } else {
+            // Some other error (network error, no response)
+            alert(error.message || "An error occurred");
+          }
+          console.error("Login error", error);
         });
     }
   };

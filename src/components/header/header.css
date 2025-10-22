@@ -62,7 +62,6 @@
   cursor: pointer;
 }
 
-
 /* Logout on right */
 .logout-button {
   /* stays on right due to justify-content: space-between */
