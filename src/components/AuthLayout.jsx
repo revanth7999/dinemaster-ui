@@ -3,6 +3,11 @@ import { useEffect } from "react";
 import Header from "./header/Header";
 import { LOGIN_PAGE, TOKEN } from "./Constants";
 
+/**
+ * AuthLayout component that checks for authentication token in local storage.
+ * If the token is not present, it redirects the user to the login page.
+ * It also listens for changes in local storage to handle token removal in other tabs.
+ */
 const AuthLayout = () => {
   const navigate = useNavigate();
 
@@ -26,13 +31,9 @@ const AuthLayout = () => {
     };
     window.addEventListener("storage", handleStorageChange);
 
-    // Optionally, you can poll periodically (e.g., every few seconds) for token removal if needed
-    // const intervalId = setInterval(checkToken, 3000);
-
     // Cleanup event listener when component unmounts
     return () => {
       window.removeEventListener("storage", handleStorageChange);
-      // clearInterval(intervalId);
     };
   }, []);
 
