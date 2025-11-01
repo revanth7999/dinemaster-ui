@@ -9,13 +9,18 @@ const Landing = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   /**
-   * Sets the document title and shows a welcome alert on component mount.
+   * Sets the document title and shows a one-time alert message on landing page load.
    */
   useEffect(() => {
-    document.title = LANDING;
+  document.title = LANDING;
+
+  const loginShown = sessionStorage.getItem("loginShown");
+  if (!loginShown) {
     setAlertMessage("Login Successful!");
     setShowAlert(true);
-  }, []);
+    sessionStorage.setItem("loginShown", "true");
+  }
+}, []);
 
   return (
     <>
@@ -39,8 +44,8 @@ const Landing = () => {
         role="alert"
         style={{ width: "40%" }}
       >
-        <b>Welcome to DineMaster!</b> Explore our diverse menu and enjoy a
-        seamless dining experience.
+        <b>Welcome to My Space!</b> Explore my diverse acheivements and enjoy a
+        seamless experience.
       </div>
     </>
   );
