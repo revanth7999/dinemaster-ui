@@ -5,6 +5,8 @@ export const AUTH_LOGIN_URL = "/login";
 export const AUTH_LOGOUT_URL = "/logout";
 export const AUTH_SHOW_USERS = "/allUsers";
 export const ALL_REST = "/restaurant/allRestaurants";
+export const ALL_REST_PAG = "/restaurant/restaurants";
+export const ALL_REST_PAG_SEA = "/restaurant/restaurantssearch";
 export const AUTH_GET_ROLES = "/admin/roles";
 
 // Roles

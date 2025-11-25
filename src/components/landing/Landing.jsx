@@ -12,15 +12,15 @@ const Landing = () => {
    * Sets the document title and shows a one-time alert message on landing page load.
    */
   useEffect(() => {
-  document.title = LANDING;
+    document.title = LANDING;
 
-  const loginShown = sessionStorage.getItem("loginShown");
-  if (!loginShown) {
-    setAlertMessage("Login Successful!");
-    setShowAlert(true);
-    sessionStorage.setItem("loginShown", "true");
-  }
-}, []);
+    const loginShown = sessionStorage.getItem("loginShown");
+    if (!loginShown) {
+      setAlertMessage("Login Successful!");
+      setShowAlert(true);
+      sessionStorage.setItem("loginShown", "true");
+    }
+  }, []);
 
   return (
     <>
