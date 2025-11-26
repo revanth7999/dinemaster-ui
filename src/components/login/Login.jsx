@@ -58,7 +58,7 @@ const LoginUser = () => {
    * @param {*} response - The response object from the login API call.
    */
   const setLocalStorage = (response) => {
-    const token = response.data.data.token;
+    const token = response.data.data.accessToken;
     localStorage.setItem(TOKEN, token);
     localStorage.setItem(USER_NAME, values.username);
     window.dispatchEvent(new Event("token-set"));
