@@ -1,5 +1,5 @@
-import { Component, Suspense, lazy } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Component, lazy, Suspense } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Landing from "./landing/Landing";
 import NewUser from "./newUser/NewUser";
 import Admin from "./admin/Admin";
@@ -18,14 +18,21 @@ import {
   RES_PAGE,
 } from "./Constants";
 import AuthLayout from "./AuthLayout";
+import GlobalSearch from "./globalSearch";
 
-class Navigation extends Component {
-  render() {
-    return (
+function NavigationWrapper() {
+  const location = useLocation();
+
+  // Pages where GlobalSearch should NOT appear
+  const hideGlobalSearch = [LOGIN_PAGE, CREATE_USER_PAGE].includes(location.pathname);
+
+  return (
+    <>
+      {!hideGlobalSearch && <GlobalSearch />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path={BASE_PAGE_PATH} element={<Navigate to={LOGIN_PAGE} />} />
-          
+
           <Route path={LOGIN_PAGE} element={<LoginForm />} />
           <Route path={CREATE_USER_PAGE} element={<NewUser />} />
 
@@ -37,8 +44,8 @@ class Navigation extends Component {
           </Route>
         </Routes>
       </Suspense>
-    );
-  }
+    </>
+  );
 }
 
-export default Navigation;
+export default NavigationWrapper;

@@ -128,9 +128,9 @@ const Header = () => {
         className="menu-dropdown"
         onMouseLeave={() => setShowDropdown(false)}
       >
-        <text style={{ color: "white" }} onMouseOver={toggleDropdown}>
+        <div style={{ color: "white" }} onMouseOver={toggleDropdown}>
           Menu <TiThMenu />
-        </text>
+        </div>
 
         {showDropdown && (
           <ul className={`dropdown-list ${showDropdown ? "show" : ""}`}>
@@ -156,9 +156,9 @@ const Header = () => {
 
       {/* User Info and Logout */}
       <div style={{ position: "absolute", right: "10px", top: "15px" }}>
-        <text style={{ color: "white", cursor: "pointer" }} onClick={logout}>
+        <div style={{ color: "white", cursor: "pointer" }} onClick={logout}>
           <IoPersonCircle /> {localStorage.getItem("user")}
-        </text>
+        </div>
       </div>
     </div>
   );
