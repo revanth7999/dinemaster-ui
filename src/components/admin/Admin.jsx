@@ -8,9 +8,21 @@ import "../admin/Admin.css";
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("create-user"); // Track active tab
 
-  useEffect(() => {
-    document.title = ADMIN_LANDING;
-  }, []);
+    useEffect(() => {
+      switch (activeTab) {
+        case "create-user":
+          document.title = "Admin | Create User";
+          break;
+        case "view-users":
+          document.title = "Admin | View Users";
+          break;
+        case "view-restaurants":
+          document.title = "Admin | View Restaurants";
+          break;
+        default:
+          document.title = ADMIN_LANDING;
+      }
+    }, [activeTab]);
 
   return (
     <div>

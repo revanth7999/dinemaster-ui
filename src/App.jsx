@@ -10,7 +10,7 @@ function App() {
         <div className="content">
           <Navigation />
         </div>
-        <Footer className="footer" />
+        {/* <Footer className="footer" /> */}
       </div>
     </BrowserRouter>
   );
