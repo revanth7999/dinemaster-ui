@@ -1,0 +1,1 @@
+import{u as s,r as o,T as r,a as n,g as c,j as i}from"./index-BkwTl7d_.js";function g(){const t=s();return o.useEffect(()=>{const a=setTimeout(()=>{const e=new URLSearchParams(window.location.search).get("token");e?(localStorage.setItem(r,e),t(n)):t(c)},300);return()=>clearTimeout(a)},[t]),i.jsx("div",{children:"Logging you in..."})}export{g as default};
