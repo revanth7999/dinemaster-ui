@@ -8,7 +8,9 @@ import apiClient from "./axiosUtil";
 export async function handleLogout() {
   try {
     // Call logout endpoint via your Axios instance
-    await apiClient.post(AUTH_LOGOUT_URL);
+    await apiClient.post(AUTH_LOGOUT_URL,{
+       username: localStorage.getItem(USER_NAME),
+    });
 
     // Clear storage
     localStorage.removeItem(TOKEN);

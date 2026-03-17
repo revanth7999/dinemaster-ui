@@ -10,11 +10,11 @@ import {
   TOKEN,
   UNKNOWN_ERROR,
   USER_NAME,
-  VALIDATION_ERROR,
 } from "../Constants";
 import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
 import LoginFormHook from "../../hooks/LoginFormHook";
+import {getBrowserName} from "../utils/basicFunctions";
 
 /**
  * @param {*} values
@@ -62,24 +62,6 @@ const LoginUser = () => {
     localStorage.setItem(TOKEN, token);
     localStorage.setItem(USER_NAME, values.username);
     window.dispatchEvent(new Event("token-set"));
-  };
-  /**
-   * Detects the browser name from the user agent string.
-   * @returns {string|null} - The name of the browser or null if detection fails.
-   */
-  const getBrowserName = () => {
-    try {
-      const ua = navigator.userAgent || "";
-      if (/Edg\//.test(ua)) return "Edge";
-      if (/OPR\//.test(ua)) return "Opera";
-      if (/Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua))
-        return "Chrome";
-      if (/Firefox\//.test(ua)) return "Firefox";
-      if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return "Safari";
-      return ua || "Unknown";
-    } catch (e) {
-      return null;
-    }
   };
 
   /**

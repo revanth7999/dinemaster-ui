@@ -45,3 +45,22 @@ export function formValidation(email, password) {
 
 export const isPublicRoute = (pathname) =>
   ["/login", "/oauth-success"].some((path) => pathname.includes(path));
+
+/**
+ * Detects the browser name from the user agent string.
+ * @returns {string|null} - The name of the browser or null if detection fails.
+ */
+export const getBrowserName = () => {
+  try {
+    const ua = navigator.userAgent || "";
+    if (/Edg\//.test(ua)) return "Edge";
+    if (/OPR\//.test(ua)) return "Opera";
+    if (/Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua))
+      return "Chrome";
+    if (/Firefox\//.test(ua)) return "Firefox";
+    if (/Safari\//.test(ua) && !/Chrome\//.test(ua)) return "Safari";
+    return ua || "Unknown";
+  } catch (e) {
+    return null;
+  }
+};
