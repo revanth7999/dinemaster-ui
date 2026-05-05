@@ -1,12 +1,10 @@
 // My Backend URLs
 export const API_BASE_URL = "http://localhost:8080/dev";
 export const AUTH_REGISTER_URL = "/register";
-export const AUTH_LOGIN_URL = "/login";
-export const AUTH_LOGOUT_URL = "/logout";
-export const AUTH_SHOW_USERS = "/allUsers";
-export const ALL_REST = "/restaurant/allRestaurants";
-export const ALL_REST_PAG = "/restaurant/restaurants";
-export const ALL_REST_PAG_SEA = "/restaurant/restaurantssearch";
+export const AUTH_LOGIN_URL = "/auth/login";
+export const AUTH_LOGOUT_URL = "/auth/logout";
+export const AUTH_SHOW_USERS = "/users";
+export const ALL_REST = "/restaurants";
 export const AUTH_GET_ROLES = "/admin/roles";
 
 // Roles

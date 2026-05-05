@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ALL_REST_PAG_SEA } from "../Constants";
+import { ALL_REST } from "../Constants";
 import apiClient from "../utils/axiosUtil";
 import "../admin/AllUsers.css";
 
@@ -22,7 +22,7 @@ const AllRestaurants = () => {
   const fetchData = () => {
     apiClient
       .get(
-        `${ALL_REST_PAG_SEA}?page=${page}&size=${size}&search=${debouncedSearch}`,
+        `${ALL_REST}?page=${page}&size=${size}&search=${debouncedSearch}`,
       )
       .then((response) => {
         const data = response.data.data;
