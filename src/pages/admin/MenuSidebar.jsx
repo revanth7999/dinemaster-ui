@@ -1,6 +1,5 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import {
   CSidebar,
   CSidebarNav,
@@ -14,9 +13,7 @@ import {
   CDropdownDivider,
   CDropdownItem,
 } from "@coreui/react";
-
 import CIcon from "@coreui/icons-react";
-
 import {
   cilAccountLogout,
   cilCloudDownload,
@@ -34,22 +31,22 @@ import {
   cilPeople,
   cilRestaurant,
 } from "@coreui/icons";
-
 import "@coreui/coreui/dist/css/coreui.min.css";
+import { useSelector } from "react-redux";
 
 const menuItems = [
   {
-    key: "create-user",
+    key: "create user",
     label: "Create User",
     icon: cilUserPlus,
   },
   {
-    key: "view-users",
+    key: "Users",
     label: "Show Users",
     icon: cilPeople,
   },
   {
-    key: "view-restaurants",
+    key: "Restaurants",
     label: "Show Restaurants",
     icon: cilRestaurant,
   },
@@ -59,6 +56,8 @@ export const MenuSidebar = ({
   activeTab,
   setActiveTab,
 }) => {
+  // 1. Extract the specific pieces of state you need
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   return (
     <CSidebar
       className="border-end admin-sidebar"
@@ -76,7 +75,7 @@ export const MenuSidebar = ({
               e.preventDefault();
               setActiveTab(item.key);
             }}
-            className="sidebar-item"
+            // className="sidebar-item"
           >
             <CIcon
               customClassName="nav-icon"
@@ -86,6 +85,7 @@ export const MenuSidebar = ({
             {item.label}
           </CNavItem>
         ))}
+        </CSidebarNav>
 
         <CSidebarFooter>
           <CDropdown className="w-100" direction="dropup">
@@ -101,11 +101,11 @@ export const MenuSidebar = ({
               />
               <div className="small text-start d-sidebar-narrow-none">
                 <div className="fw-semibold">
-                  Lena Scaffold
+                  {user?.username}
                 </div>
-                <div>lena@acme.com</div>
+                <div>{user?.email}</div>
               </div>
-              {/* <CIcon className="nav-icon ms-auto d-sidebar-narrow-none" icon={cilOptions} /> */}
+              <CIcon className="nav-icon ms-auto d-sidebar-narrow-none" icon={cilOptions} />
             </CDropdownToggle>
             <CDropdownMenu className="w-100">
               <div className="d-flex gap-2 px-2">
@@ -116,9 +116,9 @@ export const MenuSidebar = ({
                 />
                 <div className="small text-start">
                   <div className="fw-semibold">
-                    Lena Scaffold
+                    {user?.username}
                   </div>
-                  <div>lena@acme.com</div>
+                  <div>{user?.email}</div>
                 </div>
               </div>
               <CDropdownDivider />
@@ -150,7 +150,6 @@ export const MenuSidebar = ({
             </CDropdownMenu>
           </CDropdown>
         </CSidebarFooter>
-      </CSidebarNav>
     </CSidebar>
   );
 };

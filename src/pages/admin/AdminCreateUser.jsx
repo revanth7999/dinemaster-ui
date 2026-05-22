@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import {
   AUTH_REGISTER_URL,
   AUTH_GET_ROLES,
-} from "../Constants";
-import "../globalStyles/form.css";
+} from "../../components/Constants";
+import "../../components/globalStyles/form.css";
 import { useNavigate } from "react-router-dom";
-import { formValidation } from "../utils/basicFunctions";
-import apiClient from "../utils/axiosUtil";
+import { formValidation } from "../../components/utils/basicFunctions";
+import apiClient from "../../components/utils/axiosUtil";
 
 const AdminCreateUser = ({ prop }) => {
   const [email, setEmail] = useState("");

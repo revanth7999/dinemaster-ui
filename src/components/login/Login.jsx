@@ -15,6 +15,8 @@ import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
 import LoginFormHook from "../../hooks/LoginFormHook";
 import { getBrowserName } from "../utils/basicFunctions";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../redux/authSlice";
 
 /**
  * @param {*} values
@@ -45,6 +47,7 @@ const LoginUser = () => {
     );
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = LOGIN;
@@ -85,6 +88,12 @@ const LoginUser = () => {
         .then((response) => {
           setIsLoading(false);
           if (response.status === 200) {
+            const token = response.data.data.accessToken;
+            const userData = response.data.data;
+            dispatch(loginSuccess({
+              token: token,
+              user: userData
+            }));
             setLocalStorage(response);
             navigate(LANDING_PAGE);
           } else {

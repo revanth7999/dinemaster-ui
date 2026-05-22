@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { ADMIN_LANDING } from "../Constants";
+import { ADMIN_LANDING } from "../../components/Constants";
 import AdminCreateUser from "./AdminCreateUser";
 import { MenuSidebar } from "./MenuSidebar";
 import UsersList from "./UsersList";
 import RestaurantsList from "./RestaurantsList";
-import "../admin/AdminLayout.css";
+import "./AdminLayout.css";
+import CommonBreadcrumb from "../../components/common/CommonBreadcrumb";
 
 const tabsConfig = {
-  "create-user": {
+  "create user": {
     title: "Admin | Create User",
     component: <AdminCreateUser />,
   },
 
-  "view-users": {
+  "Users": {
     title: "Admin | Users",
     component: <UsersList />,
   },
 
-  "view-restaurants": {
+  "Restaurants": {
     title: "Admin | Restaurants",
     component: <RestaurantsList />,
   },
 };
 
 export default function AdminLayout() {
-  const [activeTab, setActiveTab] = useState("create-user");
+  const [activeTab, setActiveTab] = useState("create user");
 
   useEffect(() => {
     document.title =
@@ -39,7 +40,12 @@ export default function AdminLayout() {
       />
 
       <div className="admin-content">
-        {tabsConfig[activeTab]?.component}
+        <CommonBreadcrumb
+          current={
+            tabsConfig[activeTab]?.label || activeTab
+          }
+        />
+       {tabsConfig[activeTab]?.component}
       </div>
     </div>
   );

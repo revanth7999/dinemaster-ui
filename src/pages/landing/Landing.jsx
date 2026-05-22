@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./Landing.css";
 import "./Res.css";
-import { LANDING } from "../Constants";
-import CustomAlert from "../utilityComponents/CustomAlerts/CustomAlert";
+import { LANDING } from "../../components/Constants";
+import CustomAlert from "../../components/utilityComponents/CustomAlerts/CustomAlert";
 
 const Landing = () => {
   const [alertMessage, setAlertMessage] = useState("");

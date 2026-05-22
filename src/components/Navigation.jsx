@@ -5,9 +5,8 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import Landing from "./landing/Landing";
 import NewUser from "./newUser/NewUser";
-import AdminLayout from "./admin/AdminLayout";
+import AdminLayout from "../pages/admin/AdminLayout";
 
 const LoginForm = lazy(() => import("./login/Login"));
 const OAuthSuccess = lazy(() => import("./oauth-success"));
@@ -23,8 +22,8 @@ import {
 } from "./Constants";
 import AuthLayout from "./AuthLayout";
 import GlobalSearch from "./globalSearch";
-import NotFound from "./fallback/NotFound";
 import FallbackScreen from "./fallback/FallbackScreen";
+import Landing from "../pages/landing/Landing";
 
 function NavigationWrapper() {
   const location = useLocation();
