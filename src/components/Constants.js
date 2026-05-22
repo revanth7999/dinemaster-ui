@@ -1,6 +1,6 @@
 // My Backend URLs
 // export const API_BASE_URL = "http://localhost:8080/dev";
-export const API_BASE_URL = "https://dinemaster-backend-postgres.onrender.com/dev"
+export const API_BASE_URL =  "https://dinemaster-backend-postgres.onrender.com";
 export const AUTH_REGISTER_URL = "/register";
 export const AUTH_LOGIN_URL = "/auth/login";
 export const AUTH_LOGOUT_URL = "/auth/logout";
