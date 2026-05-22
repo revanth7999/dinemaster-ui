@@ -7,7 +7,8 @@ class Footer extends Component {
     return (
       <div className="footer">
         <p style={{ fontFamily: "monospace" }}>
-          <FaRegCopyright /> All Rights Reserved || {new Date().getFullYear()}
+          <FaRegCopyright /> All Rights Reserved ||{" "}
+          {new Date().getFullYear()}
         </p>
       </div>
     );

@@ -1,14 +1,17 @@
 .mainDiv {
   display: flex;
-  align-items: center;
   justify-content: center;
+  width: 100%;
+  padding-top: 40px;
 }
 
 .formDiv {
-  /* background-color: #bd9393; */
-  /* border: 1px solid rgb(234, 221, 221); */
-  border-radius: 5%;
-  padding: 5vh;
+  background: white;
+  padding: 32px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .loginButton {

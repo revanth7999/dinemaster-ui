@@ -44,8 +44,8 @@ const Landing = () => {
         role="alert"
         style={{ width: "40%" }}
       >
-        <b>Welcome to My Space!</b> Explore my diverse acheivements and enjoy a
-        seamless experience.
+        <b>Welcome to My Space!</b> Explore my diverse
+        acheivements and enjoy a seamless experience.
       </div>
     </>
   );

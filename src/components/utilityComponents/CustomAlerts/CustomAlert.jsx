@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import "./CustomAlert.css"; // create CSS file
 
-function CustomAlert({ show, setShow, variant, heading, message }) {
+function CustomAlert({
+  show,
+  setShow,
+  variant,
+  heading,
+  message,
+}) {
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
@@ -30,7 +36,9 @@ function CustomAlert({ show, setShow, variant, heading, message }) {
           <b>{heading}</b>
         </Alert.Heading>
       )}
-      <p style={{ fontSize: "14px", marginBottom: 0 }}>{message}</p>
+      <p style={{ fontSize: "14px", marginBottom: 0 }}>
+        {message}
+      </p>
     </Alert>
   );
 }

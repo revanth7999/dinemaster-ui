@@ -1,11 +1,15 @@
 import { Component, lazy, Suspense } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import Landing from "./landing/Landing";
 import NewUser from "./newUser/NewUser";
-import Admin from "./admin/Admin";
+import AdminLayout from "./admin/AdminLayout";
 
 const LoginForm = lazy(() => import("./login/Login"));
-const Restaurants = lazy(() => import("./restaurants/Restaurants"));
 const OAuthSuccess = lazy(() => import("./oauth-success"));
 
 import {
@@ -19,28 +23,59 @@ import {
 } from "./Constants";
 import AuthLayout from "./AuthLayout";
 import GlobalSearch from "./globalSearch";
+import NotFound from "./fallback/NotFound";
+import FallbackScreen from "./fallback/FallbackScreen";
 
 function NavigationWrapper() {
   const location = useLocation();
 
   // Pages where GlobalSearch should NOT appear
-  const hideGlobalSearch = [LOGIN_PAGE, CREATE_USER_PAGE].includes(location.pathname);
+  const hideGlobalSearch = [
+    LOGIN_PAGE,
+    CREATE_USER_PAGE,
+  ].includes(location.pathname);
 
   return (
     <>
       {!hideGlobalSearch && <GlobalSearch />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path={BASE_PAGE_PATH} element={<Navigate to={LOGIN_PAGE} />} />
+          <Route
+            path={BASE_PAGE_PATH}
+            element={<Navigate to={LOGIN_PAGE} />}
+          />
 
-          <Route path={LOGIN_PAGE} element={<LoginForm />} />
-          <Route path={CREATE_USER_PAGE} element={<NewUser />} />
+          <Route
+            path={LOGIN_PAGE}
+            element={<LoginForm />}
+          />
+          <Route
+            path={CREATE_USER_PAGE}
+            element={<NewUser />}
+          />
 
           <Route element={<AuthLayout />}>
-            <Route path={RES_PAGE} element={<Restaurants />} />
-            <Route path={LANDING_PAGE} element={<Landing />} />
-            <Route path={ADMIN_LANDING_PAGE} element={<Admin />} />
-            <Route path={OAUTH_PAGE} element={<OAuthSuccess />} />
+            <Route
+              path={LANDING_PAGE}
+              element={<Landing />}
+            />
+            <Route
+              path={ADMIN_LANDING_PAGE}
+              element={<AdminLayout />}
+            />
+            <Route
+              path={OAUTH_PAGE}
+              element={<OAuthSuccess />}
+            />
+            <Route
+              path="*"
+              element={
+                <FallbackScreen
+                  title="404 - Page Not Found"
+                  description="The page you are looking for does not exist."
+                />
+              }
+            />
           </Route>
         </Routes>
       </Suspense>

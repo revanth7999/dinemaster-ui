@@ -6,6 +6,7 @@ export const AUTH_LOGOUT_URL = "/auth/logout";
 export const AUTH_SHOW_USERS = "/users";
 export const ALL_REST = "/restaurants";
 export const AUTH_GET_ROLES = "/admin/roles";
+export const AUTH_UPDATE = "/admin/update/";
 
 // Roles
 export const ROLES = {
@@ -31,8 +32,10 @@ export const BASE_PAGE_PATH = "/dinemaster-ui";
 export const LOGIN_PAGE = "/dinemaster-ui/login";
 export const LANDING_PAGE = "/dinemaster-ui/landing";
 export const RES_PAGE = "/dinemaster-ui/restaurants";
-export const ADMIN_LANDING_PAGE = "/dinemaster-ui/adminlanding";
-export const CREATE_USER_PAGE = "/dinemaster-ui/create-user";
+export const ADMIN_LANDING_PAGE =
+  "/dinemaster-ui/adminlanding";
+export const CREATE_USER_PAGE =
+  "/dinemaster-ui/create-user";
 export const OAUTH_PAGE = "/dinemaster-ui/oauth-success";
 
 // Success Messages
@@ -48,13 +51,15 @@ export const FORBIDDEN = "Access Forbidden";
 export const NOT_FOUND = "Resource Not Found";
 
 // Server Errors
-export const INTERNAL_SERVER_ERROR = "Internal Server Error";
+export const INTERNAL_SERVER_ERROR =
+  "Internal Server Error";
 export const SERVICE_UNAVAILABLE = "Service Unavailable";
 export const GATEWAY_TIMEOUT = "Gateway Timeout";
 
 // Custom App-Level Errors
 export const VALIDATION_ERROR = "Validation Failed";
-export const NETWORK_ERROR = "Network Error. Please check your connection.";
+export const NETWORK_ERROR =
+  "Network Error. Please check your connection.";
 export const UNKNOWN_ERROR = "An unknown error occurred";
 
 // HTTP Status Codes (optional, if needed)

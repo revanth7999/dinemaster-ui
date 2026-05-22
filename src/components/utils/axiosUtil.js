@@ -56,7 +56,8 @@ apiClient.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
-            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+            originalRequest.headers["Authorization"] =
+              `Bearer ${token}`;
             return apiClient(originalRequest);
           })
           .catch((err) => Promise.reject(err));
@@ -72,11 +73,13 @@ apiClient.interceptors.response.use(
         );
         const newToken = response.data.accessToken;
         localStorage.setItem(TOKEN, newToken);
-        apiClient.defaults.headers["Authorization"] = `Bearer ${newToken}`;
+        apiClient.defaults.headers["Authorization"] =
+          `Bearer ${newToken}`;
 
         processQueue(null, newToken);
 
-        originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+        originalRequest.headers["Authorization"] =
+          `Bearer ${newToken}`;
         return apiClient(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);

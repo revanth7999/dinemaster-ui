@@ -6,9 +6,16 @@ export const CartModal = ({ cart }) => {
     }
   };
   return (
-    <div id="cart" className="modal" style={{ display: "flex" }}>
+    <div
+      id="cart"
+      className="modal"
+      style={{ display: "flex" }}
+    >
       <div className="modal-content">
-        <span className="close" onClick={() => closeCartModal()}>
+        <span
+          className="close"
+          onClick={() => closeCartModal()}
+        >
           &times;
         </span>
         <h4>CART:</h4>

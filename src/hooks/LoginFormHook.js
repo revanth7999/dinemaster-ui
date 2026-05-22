@@ -17,7 +17,10 @@ const LoginFormHook = (
     });
 
     if (validateOnChange) {
-      const newErrors = validate({ ...values, [name]: value });
+      const newErrors = validate({
+        ...values,
+        [name]: value,
+      });
       setErrors(newErrors);
     }
   };

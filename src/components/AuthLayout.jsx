@@ -33,7 +33,10 @@ const AuthLayout = () => {
 
     // Cleanup event listener when component unmounts
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener(
+        "storage",
+        handleStorageChange,
+      );
     };
   }, []);
 

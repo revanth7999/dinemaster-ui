@@ -14,7 +14,7 @@ import {
 import apiClient from "../utils/axiosUtil";
 import "../globalStyles/form.css";
 import LoginFormHook from "../../hooks/LoginFormHook";
-import {getBrowserName} from "../utils/basicFunctions";
+import { getBrowserName } from "../utils/basicFunctions";
 
 /**
  * @param {*} values
@@ -37,11 +37,12 @@ const initialValues = {
 };
 
 const LoginUser = () => {
-  const { values, handleChange, runValidation, errors } = LoginFormHook(
-    initialValues,
-    true, // validate onChange
-    validateLogin,
-  );
+  const { values, handleChange, runValidation, errors } =
+    LoginFormHook(
+      initialValues,
+      true, // validate onChange
+      validateLogin,
+    );
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -142,7 +143,10 @@ const LoginUser = () => {
             style={{ marginLeft: "5vh" }}
           >
             <h2 className="mb-4">Log In</h2>
-            <div className="form-floating mb-3" style={{ width: "75%" }}>
+            <div
+              className="form-floating mb-3"
+              style={{ width: "75%" }}
+            >
               <input
                 type="text"
                 className="form-control"
@@ -152,13 +156,20 @@ const LoginUser = () => {
                 value={values.username}
                 onChange={handleChange}
               />
-              <label htmlFor="floatingInput">Username</label>
+              <label htmlFor="floatingInput">
+                Username
+              </label>
               {errors.username && (
-                <small className="text-danger">{errors.username}</small>
+                <small className="text-danger">
+                  {errors.username}
+                </small>
               )}
             </div>
 
-            <div className="form-floating mb-3" style={{ width: "75%" }}>
+            <div
+              className="form-floating mb-3"
+              style={{ width: "75%" }}
+            >
               <input
                 type="password"
                 className="form-control"
@@ -168,9 +179,13 @@ const LoginUser = () => {
                 value={values.password}
                 onChange={handleChange}
               />
-              <label htmlFor="floatingPassword">Password</label>
+              <label htmlFor="floatingPassword">
+                Password
+              </label>
               {errors.password && (
-                <small className="text-danger">{errors.password}</small>
+                <small className="text-danger">
+                  {errors.password}
+                </small>
               )}
             </div>
 
@@ -179,7 +194,10 @@ const LoginUser = () => {
               <Link to={CREATE_USER_PAGE}>Create one</Link>
             </p>
 
-            <button type="submit" className="btn btn-dark w-75">
+            <button
+              type="submit"
+              className="btn btn-dark w-75"
+            >
               {isLoading ? (
                 <>
                   <span

@@ -44,7 +44,10 @@ const NewUser = ({ prop }) => {
           }
         })
         .catch((error) => {
-          console.error("There was an error creating the user!", error);
+          console.error(
+            "There was an error creating the user!",
+            error,
+          );
         });
     }
   };
@@ -73,9 +76,15 @@ const NewUser = ({ prop }) => {
           className="col-md-6 p-4 d-flex align-items-center"
           style={{ background: "#C1BBBB" }}
         >
-          <form className="w-100" style={{ marginLeft: "5vh" }}>
+          <form
+            className="w-100"
+            style={{ marginLeft: "5vh" }}
+          >
             <h2 className="mb-4">Create New User</h2>
-            <div className="form-floating mb-3" style={{ width: "75%" }}>
+            <div
+              className="form-floating mb-3"
+              style={{ width: "75%" }}
+            >
               <input
                 type="email"
                 className="form-control"
@@ -85,11 +94,16 @@ const NewUser = ({ prop }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <label htmlFor="floatingInput">Please enter your Email</label>
+              <label htmlFor="floatingInput">
+                Please enter your Email
+              </label>
               {/* {errors.username && <small className="text-danger">{errors.username}</small>} */}
             </div>
 
-            <div className="form-floating mb-3" style={{ width: "75%" }}>
+            <div
+              className="form-floating mb-3"
+              style={{ width: "75%" }}
+            >
               <input
                 type="email"
                 className="form-control"
@@ -99,26 +113,36 @@ const NewUser = ({ prop }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <label htmlFor="floatingInput">Please enter your Username</label>
+              <label htmlFor="floatingInput">
+                Please enter your Username
+              </label>
               {/* {errors.username && <small className="text-danger">{errors.username}</small>} */}
             </div>
 
-            <div className="form-floating mb-3" style={{ width: "75%" }}>
+            <div
+              className="form-floating mb-3"
+              style={{ width: "75%" }}
+            >
               <input
                 type="password"
                 id="password"
                 className="form-control"
                 placeholder="Please enter you password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) =>
+                  setPassword(e.target.value)
+                }
                 required
               />
-              <label htmlFor="floatingPassword">Password</label>
+              <label htmlFor="floatingPassword">
+                Password
+              </label>
               {/* {errors.password && <small className="text-danger">{errors.password}</small>} */}
             </div>
 
             <p>
-              if you already have an account <Link to={LOGIN_PAGE}>LogIn</Link>
+              if you already have an account{" "}
+              <Link to={LOGIN_PAGE}>LogIn</Link>
             </p>
 
             <button

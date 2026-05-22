@@ -3,11 +3,14 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { defineCustomElements } from 'dinemaster-stencil-ui/loader';
+import { defineCustomElements } from "dinemaster-stencil-ui/loader";
+import ErrorBoundary from "./components/fallback/ErrorBoundary.jsx";
 
 defineCustomElements();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );

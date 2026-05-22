@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { AUTH_REGISTER_URL, AUTH_GET_ROLES } from "../Constants";
+import {
+  AUTH_REGISTER_URL,
+  AUTH_GET_ROLES,
+} from "../Constants";
 import "../globalStyles/form.css";
 import { useNavigate } from "react-router-dom";
 import { formValidation } from "../utils/basicFunctions";
@@ -45,7 +48,10 @@ const AdminCreateUser = ({ prop }) => {
           }
         })
         .catch((error) => {
-          console.error("There was an error creating the user!", error);
+          console.error(
+            "There was an error creating the user!",
+            error,
+          );
         });
     }
   };
@@ -58,7 +64,9 @@ const AdminCreateUser = ({ prop }) => {
   return (
     <div className="mainDiv">
       <div className="formDiv">
-        <h2 style={{ fontFamily: "monospace" }}>Create New User</h2>
+        <h2 style={{ fontFamily: "monospace" }}>
+          Create New User
+        </h2>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email
@@ -75,7 +83,10 @@ const AdminCreateUser = ({ prop }) => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="password" className="col-form-label">
+          <label
+            htmlFor="password"
+            className="col-form-label"
+          >
             Password
           </label>
           <input

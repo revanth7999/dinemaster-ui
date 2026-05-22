@@ -8,20 +8,30 @@ export function useIdleLogout() {
   const timeoutRef = useRef(null);
 
   const resetTimer = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (timeoutRef.current)
+      clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       handleLogout(); // Auto-logout
     }, IDLE_TIMEOUT);
   };
 
   useEffect(() => {
-    const events = ["mousemove", "keydown", "click", "scroll"];
-    events.forEach((event) => window.addEventListener(event, resetTimer));
+    const events = [
+      "mousemove",
+      "keydown",
+      "click",
+      "scroll",
+    ];
+    events.forEach((event) =>
+      window.addEventListener(event, resetTimer),
+    );
 
     resetTimer(); // Initial set
 
     return () => {
-      events.forEach((event) => window.removeEventListener(event, resetTimer));
+      events.forEach((event) =>
+        window.removeEventListener(event, resetTimer),
+      );
       clearTimeout(timeoutRef.current);
     };
   }, []);
