@@ -17,6 +17,7 @@ import LoginFormHook from "../../hooks/LoginFormHook";
 import { getBrowserName } from "../utils/basicFunctions";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../redux/authSlice";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 /**
  * @param {*} values
@@ -49,8 +50,8 @@ const LoginUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useDocumentTitle(LOGIN);
   useEffect(() => {
-    document.title = LOGIN;
     if (localStorage.getItem(TOKEN)) {
       navigate(LANDING_PAGE);
     }
@@ -90,10 +91,12 @@ const LoginUser = () => {
           if (response.status === 200) {
             const token = response.data.data.accessToken;
             const userData = response.data.data;
-            dispatch(loginSuccess({
-              token: token,
-              user: userData
-            }));
+            dispatch(
+              loginSuccess({
+                token: token,
+                user: userData,
+              }),
+            );
             setLocalStorage(response);
             navigate(LANDING_PAGE);
           } else {

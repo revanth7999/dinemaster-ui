@@ -9,16 +9,16 @@ function NavBarComponent({ menus, onMenuClick }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {menus.map((menu, index) => (
+            {menus.map((menu) => (
               <Nav.Link
-                key={index}
+                key={menu.id}
                 onClick={() => onMenuClick(menu)}
                 style={{
                   cursor: "pointer",
                   color: "#ffff",
                 }}
               >
-                {menu}
+                {menu.label}
               </Nav.Link>
             ))}
           </Nav>

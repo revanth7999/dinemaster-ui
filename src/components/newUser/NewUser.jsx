@@ -13,12 +13,14 @@ import "../globalStyles/form.css";
 import { Link, useNavigate } from "react-router-dom";
 import { formValidation } from "../utils/basicFunctions";
 import apiClient from "../utils/axiosUtil";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const NewUser = ({ prop }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  useDocumentTitle(CREATE_USER);
 
   const createUser = (e) => {
     var validate = formValidation(email, password);
@@ -51,10 +53,6 @@ const NewUser = ({ prop }) => {
         });
     }
   };
-
-  useEffect(() => {
-    document.title = CREATE_USER;
-  }, []);
 
   return (
     <div

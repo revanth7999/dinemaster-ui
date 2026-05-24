@@ -13,12 +13,6 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.pagination-container {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-}
-
 .search-container {
   width: 25%;
   margin: 20px 0 15px;
@@ -34,8 +28,4 @@
 .empty-message {
   text-align: center;
   padding: 20px;
-}
-
-.pagination-container {
-  margin-top: 20px;
 }

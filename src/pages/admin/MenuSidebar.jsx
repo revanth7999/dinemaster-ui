@@ -57,7 +57,9 @@ export const MenuSidebar = ({
   setActiveTab,
 }) => {
   // 1. Extract the specific pieces of state you need
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector(
+    (state) => state.auth,
+  );
   return (
     <CSidebar
       className="border-end admin-sidebar"
@@ -85,71 +87,64 @@ export const MenuSidebar = ({
             {item.label}
           </CNavItem>
         ))}
-        </CSidebarNav>
+      </CSidebarNav>
 
-        <CSidebarFooter>
-          <CDropdown className="w-100" direction="dropup">
-            <CDropdownToggle
-              caret={false}
-              className="w-100 d-flex gap-2 p-1 align-items-center"
-              variant="ghost"
-            >
-              <CAvatar
-                shape="rounded"
-                size="md"
-                src="/images/avatars/7.jpg"
-              />
-              <div className="small text-start d-sidebar-narrow-none">
+      <CSidebarFooter>
+        <CDropdown className="w-100" direction="dropup">
+          <CDropdownToggle
+            caret={false}
+            className="w-100 d-flex gap-2 p-1 align-items-center"
+            variant="ghost"
+          >
+            <div className="small text-start d-sidebar-narrow-none">
+              <div className="fw-semibold">
+                {user?.username || "Issue"}
+              </div>
+              <div>{user?.email}</div>
+            </div>
+            <CIcon
+              className="nav-icon ms-auto d-sidebar-narrow-none"
+              icon={cilOptions}
+            />
+          </CDropdownToggle>
+          <CDropdownMenu className="w-100">
+            <div className="d-flex gap-2 px-2">
+              <div className="small text-start">
                 <div className="fw-semibold">
-                  {user?.username}
+                  {user?.username || "Issue"}
                 </div>
                 <div>{user?.email}</div>
               </div>
-              <CIcon className="nav-icon ms-auto d-sidebar-narrow-none" icon={cilOptions} />
-            </CDropdownToggle>
-            <CDropdownMenu className="w-100">
-              <div className="d-flex gap-2 px-2">
-                <CAvatar
-                  shape="rounded"
-                  size="md"
-                  src="/images/avatars/7.jpg"
-                />
-                <div className="small text-start">
-                  <div className="fw-semibold">
-                    {user?.username}
-                  </div>
-                  <div>{user?.email}</div>
-                </div>
+            </div>
+            <CDropdownDivider />
+            <CDropdownItem href="#">
+              <div className="d-flex align-items-center gap-2">
+                <CIcon icon={cilUser} />
+                Account
               </div>
-              <CDropdownDivider />
-              <CDropdownItem href="#">
-                <div className="d-flex align-items-center gap-2">
-                  <CIcon icon={cilUser} />
-                  Account
-                </div>
-              </CDropdownItem>
-              <CDropdownItem href="#">
-                <div className="d-flex align-items-center gap-2">
-                  <CIcon icon={cilCreditCard} />
-                  Billing
-                </div>
-              </CDropdownItem>
-              <CDropdownItem href="#">
-                <div className="d-flex align-items-center gap-2">
-                  <CIcon icon={cilSettings} />
-                  Settings
-                </div>
-              </CDropdownItem>
-              <CDropdownDivider />
-              <CDropdownItem href="#">
-                <div className="d-flex align-items-center gap-2">
-                  <CIcon icon={cilAccountLogout} />
-                  Logout
-                </div>
-              </CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        </CSidebarFooter>
+            </CDropdownItem>
+            <CDropdownItem href="#">
+              <div className="d-flex align-items-center gap-2">
+                <CIcon icon={cilCreditCard} />
+                Billing
+              </div>
+            </CDropdownItem>
+            <CDropdownItem href="#">
+              <div className="d-flex align-items-center gap-2">
+                <CIcon icon={cilSettings} />
+                Settings
+              </div>
+            </CDropdownItem>
+            <CDropdownDivider />
+            <CDropdownItem href="#">
+              <div className="d-flex align-items-center gap-2">
+                <CIcon icon={cilAccountLogout} />
+                Logout
+              </div>
+            </CDropdownItem>
+          </CDropdownMenu>
+        </CDropdown>
+      </CSidebarFooter>
     </CSidebar>
   );
 };

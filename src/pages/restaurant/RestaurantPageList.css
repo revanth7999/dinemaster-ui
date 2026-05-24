@@ -1,0 +1,5 @@
+.restaurant-card:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+  transform: translateY(-2px);
+}

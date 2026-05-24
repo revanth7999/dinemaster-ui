@@ -6,6 +6,7 @@ import UsersList from "./UsersList";
 import RestaurantsList from "./RestaurantsList";
 import "./AdminLayout.css";
 import CommonBreadcrumb from "../../components/common/CommonBreadcrumb";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const tabsConfig = {
   "create user": {
@@ -13,12 +14,12 @@ const tabsConfig = {
     component: <AdminCreateUser />,
   },
 
-  "Users": {
+  Users: {
     title: "Admin | Users",
     component: <UsersList />,
   },
 
-  "Restaurants": {
+  Restaurants: {
     title: "Admin | Restaurants",
     component: <RestaurantsList />,
   },
@@ -26,11 +27,9 @@ const tabsConfig = {
 
 export default function AdminLayout() {
   const [activeTab, setActiveTab] = useState("create user");
-
-  useEffect(() => {
-    document.title =
-      tabsConfig[activeTab]?.title || ADMIN_LANDING;
-  }, [activeTab]);
+  useDocumentTitle(
+    tabsConfig[activeTab]?.title || ADMIN_LANDING,
+  );
 
   return (
     <div className="admin-layout">
@@ -45,7 +44,7 @@ export default function AdminLayout() {
             tabsConfig[activeTab]?.label || activeTab
           }
         />
-       {tabsConfig[activeTab]?.component}
+        {tabsConfig[activeTab]?.component}
       </div>
     </div>
   );

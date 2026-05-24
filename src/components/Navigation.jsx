@@ -24,6 +24,7 @@ import AuthLayout from "./AuthLayout";
 import GlobalSearch from "./globalSearch";
 import FallbackScreen from "./fallback/FallbackScreen";
 import Landing from "../pages/landing/Landing";
+import RestaurantLanding from "../pages/restaurant/RestaurantLanding";
 
 function NavigationWrapper() {
   const location = useLocation();
@@ -65,6 +66,14 @@ function NavigationWrapper() {
             <Route
               path={OAUTH_PAGE}
               element={<OAuthSuccess />}
+            />
+            <Route
+              path={RES_PAGE}
+              element={<RestaurantLanding />}
+            />
+            <Route
+              path="/dinemaster-ui/restaurants/:id"
+              element={<RestaurantLanding />}
             />
             <Route
               path="*"

@@ -1,12 +1,13 @@
 const DEV_URL = "http://localhost:8080/dev";
-const PROD_URL = "https://dinemaster-backend-postgres.onrender.com";
+const PROD_URL =
+  "https://dinemaster-backend-postgres.onrender.com";
 
 export const API_BASE_URL = import.meta.env.DEV
   ? DEV_URL
   : PROD_URL;
 
 // My Backend URLs
-export const AUTH_REGISTER_URL = "/register";
+export const AUTH_REGISTER_URL = "/auth/register";
 export const AUTH_LOGIN_URL = "/auth/login";
 export const AUTH_LOGOUT_URL = "/auth/logout";
 export const AUTH_SHOW_USERS = "/users";

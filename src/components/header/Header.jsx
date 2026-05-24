@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../header/header.css";
-import im from "../utils/do.png";
+import applogo from "../../assets/applogo.png";
 import { TiThMenu } from "react-icons/ti";
 import { IoIosCart } from "react-icons/io";
 import { handleLogout } from "../utils/logout";
@@ -17,17 +17,12 @@ import CustomAlert from "../utilityComponents/CustomAlerts/CustomAlert";
 import { IoPersonCircle } from "react-icons/io5";
 import NavBarComponent from "./NavBarComponent";
 import UserLogout from "./UserLogout";
+import menus from "../../config/menuConfig";
 
 const Header = () => {
   const navigate = useNavigate();
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const menus = [
-    "Home",
-    "Restaurants",
-    "Orders",
-    "Admin Dashboard",
-  ];
 
   const logout = () => {
     handleLogout();
@@ -44,7 +39,8 @@ const Header = () => {
         console.error(error);
       }
     }
-    switch (menu) {
+
+    switch (menu.label) {
       case "Home":
         navigate(LANDING_PAGE);
         break;
@@ -86,7 +82,7 @@ const Header = () => {
         />
       </div>
       <img
-        src={im}
+        src={applogo}
         alt="Header Image"
         className="header-image"
         onClick={() => {

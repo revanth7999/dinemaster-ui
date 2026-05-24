@@ -11,13 +11,9 @@ const CommonBreadcrumb = ({
   return (
     <div className="mb-3">
       <CBreadcrumb>
-        <CBreadcrumbItem href="#">
-          {parent}
-        </CBreadcrumbItem>
+        <CBreadcrumbItem href="#">{parent}</CBreadcrumbItem>
 
-        <CBreadcrumbItem active>
-          {current}
-        </CBreadcrumbItem>
+        <CBreadcrumbItem active>{current}</CBreadcrumbItem>
       </CBreadcrumb>
     </div>
   );

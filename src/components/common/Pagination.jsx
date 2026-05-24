@@ -1,3 +1,5 @@
+import "./Pagination.css";
+
 const Pagination = ({ page, totalPages, setPage }) => {
   return (
     <div className="pagination-container">

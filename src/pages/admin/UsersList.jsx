@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { AUTH_SHOW_USERS, AUTH_UPDATE } from "../../components/Constants";
+import {
+  AUTH_SHOW_USERS,
+  AUTH_UPDATE,
+} from "../../components/Constants";
 import apiClient from "../../components/utils/axiosUtil";
 import "./UsersList.css";
 import Button from "react-bootstrap/Button";
@@ -47,6 +50,13 @@ const UsersList = () => {
       console.error("Error fetching users:", error);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   return (
     <div className="users-wrapper">

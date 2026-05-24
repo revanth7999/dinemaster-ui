@@ -12,8 +12,8 @@ defineCustomElements();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ErrorBoundary>
-       <Provider store={store}>
-          <App />
+      <Provider store={store}>
+        <App />
       </Provider>
     </ErrorBoundary>
   </StrictMode>,
