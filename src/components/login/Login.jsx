@@ -12,7 +12,7 @@ import {
   USER_NAME,
 } from "../Constants";
 import apiClient from "../utils/axiosUtil";
-import "../globalStyles/form.css";
+import "./Login.css";
 import LoginFormHook from "../../hooks/LoginFormHook";
 import { getBrowserName } from "../utils/basicFunctions";
 import { useDispatch } from "react-redux";
@@ -49,6 +49,7 @@ const LoginUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   useDocumentTitle(LOGIN);
   useEffect(() => {
@@ -130,99 +131,238 @@ const LoginUser = () => {
   };
 
   return (
-    <div
-      className="container d-flex align-items-center justify-content-center"
-      style={{ marginTop: "10vh" }}
-    >
-      <div
-        className="row w-100 shadow"
-        style={{ maxWidth: "900px", height: "50vh" }}
-      >
-        {/* Left side (image / design) */}
-        <div
-          className="col-md-6 d-none d-md-block"
-          style={{ background: "#0d1117" }}
-        ></div>
+    <div className="login-wrapper">
+      <div className="login-card shadow-sm">
+        {/* Left side / Top Banner on Mobile */}
+        <div className="login-left">
+          <div className="brand d-flex align-items-center gap-2 text-white">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="fw-semibold fs-5">
+              DineMaster
+            </span>
+          </div>
+
+          <div className="left-content text-white">
+            <h1 className="fw-bold mb-2 text-white">
+              Welcome Back!
+            </h1>
+            <p className="text-white-50 small mb-0">
+              Log in to manage your floor, track
+              reservations, and deliver flawless dining
+              experiences.
+            </p>
+          </div>
+
+          {/* Feature badges (hidden on mobile via CSS) */}
+          {/* Desktop Footer Features */}
+          <div className="features-footer d-flex justify-content-between text-white-50 gap-2 text-start mt-auto w-100">
+            <div>
+              <div className="fw-semibold text-white d-flex align-items-center gap-1 mb-1 small">
+                🍽️ Smart Floor
+              </div>
+              <span
+                style={{
+                  fontSize: "11px",
+                  display: "block",
+                }}
+              >
+                Real-time table tracking
+              </span>
+            </div>
+            <div>
+              <div className="fw-semibold text-white d-flex align-items-center gap-1 mb-1 small">
+                ⚡ Live Sync
+              </div>
+              <span
+                style={{
+                  fontSize: "11px",
+                  display: "block",
+                }}
+              >
+                Instant kitchen updates
+              </span>
+            </div>
+            <div>
+              <div className="fw-semibold text-white d-flex align-items-center gap-1 mb-1 small">
+                📈 Analytics
+              </div>
+              <span
+                style={{
+                  fontSize: "11px",
+                  display: "block",
+                }}
+              >
+                Daily performance insights
+              </span>
+            </div>
+          </div>
+        </div>
 
         {/* Right side (form) */}
-        <div
-          className="col-md-6 p-4 d-flex align-items-center"
-          style={{ background: "#C1BBBB" }}
-        >
+        <div className="login-right">
           <form
             onSubmit={handleLogin}
-            className="w-100"
-            style={{ marginLeft: "5vh" }}
+            className="login-form"
           >
-            <h2 className="mb-4">Log In</h2>
-            <div
-              className="form-floating mb-3"
-              style={{ width: "75%" }}
-            >
-              <input
-                type="text"
-                className="form-control"
-                id="floatingInput"
-                name="username"
-                placeholder="Username"
-                value={values.username}
-                onChange={handleChange}
-              />
-              <label htmlFor="floatingInput">
+            <h2 className="fw-bold mb-1 text-dark">
+              Log In
+            </h2>
+            <p className="text-muted small mb-4">
+              Welcome back! Please enter your details.
+            </p>
+
+            {/* Username Field */}
+            <div className="mb-3">
+              <label className="form-label small fw-medium mb-1">
                 Username
               </label>
+              <div className="input-group-custom">
+                <span className="input-icon">👤</span>
+                <input
+                  type="text"
+                  className="form-control-custom"
+                  name="username"
+                  placeholder="Enter your username"
+                  value={values.username}
+                  onChange={handleChange}
+                />
+              </div>
               {errors.username && (
-                <small className="text-danger">
+                <small className="text-danger mt-1 d-block small">
                   {errors.username}
                 </small>
               )}
             </div>
 
-            <div
-              className="form-floating mb-3"
-              style={{ width: "75%" }}
-            >
-              <input
-                type="password"
-                className="form-control"
-                id="floatingPassword"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-              />
-              <label htmlFor="floatingPassword">
+            {/* Password Field */}
+            <div className="mb-3">
+              <label className="form-label small fw-medium mb-1">
                 Password
               </label>
-              {errors.password && (
-                <small className="text-danger">
-                  {errors.password}
-                </small>
-              )}
+              <div className="input-group-custom">
+                <span className="input-icon">🔒</span>
+                <input
+                  // Dynamically change type based on state
+                  type={showPassword ? "text" : "password"}
+                  className="form-control-custom"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={values.password}
+                  onChange={handleChange}
+                />
+                {/* Click listener that toggles the state, and dynamically changes the icon */}
+                <span
+                  className="password-toggle"
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
+                  style={{ userSelect: "none" }} // Prevents highlighting the icon text on double click
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </span>
+              </div>
             </div>
 
-            <p>
-              Don’t have an account?{" "}
-              <Link to={CREATE_USER_PAGE}>Create one</Link>
-            </p>
+            {/* Remember Me & Forgot Password */}
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <div className="form-check d-flex align-items-center gap-2 op-50">
+                <input
+                  type="checkbox"
+                  className="form-check-input custom-checkbox m-0"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={false} // Always false since it's not active
+                  disabled // This prevents the user from clicking it
+                />
+                <label
+                  className="form-check-label text-muted small user-select-none opacity-75"
+                  htmlFor="rememberMe"
+                  style={{ cursor: "not-allowed" }}
+                >
+                  Remember me{" "}
+                  <span
+                    className="text-danger-custom"
+                    style={{ fontSize: "11px" }}
+                  >
+                    (Not implemented)
+                  </span>
+                </label>
+              </div>
 
+              <Link
+                to="/forgot-password"
+                className="forgot-link small text-decoration-none"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="btn btn-dark w-75"
+              className="btn btn-primary-custom w-100 fw-medium mb-4"
             >
               {isLoading ? (
                 <>
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  {" Loading..."}
+                  <span className="spinner-border spinner-border-sm me-2" />
+                  Loading...
                 </>
               ) : (
                 "Log In"
               )}
             </button>
+
+            {/* Divider */}
+            <div className="divider-wrapper mb-4">
+              <div className="line"></div>
+              <span className="divider-text">
+                or continue with
+              </span>
+              <div className="line"></div>
+            </div>
+
+            {/* Social Buttons */}
+            <div className="social-buttons mb-4">
+              <button type="button" className="social-btn">
+                <img
+                  src="https://www.svgrepo.com/show/355037/google.svg"
+                  alt="google"
+                />
+                Google
+              </button>
+              <button type="button" className="social-btn">
+                <img
+                  src="https://www.svgrepo.com/show/448239/microsoft.svg"
+                  alt="microsoft"
+                />
+                Microsoft
+              </button>
+            </div>
+
+            {/* Create Account Link Footer */}
+            <p className="text-center small text-muted mb-0">
+              Don't have an account?{" "}
+              <Link
+                to={CREATE_USER_PAGE}
+                className="auth-footer-link fw-medium text-decoration-none"
+              >
+                Create one
+              </Link>
+            </p>
           </form>
         </div>
       </div>

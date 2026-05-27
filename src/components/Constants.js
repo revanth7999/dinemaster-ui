@@ -1,6 +1,5 @@
 const DEV_URL = "http://localhost:8080/api";
-const PROD_URL =
-  "https://mybackend-mn6p.onrender.com/api";
+const PROD_URL = "https://mybackend-mn6p.onrender.com/api";
 
 export const API_BASE_URL = import.meta.env.DEV
   ? DEV_URL
