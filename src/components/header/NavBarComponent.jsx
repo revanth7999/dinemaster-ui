@@ -1,29 +1,23 @@
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 function NavBarComponent({ menus, onMenuClick }) {
   return (
-    <Navbar expand="lg" data-bs-theme="dark">
-      <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            {menus.map((menu) => (
-              <Nav.Link
-                key={menu.id}
-                onClick={() => onMenuClick(menu)}
-                style={{
-                  cursor: "pointer",
-                  color: "#ffff",
-                }}
-              >
-                {menu.label}
-              </Nav.Link>
-            ))}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
+    <Navbar expand="md" variant="dark" className="p-0bg-transparent">
+      <Navbar.Toggle aria-controls="dinemaster-navbar-nav" className="border-0 p-1" />
+      <Navbar.Collapse id="dinemaster-navbar-nav">
+        <Nav className="gap-2">
+          {menus.map((menu) => (
+            <Nav.Link
+              key={menu.id || menu.label}
+              onClick={() => onMenuClick(menu)}
+              className="dinemaster-nav-link text-white-50 fw-medium px-3 py-2"
+            >
+              {menu.label}
+            </Nav.Link>
+          ))}
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 }

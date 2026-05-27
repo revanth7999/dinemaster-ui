@@ -1,143 +1,95 @@
-/* General styles */
-body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
-  /* background-color: #f8f9fa; */
+/* Container adjustments to eliminate the default grey screen look */
+.landing-wrapper-bg {
+  min-height: calc(100vh - 56px); /* offsets navbar height */
+  background: #f8fafc;
+  width: 100%;
 }
 
-/* Landing container */
 .landing-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-  /* background: linear-gradient(to right, #e0f7fa, #fff9c4); */
+  padding: 64px 24px;
+  width: 100%;             /* 👈 Change max-width to 100% if you want the main page wide too */
+  max-width: 1200px;       /* Keep this here ONLY if you want the body text centered while the header stays wide */
+  margin: 0 auto;
 }
 
-/* Hero section */
-.hero-section {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
+/* Updated Brand Hero text settings */
 .hero-title {
-  font-size: 3.5rem;
-  color: #2e7d32;
-  margin-bottom: 15px;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  color: #388e3c;
-  margin-bottom: 25px;
+  font-size: 1.25rem;
+  color: #475569;
+  max-width: 680px;
+  margin: 0 auto 32px auto;
+  line-height: 1.6;
 }
 
-.hero-image {
-  width: 600px;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-}
-
-/* Primary Button */
-.btn-primary {
-  background-color: #388e3c;
-  color: white;
-  padding: 12px 30px;
-  border: none;
+/* Custom Action Buttons */
+.btn-primary-custom {
+  background-color: #4f46e5 !important;
+  color: white !important;
+  border: none !important;
   border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  transition: background 0.2s ease;
 }
 
-.btn-primary:hover {
-  background-color: #2e7d32;
+.btn-primary-custom:hover {
+  background-color: #4338ca !important;
 }
 
-/* Features section */
-.features-section {
-  text-align: center;
+.btn-secondary-custom {
+  background-color: white !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
+.btn-secondary-custom:hover {
+  background-color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Metric Display Cards */
+.metric-card {
+  background: white;
+  border-radius: 12px;
+  border-color: #e2e8f0 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Features List styling overrides */
 .features-title {
-  font-size: 2.5rem;
-  color: #1b5e20;
-  margin-bottom: 20px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
 }
 
 .features-list {
   list-style: none;
-  font-size: 1.2rem;
-  color: #2e7d32;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .features-list li {
-  margin-bottom: 10px;
-}
-
-/* Modal Background */
-.modal {
-  display: flex;
-  position: relative;
-  height: 100vh;
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fff;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #888;
-  border-radius: 8px;
-}
-
-/* Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.container-flex {
-  display: flex;
-  transition: all 0.5s ease;
-  width: 100%;
-}
-
-.restaurant-list {
-  width: 100%;
-  transition: transform 0.5s ease;
-}
-
-.restaurant-list.slide-left {
-  transform: translateX(-20%);
-}
-
-.restaurant-modal {
-  width: 100vh;
-  animation: slideIn 0.5s forwards;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  font-size: 1.1rem;
+  color: #475569;
 }

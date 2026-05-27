@@ -1,20 +1,11 @@
-import { useEffect, useState } from "react";
-import "../header/header.css";
+import { useState } from "react";
+import "../header/Header.css";
 import applogo from "../../assets/applogo.png";
-import { TiThMenu } from "react-icons/ti";
-import { IoIosCart } from "react-icons/io";
 import { handleLogout } from "../utils/logout";
-import { RiAdminFill } from "react-icons/ri";
-import {
-  ADMIN_LANDING_PAGE,
-  LANDING_PAGE,
-  RES_PAGE,
-} from "../Constants";
+import { ADMIN_LANDING_PAGE, LANDING_PAGE, RES_PAGE } from "../Constants";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { FaUtensils } from "react-icons/fa";
 import CustomAlert from "../utilityComponents/CustomAlerts/CustomAlert";
-import { IoPersonCircle } from "react-icons/io5";
 import NavBarComponent from "./NavBarComponent";
 import UserLogout from "./UserLogout";
 import menus from "../../config/menuConfig";
@@ -34,9 +25,9 @@ const Header = () => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        role = decoded?.roles[0];
+        role = decoded?.roles?.[0];
       } catch (error) {
-        console.error(error);
+        console.error("Token decoding failed:", error);
       }
     }
 
@@ -51,68 +42,45 @@ const Header = () => {
         if (role === "ADMIN") {
           navigate(ADMIN_LANDING_PAGE);
         } else {
-          setAlertMessage(
-            "You do not have permission to access Admin Dashboard!",
-          );
+          setAlertMessage("You do not have permission to access the Admin Dashboard!");
           setShowAlert(true);
         }
         break;
       default:
-        alert(`${menu} page is under construction`);
+        navigate(menu.path || LANDING_PAGE);
     }
   };
 
   return (
-    <div className="header-container">
-      {/* Alert placed at the top */}
-      <div
-        style={{
-          position: "absolute",
-          top: "65px",
-          right: "5px",
-          width: "300px",
-        }}
-      >
+    <header className="header-master-wrapper">
+      {/* Toast Alert Element */}
+      <div className="header-alert-toast">
         <CustomAlert
           show={showAlert}
           setShow={setShowAlert}
           message={alertMessage}
           variant="danger"
-          heading="Oops!"
+          heading="Access Denied"
         />
       </div>
-      <img
-        src={applogo}
-        alt="Header Image"
-        className="header-image"
-        onClick={() => {
-          navigate(LANDING_PAGE);
-        }}
-        style={{ cursor: "pointer" }}
-      />
 
-      <NavBarComponent
-        menus={menus}
-        onMenuClick={selectedMenu}
-      />
+      <div className="header-container-fluid">
+        {/* Brand Logo Identity */}
+        <div className="header-logo-brand" onClick={() => navigate(LANDING_PAGE)}>
+          <img src={applogo} alt="DineMaster Logo" className="header-image" />
+        </div>
 
-      {/* User Info and Logout */}
-      <div
-        style={{
-          position: "absolute",
-          right: "10px",
-          top: "15px",
-        }}
-      >
-        <div
-          style={{ color: "white", cursor: "pointer" }}
-          onClick={logout}
-        >
-          {/* <IoPersonCircle /> {localStorage.getItem("user")} */}
-          <UserLogout user={localStorage.getItem("user")} />
+        {/* Navigation Core Links Links */}
+        <div className="header-navigation-hub">
+          <NavBarComponent menus={menus} onMenuClick={selectedMenu} />
+        </div>
+
+        {/* Profile / Right Aligned Actions */}
+        <div className="header-profile-action" onClick={logout}>
+          <UserLogout user={localStorage.getItem("user") || "Staff"} />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

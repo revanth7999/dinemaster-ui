@@ -42,7 +42,7 @@ const AuthLayout = () => {
 
   return (
     <>
-      <Header className="header" />
+      <Header />
       <Outlet />
     </>
   );
