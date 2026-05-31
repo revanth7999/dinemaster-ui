@@ -46,7 +46,9 @@
 /* Custom interactive navigation animations */
 .dinemaster-nav-link {
   font-size: 14px;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
   border-radius: 6px;
 }
 
@@ -84,11 +86,11 @@
   .header-container-fluid {
     padding: 0 16px !important;
   }
-  
+
   .header-navigation-hub {
     margin-left: 12px;
   }
-  
+
   /* Dropdown panel background fix for compact mobile devices */
   .navbar-collapse {
     background-color: #0f172a;

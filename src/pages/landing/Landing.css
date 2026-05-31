@@ -1,6 +1,8 @@
 /* Container adjustments to eliminate the default grey screen look */
 .landing-wrapper-bg {
-  min-height: calc(100vh - 56px); /* offsets navbar height */
+  min-height: calc(
+    100vh - 56px
+  ); /* offsets navbar height */
   background: #f8fafc;
   width: 100%;
 }
@@ -11,8 +13,8 @@
   align-items: center;
   justify-content: center;
   padding: 64px 24px;
-  width: 100%;             /* 👈 Change max-width to 100% if you want the main page wide too */
-  max-width: 1200px;       /* Keep this here ONLY if you want the body text centered while the header stays wide */
+  width: 100%; /* 👈 Change max-width to 100% if you want the main page wide too */
+  max-width: 1200px; /* Keep this here ONLY if you want the body text centered while the header stays wide */
   margin: 0 auto;
 }
 
@@ -66,7 +68,9 @@
   background: white;
   border-radius: 12px;
   border-color: #e2e8f0 !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .metric-card:hover {

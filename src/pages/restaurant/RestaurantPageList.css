@@ -1,5 +1,21 @@
+/* .restaurant-card:hover {
+  background-color: gainsboro;
+  cursor: pointer;
+  transform: translateY(-2px);
+} */
+
 .restaurant-card:hover {
   background-color: gainsboro;
   cursor: pointer;
+  transform: translateY(-2px);
+}
+
+.restaurant-card--active {
+  background-color: #f0f6ff !important;
+  cursor: pointer;
+}
+
+.restaurant-card--active:hover {
+  background-color: #e3eeff !important;
   transform: translateY(-2px);
 }

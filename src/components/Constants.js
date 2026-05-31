@@ -13,6 +13,7 @@ export const AUTH_SHOW_USERS = "/users";
 export const ALL_REST = "/restaurants";
 export const AUTH_GET_ROLES = "/admin/roles";
 export const AUTH_UPDATE = "/admin/update/";
+export const CART_SAVE = "/cart/add";
 
 // Roles
 export const ROLES = {

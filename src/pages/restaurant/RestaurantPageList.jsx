@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function RestaurantPageList({
   onSelectRestaurant,
+  selectedRestaurant,
 }) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(0);
@@ -43,21 +44,14 @@ export default function RestaurantPageList({
       console.error("Error fetching restaurants:", error);
     }
   };
-  //   useEffect(() => {
-  //   if (id) {
-  //     fetchRestaurantById(id);
-  //   }
-  // }, [id]);
+
   return (
-    <Col md={3}>
+    <Col xs={12} md={3}>
       <div
         style={{
           background: "white",
           borderRadius: "12px",
-          padding: "20px",
-          overflow: "hidden",
-          height: "100%",
-          boxShadow: "0 2px 8px rgba(42, 34, 34, 0.08)",
+          padding: "16px",
         }}
       >
         Restaurant List ({PAGE_SIZE})
@@ -67,101 +61,111 @@ export default function RestaurantPageList({
           onChange={setSearch}
           placeholder="Search restaurants..."
         />
-        {restaurants.map((restaurant) => (
-          <Card
-            key={restaurant.id}
-            className="restaurant-card"
-            style={{
-              border: "none",
-              borderRadius: "12px",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              marginTop: "10px",
-              transition: "0.2s ease",
-            }}
-            // onClick={() => onSelectRestaurant(restaurant)}
-            onClick={() => {
-              navigate(
-                `/dinemaster-ui/restaurants/${restaurant.id}`,
-              ),
+        {restaurants.map((restaurant) => {
+          const isSelected =
+            selectedRestaurant?.id === restaurant.id;
+          return (
+            <Card
+              key={restaurant.id}
+              className={`restaurant-card ${isSelected ? "restaurant-card--active" : ""}`}
+              style={{
+                border: isSelected
+                  ? "2px solid #1a73e8"
+                  : "none",
+                borderRadius: "12px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                marginTop: "10px",
+                transition: "0.2s ease",
+                backgroundColor: isSelected
+                  ? "#f0f6ff"
+                  : "white",
+              }}
+              onClick={() => {
+                navigate(
+                  `/dinemaster-ui/restaurants/${restaurant.id}`,
+                );
                 onSelectRestaurant(restaurant);
-            }}
-          >
-            <Card.Body>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "15px",
-                }}
-              >
-                {/* Left Image */}
-                <img
-                  src="https://picsum.photos/100"
-                  alt="Restaurant"
+              }}
+            >
+              <Card.Body>
+                <div
                   style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "10px",
-                    objectFit: "cover",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "15px",
                   }}
-                />
-
-                {/* Right Content */}
-                <div style={{ flex: 1 }}>
-                  <Card.Title
+                >
+                  {/* Left Image */}
+                  <img
+                    src="https://picsum.photos/100"
+                    alt="Restaurant"
                     style={{
-                      marginBottom: "5px",
-                      fontSize: "16px",
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "10px",
+                      objectFit: "cover",
                     }}
-                  >
-                    {restaurant.name}
-                  </Card.Title>
+                  />
 
-                  <Card.Text
-                    style={{
-                      marginBottom: "10px",
-                      color: "#6c757d",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {restaurant.cuisine}
-                  </Card.Text>
+                  {/* Right Content */}
+                  <div style={{ flex: 1 }}>
+                    <Card.Title
+                      style={{
+                        marginBottom: "5px",
+                        fontSize: "16px",
+                      }}
+                    >
+                      {restaurant.name}
+                    </Card.Title>
 
-                  <span
-                    style={{
-                      padding: "6px 14px",
-                      borderRadius: "999px",
-                      backgroundColor: restaurant.isOpen
-                        ? "#dcfce7"
-                        : "#fee2e2",
-                      color: restaurant.isOpen
-                        ? "#16a34a"
-                        : "#dc2626",
-                      fontWeight: "600",
-                      fontSize: "0.85rem",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                    }}
-                  >
+                    <Card.Text
+                      style={{
+                        marginBottom: "10px",
+                        color: "#6c757d",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {restaurant.cuisine}
+                    </Card.Text>
+
                     <span
                       style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
+                        padding: "6px 14px",
+                        borderRadius: "999px",
                         backgroundColor: restaurant.isOpen
-                          ? "#22c55e"
-                          : "#ef4444",
+                          ? "#dcfce7"
+                          : "#fee2e2",
+                        color: restaurant.isOpen
+                          ? "#16a34a"
+                          : "#dc2626",
+                        fontWeight: "600",
+                        fontSize: "0.85rem",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
                       }}
-                    ></span>
+                    >
+                      <span
+                        style={{
+                          width: "8px",
+                          height: "8px",
+                          borderRadius: "50%",
+                          backgroundColor: restaurant.isOpen
+                            ? "#22c55e"
+                            : "#ef4444",
+                        }}
+                      ></span>
 
-                    {restaurant.isOpen ? "Open" : "Closed"}
-                  </span>
+                      {restaurant.isOpen
+                        ? "Open"
+                        : "Closed"}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Card.Body>
-          </Card>
-        ))}
+              </Card.Body>
+            </Card>
+          );
+        })}
         <Pagination
           page={page}
           totalPages={totalPages}

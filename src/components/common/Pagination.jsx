@@ -36,7 +36,9 @@ const Pagination = ({ page, totalPages, setPage }) => {
 
           <li
             className={`page-item ${
-              page === totalPages - 1 ? "disabled" : ""
+              page === totalPages - 1 || page == 0
+                ? "disabled"
+                : ""
             }`}
           >
             <button

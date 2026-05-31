@@ -76,6 +76,10 @@ function NavigationWrapper() {
               element={<RestaurantLanding />}
             />
             <Route
+              path="/dinemaster-ui/restaurants"
+              element={<RestaurantLanding />}
+            />
+            <Route
               path="*"
               element={
                 <FallbackScreen

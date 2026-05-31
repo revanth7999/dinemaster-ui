@@ -1,13 +1,24 @@
-import React, { useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 
 export default function RestaurantPageHeader() {
   return (
-    <div style={{ padding: "10px" }}>
-      <Stack direction="horizontal" gap={3}>
-        <h1 className="text-4xl font-bold mb-6 text-gray-800">
-          Restaurants{" "}
+    <div style={{ padding: "16px 20px" }}>
+      <Stack
+        direction="horizontal"
+        gap={3}
+        className="flex-wrap"
+      >
+        <div>
+          <h1
+            style={{
+              fontSize: "20px",
+              fontWeight: 600,
+              margin: 0,
+            }}
+          >
+            Restaurants
+          </h1>
           <p
             style={{
               fontSize: "14px",
@@ -17,9 +28,8 @@ export default function RestaurantPageHeader() {
           >
             Manage and view all your restaurants
           </p>
-        </h1>
-        <div className="p-2 ms-auto"> </div>
-        <div className="p-2">
+        </div>
+        <div className="ms-auto">
           <Button variant="dark">
             <FaPlus style={{ marginRight: "8px" }} />
             Add Restaurant
