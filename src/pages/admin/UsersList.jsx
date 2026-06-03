@@ -68,7 +68,13 @@ const UsersList = () => {
 
       <div className="users-table-container">
         <DataTable
-          columns={["S.No", "Username", "Role", "Status"]}
+          columns={[
+            "S.No",
+            "Username",
+            "Role",
+            "Status",
+            "Verified",
+          ]}
           data={users}
           emptyMessage="No users found"
           renderRow={(user, index) => (
@@ -113,6 +119,40 @@ const UsersList = () => {
                   ></span>
 
                   {user.isActive ? "Active" : "Inactive"}
+                </span>
+              </td>
+              <td style={tdStyle}>
+                <span
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: "999px",
+                    backgroundColor: user.isEmailVerified
+                      ? "#dcfce7"
+                      : "#fef3c7",
+                    color: user.isEmailVerified
+                      ? "#16a34a"
+                      : "#d97706",
+                    fontWeight: "600",
+                    fontSize: "0.85rem",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
+                      backgroundColor: user.isEmailVerified
+                        ? "#22c55e"
+                        : "#f59e0b",
+                    }}
+                  ></span>
+
+                  {user.isEmailVerified
+                    ? "Verified"
+                    : "Pending"}
                 </span>
               </td>
             </tr>

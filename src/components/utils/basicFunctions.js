@@ -32,14 +32,28 @@ export function isEmpty(a) {
   return false;
 }
 
+export function validateEmail(email) {
+  const pattern =
+    /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  return pattern.test(email);
+}
+
 export function formValidation(email, password) {
   if (isEmpty(email) && isEmpty(password)) {
     alert("Please enter Email and Password");
     return false;
-  } else if (isEmpty(email) || isEmpty(password)) {
+  }
+
+  if (isEmpty(email) || isEmpty(password)) {
     alert("Please enter details");
     return false;
   }
+
+  if (!validateEmail(email)) {
+    alert("Please enter valid Email Id");
+    return false;
+  }
+
   return true;
 }
 

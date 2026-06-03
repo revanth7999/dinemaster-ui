@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../header/Header.css";
 import applogo from "../../assets/applogo.png";
 import { handleLogout } from "../utils/logout";
@@ -13,14 +13,19 @@ import CustomAlert from "../utilityComponents/CustomAlerts/CustomAlert";
 import NavBarComponent from "./NavBarComponent";
 import UserLogout from "./UserLogout";
 import menus from "../../config/menuConfig";
+import HeaderNotification from "./HeaderNotification";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [alertVariant, setAlertVariant] = useState("");
+  const [alertHeading, setAlertHeading] = useState("");
+  const dispatch = useDispatch();
 
   const logout = () => {
-    handleLogout();
+    handleLogout(dispatch);
   };
 
   const selectedMenu = (menu) => {
@@ -49,6 +54,9 @@ const Header = () => {
           setAlertMessage(
             "You do not have permission to access the Admin Dashboard!",
           );
+          setAlertVariant("danger");
+          setAlertHeading("Access Denied");
+          setShowAlert(true);
           setShowAlert(true);
         }
         break;
@@ -65,8 +73,10 @@ const Header = () => {
           show={showAlert}
           setShow={setShowAlert}
           message={alertMessage}
-          variant="danger"
-          heading="Access Denied"
+          // variant="danger"
+          // heading="Access Denied"
+          variant={alertVariant}
+          heading={alertHeading}
         />
       </div>
 
@@ -91,11 +101,22 @@ const Header = () => {
           />
         </div>
 
-        {/* Profile / Right Aligned Actions */}
-        <div
-          className="header-profile-action"
-          onClick={logout}
-        >
+        {/*Notification Center */}
+        <HeaderNotification
+          onAlert={(
+            message,
+            variant = "success",
+            heading = "Notification",
+          ) => {
+            setAlertMessage(message);
+            setAlertVariant(variant);
+            setAlertHeading(heading);
+            setShowAlert(true);
+          }}
+        />
+
+        {/* Profile */}
+        <div onClick={logout}>
           <UserLogout
             user={localStorage.getItem("user") || "Staff"}
           />

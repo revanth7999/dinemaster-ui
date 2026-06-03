@@ -25,6 +25,7 @@ import GlobalSearch from "./globalSearch";
 import FallbackScreen from "./fallback/FallbackScreen";
 import Landing from "../pages/landing/Landing";
 import RestaurantLanding from "../pages/restaurant/RestaurantLanding";
+import VerifyEmail from "../pages/VerifyEmail";
 
 function NavigationWrapper() {
   const location = useLocation();
@@ -78,6 +79,10 @@ function NavigationWrapper() {
             <Route
               path="/dinemaster-ui/restaurants"
               element={<RestaurantLanding />}
+            />
+            <Route
+              path="/dinemaster-ui/verify-email"
+              element={<VerifyEmail />}
             />
             <Route
               path="*"

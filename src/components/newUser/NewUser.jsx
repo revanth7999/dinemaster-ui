@@ -238,7 +238,7 @@ const NewUser = ({ prop }) => {
                   Registering...
                 </>
               ) : (
-                "Create User"
+                "Register"
               )}
             </button>
 

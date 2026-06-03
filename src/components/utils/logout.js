@@ -5,24 +5,23 @@ import {
   USER_NAME,
 } from "../Constants";
 import apiClient from "./axiosUtil";
+import { persistor } from "../../redux/store";
+import { logout as logoutAction } from "../../redux/authSlice";
 
-/**
- * Handles user logout by calling the logout endpoint, clearing local storage and cookies,
- * and redirecting to the login page.
- */
-export async function handleLogout() {
+export async function handleLogout(dispatch) {
   try {
     await apiClient.post(AUTH_LOGOUT_URL, {
       username: localStorage.getItem(USER_NAME),
     });
-
-    // Clear storage
-    localStorage.removeItem(TOKEN);
-    localStorage.removeItem(USER_NAME);
-
   } catch (error) {
     console.error("Logout failed:", error);
   } finally {
+    localStorage.removeItem(TOKEN);
+    localStorage.removeItem(USER_NAME);
+
+    dispatch(logoutAction());
+    await persistor.purge();
+
     window.location.href = LOGIN_PAGE;
   }
 }
