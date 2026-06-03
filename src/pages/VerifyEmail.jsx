@@ -6,6 +6,7 @@ import {
   LOGIN_PAGE,
 } from "../components/Constants";
 import { handleLogout } from "../components/utils/logout";
+import { useDispatch } from "react-redux";
 
 export default function VerifyEmail() {
   const [status, setStatus] = useState("loading");
@@ -16,9 +17,10 @@ export default function VerifyEmail() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const logout = () => {
-    handleLogout();
+    handleLogout(dispatch);
   };
 
   useEffect(() => {

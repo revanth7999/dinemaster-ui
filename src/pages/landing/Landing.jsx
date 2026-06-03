@@ -47,7 +47,7 @@ const Landing = () => {
         {/* Hero Banner Section */}
         <header className="hero-section">
           <h1 className="hero-title">
-            Master Your Restaurant Operations
+            Master Your Restaurant Operations-s
           </h1>
           <p className="hero-subtitle">
             Manage your floors, track incoming reservations,

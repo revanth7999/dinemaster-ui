@@ -54,7 +54,12 @@ function NavigationWrapper() {
             path={CREATE_USER_PAGE}
             element={<NewUser />}
           />
+          <Route
+            path="/dinemaster-ui/verify-email"
+            element={<VerifyEmail />}
+          />
 
+          {/* PROTECTED ROUTES */}
           <Route element={<AuthLayout />}>
             <Route
               path={LANDING_PAGE}
@@ -79,10 +84,6 @@ function NavigationWrapper() {
             <Route
               path="/dinemaster-ui/restaurants"
               element={<RestaurantLanding />}
-            />
-            <Route
-              path="/dinemaster-ui/verify-email"
-              element={<VerifyEmail />}
             />
             <Route
               path="*"
