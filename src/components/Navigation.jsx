@@ -42,6 +42,7 @@ function NavigationWrapper() {
       {!hideGlobalSearch && <GlobalSearch />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
+          {/* Public routes */}
           <Route
             path={BASE_PAGE_PATH}
             element={<Navigate to={LOGIN_PAGE} />}
@@ -86,16 +87,18 @@ function NavigationWrapper() {
               path="/dinemaster-ui/restaurants"
               element={<RestaurantLanding />}
             />
-            <Route
-              path="*"
-              element={
-                <FallbackScreen
-                  title="404 - Page Not Found"
-                  description="The page you are looking for does not exist."
-                />
-              }
-            />
           </Route>
+
+          {/* 404 — outside AuthLayout, no auth check */}
+          <Route
+            path="*"
+            element={
+              <FallbackScreen
+                title="404 - Page Not Found"
+                description="The page you are looking for does not exist."
+              />
+            }
+          />
         </Routes>
       </Suspense>
     </>
