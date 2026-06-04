@@ -23,6 +23,6 @@ export async function handleLogout(dispatch) {
     dispatch(logoutAction());
     await persistor.purge();
 
-    window.location.href = APP_BASE + LOGIN_PAGE;
+    window.location.href = APP_BASE +'#'+ LOGIN_PAGE;
   }
 }
