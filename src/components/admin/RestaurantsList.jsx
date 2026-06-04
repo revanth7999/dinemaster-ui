@@ -20,6 +20,7 @@ const RestaurantsList = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] =
     useState("");
+  const [loading, setLoading] = useState(false);
 
   const PAGE_SIZE = 50;
 
@@ -35,6 +36,7 @@ const RestaurantsList = () => {
   }, [page, debouncedSearch]);
 
   const fetchRestaurants = async () => {
+    setLoading(true);
     try {
       const response = await apiClient.get(
         `${ALL_REST}?page=${page}&size=${PAGE_SIZE}&search=${debouncedSearch}`,
@@ -44,6 +46,8 @@ const RestaurantsList = () => {
       setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Error fetching restaurants:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,6 +113,8 @@ const RestaurantsList = () => {
               <td>{renderStars(restaurant.rating)}</td>
             </tr>
           )}
+          loading={loading}
+          skeletonRows={5}
         />
       </div>
 

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "../header/Header.css";
 import applogo from "../../assets/applogo.png";
-import { handleLogout } from "../utils/logout";
 import {
   ADMIN_LANDING_PAGE,
   LANDING_PAGE,
@@ -14,7 +13,6 @@ import NavBarComponent from "./NavBarComponent";
 import UserLogout from "./UserLogout";
 import menus from "../../config/menuConfig";
 import HeaderNotification from "./HeaderNotification";
-import { useDispatch } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,11 +20,6 @@ const Header = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertVariant, setAlertVariant] = useState("");
   const [alertHeading, setAlertHeading] = useState("");
-  const dispatch = useDispatch();
-
-  const logout = () => {
-    handleLogout(dispatch);
-  };
 
   const selectedMenu = (menu) => {
     const token = localStorage.getItem("authToken");
@@ -73,8 +66,6 @@ const Header = () => {
           show={showAlert}
           setShow={setShowAlert}
           message={alertMessage}
-          // variant="danger"
-          // heading="Access Denied"
           variant={alertVariant}
           heading={alertHeading}
         />
@@ -116,11 +107,9 @@ const Header = () => {
         />
 
         {/* Profile */}
-        <div onClick={logout}>
-          <UserLogout
-            user={localStorage.getItem("user") || "Staff"}
-          />
-        </div>
+        <UserLogout
+          user={localStorage.getItem("user") || "Staff"}
+        />
       </div>
     </header>
   );

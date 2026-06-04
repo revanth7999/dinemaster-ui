@@ -33,12 +33,14 @@ const UsersList = () => {
     useState("");
   const [search, setSearch] = useState("");
   const PAGE_SIZE = 20;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchUsers();
   }, [page, debouncedSearch]);
 
   const fetchUsers = async () => {
+    setLoading(true);
     try {
       const response = await apiClient.get(
         `${AUTH_SHOW_USERS}?page=${page}&size=${PAGE_SIZE}&search=${debouncedSearch}`,
@@ -48,6 +50,8 @@ const UsersList = () => {
       setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -157,6 +161,8 @@ const UsersList = () => {
               </td>
             </tr>
           )}
+          loading={loading}
+          skeletonRows={5}
         />
       </div>
 
