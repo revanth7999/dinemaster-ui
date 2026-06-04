@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/dinemaster-ui">
       <div className="app-container">
         <div className="content">
           <Navigation />

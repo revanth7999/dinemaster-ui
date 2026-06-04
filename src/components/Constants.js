@@ -35,15 +35,14 @@ export const LANDING = "Dashboard";
 export const ADMIN_LANDING = "Admin Dashboard";
 
 // Route Constants
-export const BASE_PAGE_PATH = "/dinemaster-ui";
-export const LOGIN_PAGE = "/dinemaster-ui/login";
-export const LANDING_PAGE = "/dinemaster-ui/landing";
-export const RES_PAGE = "/dinemaster-ui/restaurants";
-export const ADMIN_LANDING_PAGE =
-  "/dinemaster-ui/adminlanding";
-export const CREATE_USER_PAGE =
-  "/dinemaster-ui/create-user";
-export const OAUTH_PAGE = "/dinemaster-ui/oauth-success";
+export const APP_BASE = "/dinemaster-ui";
+export const BASE_PAGE_PATH = "/";
+export const LOGIN_PAGE = "/login";
+export const LANDING_PAGE = "/landing";
+export const RES_PAGE = "/restaurants";
+export const ADMIN_LANDING_PAGE = "/adminlanding";
+export const CREATE_USER_PAGE = "/create-user";
+export const OAUTH_PAGE = "/oauth-success";
 
 // Success Messages
 export const SUCCESS = "Success";

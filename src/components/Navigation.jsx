@@ -34,7 +34,7 @@ function NavigationWrapper() {
   const hideGlobalSearch = [
     LOGIN_PAGE,
     CREATE_USER_PAGE,
-    "/dinemaster-ui/verify-email",
+    "/verify-email",
   ].includes(location.pathname);
 
   return (
@@ -57,7 +57,7 @@ function NavigationWrapper() {
             element={<NewUser />}
           />
           <Route
-            path="/dinemaster-ui/verify-email"
+            path="/verify-email"
             element={<VerifyEmail />}
           />
 
@@ -80,11 +80,11 @@ function NavigationWrapper() {
               element={<RestaurantLanding />}
             />
             <Route
-              path="/dinemaster-ui/restaurants/:id"
+              path="/restaurants/:id"
               element={<RestaurantLanding />}
             />
             <Route
-              path="/dinemaster-ui/restaurants"
+              path="/restaurants"
               element={<RestaurantLanding />}
             />
           </Route>
