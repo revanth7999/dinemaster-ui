@@ -34,6 +34,7 @@ function NavigationWrapper() {
   const hideGlobalSearch = [
     LOGIN_PAGE,
     CREATE_USER_PAGE,
+    "/dinemaster-ui/verify-email",
   ].includes(location.pathname);
 
   return (
