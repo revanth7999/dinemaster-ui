@@ -42,7 +42,7 @@ export default function RestaurantPageList({
       );
       const data = response.data.data;
       setRestaurants(data.content);
-      setTotalPages(data.totalPages);
+      setTotalPages(data.page.totalPages);
     } catch (error) {
       console.error("Error fetching restaurants:", error);
     } finally {
@@ -91,7 +91,7 @@ export default function RestaurantPageList({
                   }}
                   onClick={() => {
                     navigate(
-                      `/dinemaster-ui/restaurants/${restaurant.id}`,
+                      `/restaurants/${restaurant.id}`,
                     );
                     onSelectRestaurant(restaurant);
                   }}

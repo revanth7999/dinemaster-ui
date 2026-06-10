@@ -47,7 +47,7 @@ const UsersList = () => {
       );
       const data = response.data.data;
       setUsers(data.content);
-      setTotalPages(data.totalPages);
+      setTotalPages(data.page.totalPages);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {

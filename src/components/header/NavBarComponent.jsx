@@ -1,12 +1,22 @@
+import { useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 function NavBarComponent({ menus, onMenuClick }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleMenuClick = (menu) => {
+    onMenuClick(menu);
+    setExpanded(false);
+  };
+
   return (
     <Navbar
       expand="md"
       variant="dark"
       className="p-0bg-transparent"
+      expanded={expanded}
+      onToggle={() => setExpanded(!expanded)}
     >
       <Navbar.Toggle
         aria-controls="dinemaster-navbar-nav"
@@ -17,7 +27,7 @@ function NavBarComponent({ menus, onMenuClick }) {
           {menus.map((menu) => (
             <Nav.Link
               key={menu.id || menu.label}
-              onClick={() => onMenuClick(menu)}
+              onClick={() => handleMenuClick(menu)}
               className="dinemaster-nav-link text-white-50 fw-medium px-3 py-2"
             >
               {menu.label}

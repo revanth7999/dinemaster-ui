@@ -47,7 +47,7 @@ const RestaurantLanding = () => {
     if (wasRefreshed) {
       sessionStorage.removeItem("refreshed");
       if (id) {
-        navigate("/dinemaster-ui/restaurants", {
+        navigate("/restaurants", {
           replace: true,
         });
       }

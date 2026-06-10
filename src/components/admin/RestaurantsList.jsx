@@ -43,7 +43,7 @@ const RestaurantsList = () => {
       );
       const data = response.data.data;
       setRestaurants(data.content);
-      setTotalPages(data.totalPages);
+      setTotalPages(data.page.totalPages);
     } catch (error) {
       console.error("Error fetching restaurants:", error);
     } finally {
