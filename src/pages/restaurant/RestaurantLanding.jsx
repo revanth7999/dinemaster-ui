@@ -8,7 +8,10 @@ import {
   Stack,
 } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import { ALL_REST } from "../../components/Constants";
+import {
+  ALL_REST,
+  GET_USER_CART,
+} from "../../components/Constants";
 import apiClient from "../../components/utils/axiosUtil";
 import SearchBar from "../../components/common/SearchBar";
 import Pagination from "../../components/common/Pagination";
@@ -17,14 +20,26 @@ import RestaurantPageList from "./RestaurantPageList";
 import RestaurantPageDetails from "./RestaurantPageDetails";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CartPage from "./CartPage";
 
 const RestaurantLanding = () => {
-  const { id } = useParams();
+  // Component State
   const [selectedRestaurant, setSelectedRestaurant] =
     useState(null);
-  const navigate = useNavigate();
-  useDocumentTitle("Restaurants View");
+  const [userCartDetails, setUserCartDetails] = useState(
+    [],
+  );
+  const [displayCart, setDisplayCart] = useState(false);
 
+  // De-structuring
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useSelector(
+    (state) => state.auth,
+  );
+
+  // Side-Effects
   useEffect(() => {
     const handleBeforeUnload = () => {
       sessionStorage.setItem("refreshed", "true");
@@ -61,6 +76,11 @@ const RestaurantLanding = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    fetchCartByUserId(user.userId);
+  }, []);
+
+  // Component Functions
   const fetchRestaurantById = useCallback(
     async (restaurantId) => {
       try {
@@ -75,6 +95,18 @@ const RestaurantLanding = () => {
     [],
   );
 
+  const fetchCartByUserId = async (userId) => {
+    try {
+      const response = await apiClient.get(
+        `${GET_USER_CART}` + userId,
+      );
+      console.log("API Data:", response.data.data);
+      setUserCartDetails(response.data.data);
+    } catch (error) {
+      console.error("Error fetching user cart:", error);
+    }
+  };
+
   return (
     <div
       style={{
@@ -82,7 +114,10 @@ const RestaurantLanding = () => {
         minHeight: "calc(100vh - 60px)",
       }}
     >
-      <RestaurantPageHeader />
+      <RestaurantPageHeader
+        updateDisplayCart={setDisplayCart}
+        userCartDetails={userCartDetails}
+      />
       <Container fluid className="px-2 px-md-3 py-3">
         <Row className="g-3">
           <RestaurantPageList
@@ -91,7 +126,11 @@ const RestaurantLanding = () => {
           />
           <RestaurantPageDetails
             selectedRestaurant={selectedRestaurant}
+            userCartDetails={userCartDetails}
           />
+          {displayCart ? (
+            <CartPage userCartDetails={userCartDetails} />
+          ) : null}
         </Row>
       </Container>
     </div>

@@ -1,5 +1,6 @@
 const DEV_URL = "http://localhost:8080/api";
-const PROD_URL = "https://mybackend-mn6p.onrender.com/api";
+// const PROD_URL = "https://mybackend-mn6p.onrender.com/api";
+const PROD_URL = "http://100.104.75.116:8080/api";
 
 export const API_BASE_URL = import.meta.env.DEV
   ? DEV_URL
@@ -14,6 +15,7 @@ export const ALL_REST = "/restaurants";
 export const AUTH_GET_ROLES = "/admin/roles";
 export const AUTH_UPDATE = "/admin/update/";
 export const CART_SAVE = "/cart/add";
+export const GET_USER_CART = "/cart/getUserCart/";
 
 // Roles
 export const ROLES = {

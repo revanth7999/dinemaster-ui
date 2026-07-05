@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import {
@@ -9,36 +9,12 @@ import apiClient from "../../components/utils/axiosUtil";
 
 export default function RestaurantPageDetails({
   selectedRestaurant,
+  userCartDetails,
 }) {
   const [cart, setCart] = useState({});
   const { user, isAuthenticated } = useSelector(
     (state) => state.auth,
   );
-
-  const checkOutCart = async () => {
-    try {
-      const payload = {
-        userId: user.userId,
-        restaurantId: selectedRestaurant.id,
-        items: cartItems.map((dish) => ({
-          menuItemId: dish.id,
-          quantity: cart[dish.id],
-          price: dish.price,
-        })),
-      };
-
-      console.log(payload);
-
-      const response = await apiClient.post(
-        `${CART_SAVE}`,
-        payload,
-      );
-
-      console.log(response.data);
-    } catch (error) {
-      console.error("Checkout failed:", error);
-    }
-  };
 
   const addItem = (dish) => {
     setCart((prev) => ({
@@ -58,17 +34,9 @@ export default function RestaurantPageDetails({
     });
   };
 
-  const cartItems =
-    selectedRestaurant?.dishes?.filter((d) => cart[d.id]) ||
-    [];
-  const total = cartItems.reduce(
-    (sum, d) => sum + d.price * cart[d.id],
-    0,
-  );
-
   return (
     // xs=12 full width on mobile, md=9 on desktop (matches your original md={9})
-    <Col xs={12} md={9}>
+    <Col xs={12} md={5}>
       {!selectedRestaurant ? (
         <div
           style={{
@@ -82,7 +50,7 @@ export default function RestaurantPageDetails({
       ) : (
         <Row className="g-3">
           {/* Dishes — full width on mobile, 8 cols on tablet+ */}
-          <Col xs={12} sm={8} md={8}>
+          <Col xs={12} sm={10} md={10}>
             <div
               style={{
                 background: "white",
@@ -214,111 +182,6 @@ export default function RestaurantPageDetails({
                   </div>
                 ))}
               </div>
-            </div>
-          </Col>
-
-          {/* Cart — full width on mobile, 4 cols on tablet+ */}
-          <Col xs={12} sm={4} md={4}>
-            <div
-              style={{
-                background: "white",
-                borderRadius: "12px",
-                padding: "16px",
-                position: "sticky",
-                top: "16px",
-              }}
-            >
-              <h5 style={{ marginBottom: "12px" }}>
-                Your cart
-              </h5>
-              {cartItems.length === 0 ? (
-                <p
-                  style={{
-                    color: "#999",
-                    fontSize: "13px",
-                  }}
-                >
-                  No items added yet
-                </p>
-              ) : (
-                <>
-                  {cartItems.map((dish) => (
-                    <div
-                      key={dish.id}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "8px 0",
-                        borderBottom: "1px solid #f0f0f0",
-                      }}
-                    >
-                      <div>
-                        <p
-                          style={{
-                            margin: 0,
-                            fontSize: "13px",
-                          }}
-                        >
-                          {dish.dishName}
-                        </p>
-                        <p
-                          style={{
-                            margin: 0,
-                            fontSize: "12px",
-                            color: "#999",
-                          }}
-                        >
-                          x{cart[dish.id]} × ₹{dish.price}
-                        </p>
-                      </div>
-                      <span
-                        style={{
-                          fontWeight: 600,
-                          fontSize: "13px",
-                        }}
-                      >
-                        ₹{dish.price * cart[dish.id]}
-                      </span>
-                    </div>
-                  ))}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      padding: "10px 0 0",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <span>Total</span>
-                    <span>₹{total}</span>
-                  </div>
-                  <button
-                    style={{
-                      width: "100%",
-                      marginTop: "12px",
-                      padding: "10px",
-                      background: "#1a73e8",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                      fontWeight: 500,
-                    }}
-                    // onClick={() =>
-                    //   console.log("Checkout", {
-                    //     restaurantId: selectedRestaurant.id,
-                    //     items: cartItems.map((d) => ({
-                    //       menuItemId: d.id,
-                    //       quantity: cart[d.id],
-                    //     })),
-                    //   })
-                    // }
-                    onClick={checkOutCart}
-                  >
-                    Proceed to checkout
-                  </button>
-                </>
-              )}
             </div>
           </Col>
         </Row>

@@ -10,7 +10,6 @@ import { LOGIN_PAGE, TOKEN } from "./Constants";
  */
 const AuthLayout = () => {
   const navigate = useNavigate();
-  console.log("AuthLayout mounted!");
 
   useEffect(() => {
     // Function to check if token is in sessionStorage

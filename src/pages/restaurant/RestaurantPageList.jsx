@@ -12,6 +12,7 @@ export default function RestaurantPageList({
   onSelectRestaurant,
   selectedRestaurant,
 }) {
+  // Component State
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
