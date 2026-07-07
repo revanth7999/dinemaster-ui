@@ -12,12 +12,12 @@ import { PersistGate } from "redux-persist/integration/react";
 defineCustomElements();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-  <ErrorBoundary>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </ErrorBoundary>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </ErrorBoundary>
   </StrictMode>,
 );

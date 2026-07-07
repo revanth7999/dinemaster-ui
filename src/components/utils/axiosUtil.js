@@ -71,7 +71,8 @@ apiClient.interceptors.response.use(
           {},
           { withCredentials: true },
         );
-        const newToken = response.data.accessToken;
+        const newToken =
+          response.data.data.tokens.accessToken;
         localStorage.setItem(TOKEN, newToken);
         apiClient.defaults.headers["Authorization"] =
           `Bearer ${newToken}`;

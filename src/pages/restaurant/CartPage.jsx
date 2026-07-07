@@ -5,7 +5,6 @@ export default function CartPage({
   selectedRestaurant,
   userCartDetails,
 }) {
-
   const [cart, setCart] = useState({});
 
   useEffect(() => {

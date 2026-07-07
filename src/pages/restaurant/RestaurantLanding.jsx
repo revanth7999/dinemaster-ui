@@ -77,7 +77,7 @@ const RestaurantLanding = () => {
   }, [id]);
 
   useEffect(() => {
-    fetchCartByUserId(user.userId);
+    fetchCartByUserId(user.id);
   }, []);
 
   // Component Functions
@@ -95,10 +95,10 @@ const RestaurantLanding = () => {
     [],
   );
 
-  const fetchCartByUserId = async (userId) => {
+  const fetchCartByUserId = async (id) => {
     try {
       const response = await apiClient.get(
-        `${GET_USER_CART}` + userId,
+        `${GET_USER_CART}` + id,
       );
       console.log("API Data:", response.data.data);
       setUserCartDetails(response.data.data);

@@ -13,13 +13,19 @@ import NavBarComponent from "./NavBarComponent";
 import UserLogout from "./UserLogout";
 import menus from "../../config/menuConfig";
 import HeaderNotification from "./HeaderNotification";
+import { Badge } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const navigate = useNavigate();
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertVariant, setAlertVariant] = useState("");
   const [alertHeading, setAlertHeading] = useState("");
+
+  const navigate = useNavigate();
+  const { environment } = useSelector(
+    (state) => state.auth,
+  );
 
   const selectedMenu = (menu) => {
     const token = localStorage.getItem("authToken");
@@ -91,6 +97,12 @@ const Header = () => {
             onMenuClick={selectedMenu}
           />
         </div>
+
+        <h5 style={{ margin: "5px", marginRight: "15px" }}>
+          <Badge bg="secondary">
+            {environment || "unknown Instance"}
+          </Badge>
+        </h5>
 
         {/*Notification Center */}
         <HeaderNotification
