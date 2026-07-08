@@ -14,9 +14,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { formValidation } from "../utils/basicFunctions";
 import apiClient from "../utils/axiosUtil";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../redux/authSlice";
 
 const NewUser = ({ prop }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +45,17 @@ const NewUser = ({ prop }) => {
         })
         .then((response) => {
           if (response.status === STATUS_OK) {
-            const token = response.data.data.token;
+            const token =
+              response.data.data.tokens.accessToken;
+            const userData = response.data.data.user;
+            const env = response.data.data.meta.environment;
+            dispatch(
+              loginSuccess({
+                token: token,
+                user: userData,
+                environment: env,
+              }),
+            );
             localStorage.setItem(TOKEN, token);
             localStorage.setItem(
               USER_NAME,
@@ -51,12 +64,31 @@ const NewUser = ({ prop }) => {
             setIsLoading(false);
             navigate(LANDING_PAGE);
           } else {
-            console.log(response);
+            console.log(response.data.message);
             setIsLoading(false);
           }
         })
         .catch((error) => {
           setIsLoading(false);
+          if (error.response) {
+            const { status, data } = error.response;
+
+            if (status === 409) {
+              // Username already exists
+              alert(data.message);
+              return;
+            }
+
+            if (status === 400) {
+              alert(data.message);
+              return;
+            }
+
+            alert("Something went wrong.");
+          } else {
+            alert("Unable to connect to the server.");
+          }
+
           console.error(
             "There was an error creating the user!",
             error,

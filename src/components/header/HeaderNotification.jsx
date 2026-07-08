@@ -25,8 +25,7 @@ export default function HeaderNotification({ onAlert }) {
 
     try {
       await apiClient.post(
-        `${API_BASE_URL}/email/send-verification-email`,
-        {},
+        `${API_BASE_URL}/email/send-verification-email?id=${user.id}`,
       );
 
       onAlert(
