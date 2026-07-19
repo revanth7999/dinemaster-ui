@@ -1,17 +1,26 @@
+import { useSelector } from "react-redux";
 import "./App.css";
-import Footer from "./components/footer/Footer";
 import Navigation from "./components/Navigation";
 import { HashRouter } from "react-router-dom";
+import MaintenanceScreen from "./components/maintenance/MaintenanceScreen";
+import { BACKEND_STATUS } from "./components/Constants";
 
 function App() {
+  const status = useSelector(
+    (state) => state.backendStatus.status,
+  );
+
   return (
     <HashRouter>
-      <div className="app-container">
-        <div className="content">
-          <Navigation />
+      {status === BACKEND_STATUS.UP ? (
+        <div className="app-container">
+          <div className="content">
+            <Navigation />
+          </div>
         </div>
-        {/* <Footer className="footer" /> */}
-      </div>
+      ) : (
+        <MaintenanceScreen type={status} />
+      )}
     </HashRouter>
   );
 }

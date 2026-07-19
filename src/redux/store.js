@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import app_menusReducer from "./menuSlice";
+import backendStatusReducer from "./backendStatusSlice";
 
 import storage from "redux-persist/lib/storage";
 import {
@@ -22,6 +23,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     app_menus: app_menusReducer,
+    backendStatus: backendStatusReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

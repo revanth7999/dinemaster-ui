@@ -1,6 +1,11 @@
 import axios from "axios";
 import { API_BASE_URL, TOKEN } from "../Constants";
 import { handleLogout } from "./logout";
+import { store } from "../../redux/store";
+import {
+  backendDown,
+  backendUp,
+} from "../../redux/backendStatusSlice";
 
 // Create an axios instance
 const apiClient = axios.create({
@@ -40,9 +45,28 @@ const processQueue = (error, token = null) => {
 
 // Response interceptor
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Backend is reachable
+    store.dispatch(backendUp());
+
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
+
+    // Backend unreachable (server down, timeout, network error)
+    if (!error.response) {
+      store.dispatch(backendDown());
+      return Promise.reject(error);
+    }
+
+    if (error.response?.status === 503) {
+      store.dispatch(backendMaintenance());
+      return Promise.reject(error);
+    }
+
+    // Backend responded
+    store.dispatch(backendUp());
 
     if (
       error.response?.status === 401 &&

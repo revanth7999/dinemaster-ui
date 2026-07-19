@@ -4,6 +4,17 @@ import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../Constants";
 import apiClient from "../utils/axiosUtil";
 import CustomAlert from "../utilityComponents/CustomAlerts/CustomAlert";
+import "../header/HeaderNotification.css";
+import {
+  EMAIL_RESPONSE_TYPE,
+  EMAIL_SENT_FAILURE_MESSAGE,
+  EMAIL_SENT_SUCCESS_MESSAGE,
+  EMAIL_TOASTER_TITLE,
+  NO_NOTIFICATION_MESSAGE,
+  NOTIFICATION_ACTION,
+  SEND_EMAIL_BUTTON,
+} from "./HeaderConstants";
+import { getTimeAgo } from "./dateUtils";
 
 export default function HeaderNotification({ onAlert }) {
   const [showNotifications, setShowNotifications] =
@@ -11,14 +22,16 @@ export default function HeaderNotification({ onAlert }) {
   const [isLoading, setIsLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
   const notificationRef = useRef(null);
   const { user, isAuthenticated } = useSelector(
     (state) => state.auth,
   );
 
-  const isEmailVerified = user?.isEmailVerified ?? false;
-  const notificationCount = isEmailVerified ? 0 : 1;
+  const notificationCount = notifications.filter(
+    (notification) => !notification.isRead,
+  ).length;
 
   const handleVerifyEmail = async () => {
     setIsLoading(true);
@@ -29,9 +42,9 @@ export default function HeaderNotification({ onAlert }) {
       );
 
       onAlert(
-        "Verification email sent successfully.",
-        "success",
-        "Email Verification",
+        EMAIL_SENT_SUCCESS_MESSAGE,
+        EMAIL_RESPONSE_TYPE.SUCCESS,
+        EMAIL_TOASTER_TITLE,
       );
 
       setShowNotifications(false);
@@ -40,9 +53,9 @@ export default function HeaderNotification({ onAlert }) {
 
       onAlert(
         error?.response?.data?.message ||
-          "Failed to send verification email.",
-        "danger",
-        "Email Verification",
+          EMAIL_SENT_FAILURE_MESSAGE,
+        EMAIL_RESPONSE_TYPE.DANGER,
+        EMAIL_TOASTER_TITLE,
       );
     } finally {
       setIsLoading(false);
@@ -72,140 +85,113 @@ export default function HeaderNotification({ onAlert }) {
     };
   }, []);
 
+  const fetchNotifications = async () => {
+    if (!user?.id) return;
+
+    try {
+      const response = await apiClient.get(
+        `${API_BASE_URL}/notifications/${user.id}`,
+      );
+
+      setNotifications(response.data.data ?? []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, [user?.id]);
+
   if (!isAuthenticated || !user) {
     return null;
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        marginRight: "15px",
-      }}
-    >
+    <div className="notifcation-master-wrapper">
       <div
+        className="notifcation-master-body"
         ref={notificationRef}
-        style={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
       >
-        <div
-          onClick={() =>
-            setShowNotifications(!showNotifications)
-          }
-          style={{
-            cursor: "pointer",
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <FaBell size={18} color="white" />
+        {/* {Icon} */}
+        <div className="notifcation-icon">
+          <FaBell
+            size={18}
+            color="white"
+            onClick={() =>
+              setShowNotifications(!showNotifications)
+            }
+          />
 
           <span
-            style={{
-              position: "absolute",
-              top: "-8px",
-              right: "-8px",
-              minWidth: "16px",
-              height: "16px",
-              borderRadius: "999px",
-              background:
-                notificationCount > 0
-                  ? "#ef4444"
-                  : "#6b7280",
-              color: "#fff",
-              fontSize: "10px",
-              fontWeight: "700",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "0 4px",
-            }}
+            className={`notification-badge ${
+              notificationCount > 0
+                ? "has-notifications"
+                : "no-notifications"
+            }`}
           >
             {notificationCount}
           </span>
         </div>
 
         {showNotifications && (
-          <div
-            style={{
-              position: "absolute",
-              top: "35px",
-              right: "0",
-              width: "280px",
-              maxWidth: "90vw",
-              background: "#fff",
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              zIndex: 999,
-              padding: "12px",
-            }}
-          >
-            <div
-              style={{
-                fontWeight: "600",
-                marginBottom: "10px",
-                borderBottom: "1px solid #eee",
-                paddingBottom: "8px",
-              }}
-            >
-              Notifications
+          <div className="notifcation-modal">
+            <div className="notifcation-modal-header">
+              Notifications ({notificationCount})
             </div>
 
-            {notificationCount === 0 ? (
-              <div
-                style={{
-                  color: "#6b7280",
-                  textAlign: "center",
-                  padding: "12px 0",
-                  fontSize: "0.9rem",
-                }}
-              >
-                No new notifications
+            {notifications.length === 0 ? (
+              <div className="notifcation-modal-body-no-notification">
+                {NO_NOTIFICATION_MESSAGE}
               </div>
             ) : (
-              <>
-                <div
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "#92400e",
-                    marginBottom: "12px",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  ⚠ Your email is not verified yet. Please
-                  verify your email address to access all
-                  features.
-                </div>
+              <div className="notification-list">
+                {notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className={`notification-item ${
+                      notification.isRead
+                        ? "read"
+                        : "unread"
+                    }`}
+                  >
+                    <div className="notification-header">
+                      <div className="notification-title">
+                        {!notification.isRead && (
+                          <span className="notification-dot"></span>
+                        )}
 
-                <button
-                  onClick={handleVerifyEmail}
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    padding: "8px 12px",
-                    borderRadius: "6px",
-                    background: "#f59e0b",
-                    color: "#fff",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                  }}
-                >
-                  {isLoading ? (
-                    <>
-                      <span className="spinner-border spinner-border-sm me-2" />
-                      Sending Email...
-                    </>
-                  ) : (
-                    "Send Verification Email"
-                  )}
-                </button>
-              </>
+                        {notification.title}
+                      </div>
+
+                      <span className="notification-time">
+                        {getTimeAgo(notification.createdAt)}
+                      </span>
+                    </div>
+
+                    <div className="notification-message">
+                      {notification.message}
+                    </div>
+
+                    {notification.actionType ===
+                      NOTIFICATION_ACTION.VERIFY_EMAIL && (
+                      <button
+                        onClick={handleVerifyEmail}
+                        className="send-email-button"
+                      >
+                        {isLoading ? (
+                          <>
+                            <span className="spinner-border spinner-border-sm me-2" />
+                            Sending Email...
+                          </>
+                        ) : (
+                          SEND_EMAIL_BUTTON
+                        )}
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         )}
