@@ -174,7 +174,7 @@ export default function HeaderNotification({ onAlert }) {
                     </div>
 
                     {notification.actionType ===
-                      NOTIFICATION_ACTION.VERIFY_EMAIL && (
+                      NOTIFICATION_ACTION.VERIFY_EMAIL && !notification.isRead &&(
                       <button
                         onClick={handleVerifyEmail}
                         className="send-email-button"
