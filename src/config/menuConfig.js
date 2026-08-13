@@ -20,6 +20,11 @@ const menus = [
     path: "/admin",
     roles: ["ADMIN"],
   },
+  {
+    id: 5,
+    label: "Product",
+    path: "/product",
+  },
 ];
 
 export default menus;

@@ -11,6 +11,7 @@ import { FaPlus } from "react-icons/fa";
 import {
   ALL_REST,
   GET_USER_CART,
+  RESTAURANTS,
 } from "../../components/Constants";
 import apiClient from "../../components/utils/axiosUtil";
 import SearchBar from "../../components/common/SearchBar";
@@ -20,8 +21,9 @@ import RestaurantPageList from "./RestaurantPageList";
 import RestaurantPageDetails from "./RestaurantPageDetails";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartPage from "./CartPage";
+import { clearCart, setCart } from "../../redux/cartSlice";
 
 const RestaurantLanding = () => {
   // Component State
@@ -31,6 +33,12 @@ const RestaurantLanding = () => {
     [],
   );
   const [displayCart, setDisplayCart] = useState(false);
+  const cart = useSelector((state) => state.cart);
+  const cartItemCount =
+    cart?.items?.reduce(
+      (total, item) => total + item.quantity,
+      0,
+    ) || 0;
 
   // De-structuring
   const { id } = useParams();
@@ -38,9 +46,11 @@ const RestaurantLanding = () => {
   const { user, isAuthenticated } = useSelector(
     (state) => state.auth,
   );
+  const dispatch = useDispatch();
 
   // Side-Effects
   useEffect(() => {
+    document.title = RESTAURANTS;
     const handleBeforeUnload = () => {
       sessionStorage.setItem("refreshed", "true");
     };
@@ -95,14 +105,36 @@ const RestaurantLanding = () => {
     [],
   );
 
-  const fetchCartByUserId = async (id) => {
+  const fetchCartByUserId = async (userId) => {
     try {
       const response = await apiClient.get(
-        `${GET_USER_CART}` + id,
+        `${GET_USER_CART}${userId}`,
       );
-      console.log("API Data:", response.data.data);
-      setUserCartDetails(response.data.data);
+      const cartData = response.data.data;
+
+      if (!cartData || cartData.length === 0) {
+        dispatch(clearCart());
+        return;
+      }
+
+      const firstItem = cartData[0];
+      const reduxCart = {
+        userId: userId,
+        restaurantId: firstItem.restaurant.id,
+        items: cartData.map((item) => ({
+          menuItemId: item.menuItem.id,
+          quantity: item.quantity,
+          price: item.menuItem.price,
+        })),
+      };
+
+      dispatch(setCart(reduxCart));
     } catch (error) {
+      if (error.response?.status === 404) {
+        // Backend says cart doesn't exist
+        dispatch(clearCart());
+        return;
+      }
       console.error("Error fetching user cart:", error);
     }
   };
@@ -116,7 +148,7 @@ const RestaurantLanding = () => {
     >
       <RestaurantPageHeader
         updateDisplayCart={setDisplayCart}
-        userCartDetails={userCartDetails}
+        cartItemCount={cartItemCount}
       />
       <Container fluid className="px-2 px-md-3 py-3">
         <Row className="g-3">
@@ -126,11 +158,9 @@ const RestaurantLanding = () => {
           />
           <RestaurantPageDetails
             selectedRestaurant={selectedRestaurant}
-            userCartDetails={userCartDetails}
+            displayCart = {setDisplayCart}
           />
-          {displayCart ? (
-            <CartPage userCartDetails={userCartDetails} />
-          ) : null}
+          {displayCart ? <CartPage /> : null}
         </Row>
       </Container>
     </div>

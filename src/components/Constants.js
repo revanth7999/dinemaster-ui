@@ -17,6 +17,7 @@ export const AUTH_GET_ROLES = "/admin/roles";
 export const AUTH_UPDATE = "/admin/update/";
 export const CART_SAVE = "/cart/add";
 export const GET_USER_CART = "/cart/getUserCart/";
+export const ADD_TO_CART = "/cart/add";
 
 // Roles
 export const ROLES = {
@@ -36,6 +37,7 @@ export const CREATE_USER = "Create User";
 export const LOGIN = "Login";
 export const LANDING = "Dashboard";
 export const ADMIN_LANDING = "Admin Dashboard";
+export const RESTAURANTS = "Restaurants"
 
 // Route Constants
 export const APP_BASE = "/dinemaster-ui";

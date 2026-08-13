@@ -48,7 +48,6 @@ apiClient.interceptors.response.use(
   (response) => {
     // Backend is reachable
     store.dispatch(backendUp());
-
     return response;
   },
   async (error) => {

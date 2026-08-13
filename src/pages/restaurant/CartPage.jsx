@@ -1,58 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../../redux/cartSlice";
+import apiClient from "../../components/utils/axiosUtil";
+import { ADD_TO_CART } from "../../components/Constants";
 
-export default function CartPage({
-  selectedRestaurant,
-  userCartDetails,
-}) {
-  const [cart, setCart] = useState({});
-
-  useEffect(() => {
-    if (
-      selectedRestaurant?.dishes &&
-      userCartDetails?.length > 0 &&
-      Object.keys(cart).length === 0
-    ) {
-      const existingCart = {};
-
-      userCartDetails.forEach((item) => {
-        existingCart[item.menuItemId] = item.quantity;
-      });
-
-      setCart(existingCart);
-    }
-  }, [userCartDetails, selectedRestaurant]);
-
-  const total = userCartDetails.reduce(
-    (sum, item) =>
-      sum + item.menuItem.price * item.quantity,
+export default function CartPage() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const items = cart?.items || [];
+  const total = items.reduce(
+    (sum, item) => sum + Number(item.price) * item.quantity,
     0,
   );
 
-  //   const checkOutCart = async () => {
-  //     try {
-  //       const payload = {
-  //         userId: user.userId,
-  //         restaurantId: selectedRestaurant.id,
-  //         items: cartItems.map((dish) => ({
-  //           menuItemId: dish.id,
-  //           quantity: cart[dish.id],
-  //           price: dish.price,
-  //         })),
-  //       };
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(null);
 
-  //       console.log(payload);
+  const handleCheckout = async () => {
+    if (items.length === 0 || isCheckingOut) return;
 
-  //       const response = await apiClient.post(
-  //         `${CART_SAVE}`,
-  //         payload,
-  //       );
+    setCheckoutError(null);
+    setIsCheckingOut(true);
 
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error("Checkout failed:", error);
-  //     }
-  //   };
+    const payload = {
+      userId: cart.userId,
+      restaurantId: cart.restaurantId,
+      items: items.map(({ menuItemId, quantity, price }) => ({
+        menuItemId,
+        quantity,
+        price,
+      })),
+    };
+
+    try {
+      await apiClient.post(ADD_TO_CART, payload);
+      dispatch(clearCart());
+      // navigate to order confirmation / next step here if applicable
+    } catch (err) {
+      setCheckoutError(
+        err.response?.data?.message ||
+          "Couldn't complete checkout. Please try again.",
+      );
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
+
   return (
     <Col xs={12} sm={4} md={4}>
       <div
@@ -65,7 +59,8 @@ export default function CartPage({
         }}
       >
         <h5 style={{ marginBottom: "12px" }}>Your cart</h5>
-        {userCartDetails.length === 0 ? (
+
+        {items.length === 0 ? (
           <p
             style={{
               color: "#999",
@@ -76,9 +71,9 @@ export default function CartPage({
           </p>
         ) : (
           <>
-            {userCartDetails.map((item) => (
+            {items.map((item) => (
               <div
-                key={item.menuItem.id}
+                key={item.menuItemId}
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -88,11 +83,14 @@ export default function CartPage({
                 }}
               >
                 <div
-                  style={{ display: "flex", gap: "12px" }}
+                  style={{
+                    display: "flex",
+                    gap: "12px",
+                  }}
                 >
                   <img
-                    src={item.menuItem.dishImageUrl}
-                    alt={item.menuItem.dishName}
+                    src={item.dishImageUrl}
+                    alt={item.dishName}
                     style={{
                       width: "60px",
                       height: "60px",
@@ -102,23 +100,21 @@ export default function CartPage({
                   />
 
                   <div>
-                    <h6 style={{ margin: 0 }}>
-                      {item.menuItem.dishName}
-                    </h6>
+                    <h6 style={{ margin: 0 }}>{item.dishName}</h6>
+
                     <small style={{ color: "#666" }}>
-                      {item.restaurant.name}
+                      {item.restaurantName}
                     </small>
+
                     <br />
+
                     <small>
-                      ₹{item.menuItem.price} ×{" "}
-                      {item.quantity}
+                      ₹{item.price} × {item.quantity}
                     </small>
                   </div>
                 </div>
 
-                <strong>
-                  ₹{item.menuItem.price * item.quantity}
-                </strong>
+                <strong>₹{item.price * item.quantity}</strong>
               </div>
             ))}
 
@@ -132,22 +128,37 @@ export default function CartPage({
               }}
             >
               <span>Total</span>
+
               <span>₹{total}</span>
             </div>
 
+            {checkoutError && (
+              <p
+                style={{
+                  color: "#d32f2f",
+                  fontSize: "13px",
+                  marginTop: "10px",
+                }}
+              >
+                {checkoutError}
+              </p>
+            )}
+
             <button
+              onClick={handleCheckout}
+              disabled={isCheckingOut}
               style={{
                 width: "100%",
                 marginTop: "15px",
                 padding: "12px",
-                background: "#1a73e8",
+                background: isCheckingOut ? "#90b8ec" : "#1a73e8",
                 color: "#fff",
                 border: "none",
                 borderRadius: "8px",
-                cursor: "pointer",
+                cursor: isCheckingOut ? "not-allowed" : "pointer",
               }}
             >
-              Proceed to Checkout
+              {isCheckingOut ? "Placing order..." : "Proceed to Checkout"}
             </button>
           </>
         )}

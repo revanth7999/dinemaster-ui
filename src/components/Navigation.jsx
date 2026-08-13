@@ -26,6 +26,7 @@ import FallbackScreen from "./fallback/FallbackScreen";
 import Landing from "../pages/landing/Landing";
 import RestaurantLanding from "../pages/restaurant/RestaurantLanding";
 import VerifyEmail from "../pages/VerifyEmail";
+import ProductPage from "../pages/product/ProductPage";
 
 function NavigationWrapper() {
   const location = useLocation();
@@ -86,6 +87,10 @@ function NavigationWrapper() {
             <Route
               path="/restaurants"
               element={<RestaurantLanding />}
+            />
+            <Route
+              path="/product"
+              element={<ProductPage />}
             />
           </Route>
 

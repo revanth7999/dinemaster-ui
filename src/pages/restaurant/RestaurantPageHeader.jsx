@@ -1,10 +1,10 @@
 import { Button, Stack } from "react-bootstrap";
-import { FaBell, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 
 export default function RestaurantPageHeader({
   updateDisplayCart,
-  userCartDetails,
+  cartItemCount,
 }) {
   return (
     <div style={{ padding: "16px 20px" }}>
@@ -23,6 +23,7 @@ export default function RestaurantPageHeader({
           >
             Restaurants
           </h1>
+
           <p
             style={{
               fontSize: "14px",
@@ -61,9 +62,7 @@ export default function RestaurantPageHeader({
                 height: "16px",
                 borderRadius: "999px",
                 background:
-                  userCartDetails.length > 0
-                    ? "#ef4444"
-                    : "#6b7280",
+                  cartItemCount > 0 ? "#ef4444" : "#6b7280",
                 color: "#fff",
                 fontSize: "10px",
                 fontWeight: "700",
@@ -73,7 +72,7 @@ export default function RestaurantPageHeader({
                 padding: "0 4px",
               }}
             >
-              {userCartDetails.length}
+              {cartItemCount}
             </span>
           </div>
 

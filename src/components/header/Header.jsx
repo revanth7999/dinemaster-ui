@@ -46,6 +46,9 @@ const Header = () => {
       case "Restaurants":
         navigate(RES_PAGE);
         break;
+      case "Product":
+        navigate("/product");
+        break;
       case "Admin Dashboard":
         if (role === "ADMIN") {
           navigate(ADMIN_LANDING_PAGE);

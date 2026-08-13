@@ -149,11 +149,7 @@ export default function HeaderNotification({ onAlert }) {
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`notification-item ${
-                      notification.isRead
-                        ? "read"
-                        : "unread"
-                    }`}
+                    className={`notification-item ${notification.isRead ? "read" : "unread"}`}
                   >
                     <div className="notification-header">
                       <div className="notification-title">
@@ -174,21 +170,22 @@ export default function HeaderNotification({ onAlert }) {
                     </div>
 
                     {notification.actionType ===
-                      NOTIFICATION_ACTION.VERIFY_EMAIL && !notification.isRead &&(
-                      <button
-                        onClick={handleVerifyEmail}
-                        className="send-email-button"
-                      >
-                        {isLoading ? (
-                          <>
-                            <span className="spinner-border spinner-border-sm me-2" />
-                            Sending Email...
-                          </>
-                        ) : (
-                          SEND_EMAIL_BUTTON
-                        )}
-                      </button>
-                    )}
+                      NOTIFICATION_ACTION.VERIFY_EMAIL &&
+                      !notification.isRead && (
+                        <button
+                          onClick={handleVerifyEmail}
+                          className="send-email-button"
+                        >
+                          {isLoading ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-2" />
+                              Sending Email...
+                            </>
+                          ) : (
+                            SEND_EMAIL_BUTTON
+                          )}
+                        </button>
+                      )}
                   </div>
                 ))}
               </div>
