@@ -54,6 +54,7 @@ const NewUser = ({ prop }) => {
                 token: token,
                 user: userData,
                 environment: env,
+                themePreference: userData.themePreference,
               }),
             );
             localStorage.setItem(TOKEN, token);

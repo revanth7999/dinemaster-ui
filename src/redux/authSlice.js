@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   environment: null,
+  themePreference: "light",
 };
 
 const authSlice = createSlice({
@@ -17,6 +18,19 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.environment = action.payload.environment;
+      state.themePreference =
+        action.payload.themePreference === "dark" ? "dark" : "light";
+    },
+
+    setThemePreference: (state, action) => {
+      state.themePreference = action.payload === "dark" ? "dark" : "light";
+      if (state.user) {
+        state.user.themePreference = state.themePreference;
+      }
+    },
+
+    tokenRefreshed: (state, action) => {
+      state.token = action.payload;
     },
 
     logout: (state) => {
@@ -24,10 +38,16 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.environment = null;
+      state.themePreference = "light";
     },
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const {
+  loginSuccess,
+  logout,
+  setThemePreference,
+  tokenRefreshed,
+} = authSlice.actions;
 
 export default authSlice.reducer;

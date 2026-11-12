@@ -141,9 +141,10 @@ const RestaurantLanding = () => {
 
   return (
     <div
+      className="restaurant-landing"
       style={{
         background: "#f4f6f9",
-        minHeight: "calc(100vh - 60px)",
+        minHeight: "100%",
       }}
     >
       <RestaurantPageHeader

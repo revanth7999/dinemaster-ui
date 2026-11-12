@@ -15,6 +15,7 @@ export const AUTH_SHOW_USERS = "/users";
 export const ALL_REST = "/restaurants";
 export const AUTH_GET_ROLES = "/admin/roles";
 export const AUTH_UPDATE = "/admin/update/";
+export const THEME_PREFERENCE_URL = "/users/me/theme";
 export const CART_SAVE = "/cart/add";
 export const GET_USER_CART = "/cart/getUserCart/";
 export const ADD_TO_CART = "/cart/add";

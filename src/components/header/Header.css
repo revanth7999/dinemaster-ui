@@ -40,7 +40,45 @@
 .header-navigation-hub {
   flex: 1;
   margin-left: 32px;
+  margin-right: 18px;
   min-width: 0; /* 👈 THE CRITICAL FLEX FIX: Allows flex containers to shrink below content size instead of overflowing */
+}
+
+.header-utility-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.header-theme-toggle {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  place-items: center;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.header-theme-toggle:hover {
+  border-color: #64748b;
+  background: #334155;
+}
+
+.header-theme-toggle:focus-visible {
+  outline: 2px solid #a5b4fc;
+  outline-offset: 2px;
+}
+
+.header-utility-actions .notifcation-master-wrapper {
+  margin-right: 5px;
 }
 
 /* Custom interactive navigation animations */
@@ -57,19 +95,170 @@
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Right-aligned Profile Interaction Box */
-.header-profile-action {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: background 0.2s ease;
-  flex-shrink: 0; /* 👈 Keeps the logout layout box intact */
+/* Right-aligned account menu */
+.header-profile-menu {
+  position: relative;
+  flex: 0 0 auto;
 }
 
-.header-profile-action:hover {
+.header-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px 5px 6px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.header-profile-trigger:hover,
+.header-profile-trigger[aria-expanded="true"] {
+  border-color: #334155;
   background-color: rgba(255, 255, 255, 0.08);
+}
+
+.header-profile-avatar {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  flex: 0 0 31px;
+  place-items: center;
+  border: 1px solid rgba(196, 181, 253, 0.45);
+  border-radius: 50%;
+  background: #4c3e9b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header-profile-name {
+  max-width: 130px;
+  overflow: hidden;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-profile-chevron {
+  color: #94a3b8;
+  font-size: 9px;
+}
+
+.header-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1100;
+  width: 260px;
+  padding: 8px;
+  border: 1px solid #e5e9f0;
+  border-radius: 13px;
+  background: #fff;
+  color: #172338;
+  box-shadow: 0 14px 38px rgba(2, 6, 23, 0.2);
+  animation: profile-menu-enter 0.14s ease-out;
+}
+
+.header-profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 8px 12px;
+}
+
+.header-profile-avatar--large {
+  width: 38px;
+  height: 38px;
+  flex-basis: 38px;
+  font-size: 14px;
+}
+
+.header-profile-details {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.header-profile-details strong,
+.header-profile-details small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-profile-details strong {
+  color: #172338;
+  font-size: 12px;
+}
+
+.header-profile-details small {
+  color: #7c8799;
+  font-size: 10px;
+}
+
+.header-profile-divider {
+  height: 1px;
+  margin: 0 4px 7px;
+  background: #edf0f4;
+}
+
+.header-logout-action {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #c2414b;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+.header-logout-action:hover {
+  background: #fff1f2;
+}
+
+@keyframes profile-menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html[data-theme="dark"] .header-profile-dropdown {
+  border-color: #334155;
+  background: #111a2b;
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .header-profile-details strong {
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .header-profile-details small {
+  color: #9aabc0;
+}
+
+html[data-theme="dark"] .header-profile-divider {
+  background: #29364a;
+}
+
+html[data-theme="dark"] .header-logout-action:hover {
+  background: rgba(239, 68, 68, 0.12);
 }
 
 /* Fixed Error Notification positioning container */
@@ -89,6 +278,26 @@
 
   .header-navigation-hub {
     margin-left: 12px;
+    margin-right: 8px;
+  }
+
+  .header-utility-actions {
+    gap: 6px;
+  }
+
+  .header-theme-toggle {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+
+  .header-profile-trigger {
+    gap: 5px;
+    padding-right: 5px;
+  }
+
+  .header-profile-name {
+    max-width: 72px;
   }
 
   /* Dropdown panel background fix for compact mobile devices */

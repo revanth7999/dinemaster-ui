@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./App.css";
 import Navigation from "./components/Navigation";
@@ -6,9 +7,16 @@ import MaintenanceScreen from "./components/maintenance/MaintenanceScreen";
 import { BACKEND_STATUS } from "./components/Constants";
 
 function App() {
+  const themePreference = useSelector(
+    (state) => state.auth.themePreference,
+  );
   const status = useSelector(
     (state) => state.backendStatus.status,
   );
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = themePreference;
+  }, [themePreference]);
 
   return (
     <HashRouter>

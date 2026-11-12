@@ -99,6 +99,7 @@ const LoginUser = () => {
                 token: token,
                 user: userData,
                 environment: env,
+                themePreference: userData.themePreference,
               }),
             );
             setLocalStorage(response);

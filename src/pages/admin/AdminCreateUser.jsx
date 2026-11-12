@@ -62,8 +62,8 @@ const AdminCreateUser = ({ prop }) => {
   };
 
   return (
-    <div className="mainDiv">
-      <div className="formDiv">
+    <div className="mainDiv admin-create-user">
+      <div className="formDiv admin-create-user-card">
         <h2 style={{ fontFamily: "monospace" }}>
           Create New User
         </h2>

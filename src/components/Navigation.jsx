@@ -37,10 +37,16 @@ function NavigationWrapper() {
     CREATE_USER_PAGE,
     "/verify-email",
   ].includes(location.pathname);
+  const isAuthenticatedRoute =
+    [LANDING_PAGE, ADMIN_LANDING_PAGE, OAUTH_PAGE, RES_PAGE, "/product"].includes(
+      location.pathname,
+    ) || location.pathname.startsWith("/restaurants/");
 
   return (
-    <>
-      {!hideGlobalSearch && <GlobalSearch />}
+    <div
+      className={`navigation-frame ${isAuthenticatedRoute ? "navigation-frame--authenticated" : ""}`}
+    >
+      {!hideGlobalSearch && !isAuthenticatedRoute && <GlobalSearch />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           {/* Public routes */}
@@ -106,7 +112,7 @@ function NavigationWrapper() {
           />
         </Routes>
       </Suspense>
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "./header/Header";
+import GlobalSearch from "./globalSearch";
 import { LOGIN_PAGE, TOKEN } from "./Constants";
 
 /**
@@ -41,10 +42,13 @@ const AuthLayout = () => {
   }, []);
 
   return (
-    <>
+    <div className="authenticated-shell">
       <Header />
-      <Outlet />
-    </>
+      <main className="authenticated-content">
+        <GlobalSearch />
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

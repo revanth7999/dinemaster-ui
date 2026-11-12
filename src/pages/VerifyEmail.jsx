@@ -65,6 +65,7 @@ export default function VerifyEmail() {
 
   return (
     <div
+      className="verify-email-page"
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -75,6 +76,7 @@ export default function VerifyEmail() {
       }}
     >
       <div
+        className="verify-email-card"
         style={{
           width: "100%",
           maxWidth: "500px",

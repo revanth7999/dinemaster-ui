@@ -12,3 +12,165 @@ body,
 * {
   font-family: "sans-serif", sans-serif !important;
 }
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --dm-bg: #0b1120;
+  --dm-surface: #111a2b;
+  --dm-surface-raised: #172338;
+  --dm-border: #29364a;
+  --dm-text: #e2e8f0;
+  --dm-muted: #9aabc0;
+  --dm-input: #0d1728;
+}
+
+html[data-theme="dark"] body {
+  background: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+html[data-theme="dark"] #root,
+html[data-theme="dark"] .app-container,
+html[data-theme="dark"] .content {
+  background-color: var(--dm-bg);
+  color: var(--dm-text);
+}
+
+html[data-theme="dark"] .text-dark,
+html[data-theme="dark"] .text-body,
+html[data-theme="dark"] .text-secondary,
+html[data-theme="dark"] .text-muted {
+  color: var(--dm-text) !important;
+}
+
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .dropdown-menu,
+html[data-theme="dark"] .list-group-item,
+html[data-theme="dark"] .accordion-item,
+html[data-theme="dark"] .offcanvas,
+html[data-theme="dark"] .popover {
+  background-color: var(--dm-surface) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] .bg-light,
+html[data-theme="dark"] .table-light,
+html[data-theme="dark"] .dropdown-item:hover,
+html[data-theme="dark"] .dropdown-item:focus {
+  background-color: var(--dm-surface-raised) !important;
+  color: var(--dm-text) !important;
+}
+
+html[data-theme="dark"] .border,
+html[data-theme="dark"] .border-bottom,
+html[data-theme="dark"] .border-top,
+html[data-theme="dark"] .card-header,
+html[data-theme="dark"] .card-footer,
+html[data-theme="dark"] hr {
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select,
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+  background-color: var(--dm-input) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: var(--dm-muted) !important;
+}
+
+html[data-theme="dark"] .table {
+  --bs-table-bg: var(--dm-surface);
+  --bs-table-color: var(--dm-text);
+  --bs-table-border-color: var(--dm-border);
+  --bs-table-striped-bg: var(--dm-surface-raised);
+  --bs-table-striped-color: var(--dm-text);
+  --bs-table-hover-bg: #20304a;
+  --bs-table-hover-color: var(--dm-text);
+}
+
+html[data-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* These views use inline light colors, so override their surfaces in dark mode. */
+html[data-theme="dark"] .login-wrapper,
+html[data-theme="dark"] .landing-wrapper-bg,
+html[data-theme="dark"] .landing-container,
+html[data-theme="dark"] .page,
+html[data-theme="dark"] .restaurant-landing,
+html[data-theme="dark"] .admin-layout,
+html[data-theme="dark"] .verify-email-page {
+  background: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+html[data-theme="dark"] .login-card,
+html[data-theme="dark"] .login-right,
+html[data-theme="dark"] .metric-card,
+html[data-theme="dark"] .product-card,
+html[data-theme="dark"] .restaurant-card,
+html[data-theme="dark"] .admin-content,
+html[data-theme="dark"] .verify-email-card {
+  background: var(--dm-surface) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] .login-right,
+html[data-theme="dark"] .login-card,
+html[data-theme="dark"] .form-control-custom {
+  background-color: var(--dm-surface) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] .hero-title,
+html[data-theme="dark"] .hero-subtitle,
+html[data-theme="dark"] .features-title,
+html[data-theme="dark"] .features-list,
+html[data-theme="dark"] .metric-card h3,
+html[data-theme="dark"] .page h1,
+html[data-theme="dark"] .page h2,
+html[data-theme="dark"] .page h3,
+html[data-theme="dark"] .product-content,
+html[data-theme="dark"] .admin-content {
+  color: var(--dm-text) !important;
+}
+
+html[data-theme="dark"] .hero-subtitle,
+html[data-theme="dark"] .metric-card p,
+html[data-theme="dark"] .page p {
+  color: var(--dm-muted) !important;
+}
+
+html[data-theme="dark"] .admin-sidebar,
+html[data-theme="dark"] .sidebar-item:not(.active) {
+  background: var(--dm-surface) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] .login-wrapper [style*="background: white"],
+html[data-theme="dark"] .login-wrapper [style*="background-color: white"],
+html[data-theme="dark"] .content [style*="background: white"] {
+  background: var(--dm-surface) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+html[data-theme="dark"] .pagination .page-link,
+html[data-theme="dark"] .navbar-collapse {
+  background-color: var(--dm-surface) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
